@@ -8,45 +8,408 @@
         @endisset
         <meta property="og:title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}" />
         <meta property="og:description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}" />
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     </head>
-    <body class="min-h-screen bg-white font-serif text-zinc-800 antialiased">
-        <header class="sticky top-0 z-30 border-b border-zinc-200 bg-white/80 backdrop-blur">
-            <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-                <a href="/" class="flex items-center gap-2 font-bold text-[#021869]">
-                    <x-app-logo-icon class="h-6 w-6" />
-                    <span>IXXI TECNOLOGÍA</span>
+    <body class="min-h-screen bg-white font-serif text-zinc-800 antialiased" x-data="{ showContent: false }" x-init="setTimeout(() => {showContent = true; AOS.init({duration: 800, once: false, mirror: true});}, 100)">
+        <div class="fixed inset-0 bg-gradient-to-br from-[#021869]/5 to-white/40 -z-10"></div>
+
+        <!-- Elementos decorativos del fondo con animaciones mejoradas -->
+        <div class="fixed top-0 -left-64 w-96 h-96 bg-[#021869]/5 rounded-full blur-3xl -z-10 animate-blob"></div>
+        <div class="fixed -top-20 right-20 w-72 h-72 bg-[#021869]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-2000"></div>
+        <div class="fixed bottom-0 -right-64 w-96 h-96 bg-[#d9491e]/5 rounded-full blur-3xl -z-10 animate-blob animation-delay-4000"></div>
+        <div class="fixed left-40 bottom-20 w-72 h-72 bg-[#d9491e]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-6000"></div>
+
+        <header class="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-500"
+                x-data="{ mobileMenuOpen: false, scrolled: false }"
+                x-init="window.addEventListener('scroll', () => { scrolled = window.pageYOffset > 20 })"
+                x-bind:class="{ 'shadow-lg border-zinc-300/50': scrolled, 'py-5': !scrolled, 'py-3': scrolled }"
+                x-show="showContent"
+                x-transition:enter="transition duration-700 ease-out"
+                x-transition:enter-start="opacity-0 transform -translate-y-4"
+                x-transition:enter-end="opacity-100 transform translate-y-0">
+            <div class="mx-auto flex max-w-7xl items-center justify-between px-6">
+                <!-- Logo y nombre -->
+                <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                    <x-app-logo-icon class="h-9 w-9 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" />
+                    <div class="flex flex-col">
+                        <span class="font-black text-[#021869] text-xl tracking-tight leading-none relative after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-[#d9491e] after:transition-all after:duration-500 group-hover:after:w-full">
+                            IXXI TECNOLOGÍA
+                        </span>
+                        <span class="text-xs text-zinc-500 font-medium tracking-wide">Seguridad & Tecnología</span>
+                    </div>
                 </a>
-                <nav class="hidden gap-6 text-sm font-semibold text-zinc-700 md:flex">
-                    <a href="#servicios">Servicios</a>
-                    <a href="{{ route('blog.index') }}">Blog</a>
-                    <a href="#contacto">Contacto</a>
+
+                <!-- Menú de navegación para pantallas medianas y grandes -->
+                <nav class="hidden lg:flex items-center gap-10">
+                    <a href="{{ route('home') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <span class="relative">Inicio</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <div class="relative group">
+                        <a href="#servicios" class="flex items-center gap-1 py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                            <span class="relative">Servicios</span>
+                            <svg class="h-4 w-4 transition-transform duration-300 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                            <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </div>
+                    <a href="{{ route('gallery.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <span class="relative">Galería</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="{{ route('blog.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <span class="relative">Blog</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="{{ route('testimonials.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <span class="relative">Testimonios</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <span class="relative">Contacto</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
                 </nav>
-                <div class="flex items-center gap-3">
-                    <a href="#contacto" class="rounded-md bg-[#021869] px-4 py-2 font-sans text-sm font-semibold text-white hover:bg-[#0a268b]">Cotizar</a>
+
+                <!-- Botón CTA y menú móvil -->
+                <div class="flex items-center gap-4">
+                    <!-- Botón CTA mejorado -->
+                    <a href="#contacto" class="hidden sm:flex group relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#d9491e] to-[#e25a2f] px-6 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#d9491e]/30 hover:-translate-y-0.5 active:scale-95 btn-shine">
+                        <span class="relative z-10 flex items-center gap-2">
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            Cotizar Ahora
+                        </span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-[#e25a2f] to-[#d9491e] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+                    </a>
+
+                    <!-- Botón de menú móvil mejorado -->
+                    <button @click="mobileMenuOpen = !mobileMenuOpen"
+                            class="lg:hidden relative p-2 text-zinc-700 hover:text-[#021869] focus:outline-none focus:ring-2 focus:ring-[#d9491e] focus:ring-opacity-50 rounded-xl transition-all duration-300"
+                            :class="{ 'bg-zinc-100': mobileMenuOpen }"
+                            aria-label="Menú de navegación">
+                        <svg x-show="!mobileMenuOpen"
+                             x-transition:enter="transition ease-in-out duration-200"
+                             x-transition:enter-start="opacity-0 rotate-90"
+                             x-transition:enter-end="opacity-100 rotate-0"
+                             xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="mobileMenuOpen"
+                             x-transition:enter="transition ease-in-out duration-200"
+                             x-transition:enter-start="opacity-0 -rotate-90"
+                             x-transition:enter-end="opacity-100 rotate-0"
+                             xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
+            </div>
+
+            <!-- Menú móvil mejorado -->
+            <div x-show="mobileMenuOpen"
+                 x-transition:enter="transition duration-300 ease-out"
+                 x-transition:enter-start="opacity-0 transform -translate-y-4"
+                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                 x-transition:leave="transition duration-200 ease-in"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-4"
+                 class="border-t border-zinc-200/50 bg-white/98 backdrop-blur-md lg:hidden">
+                <nav class="flex flex-col py-4 px-6 space-y-1">
+                    <a href="{{ route('home') }}"
+                       @click="mobileMenuOpen = false"
+                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
+                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Inicio
+                    </a>
+                    <a href="#servicios"
+                       @click="mobileMenuOpen = false"
+                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
+                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                        Servicios
+                    </a>
+                    <a href="{{ route('gallery.index') }}"
+                       @click="mobileMenuOpen = false"
+                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
+                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Galería
+                    </a>
+                    <a href="{{ route('blog.index') }}"
+                       @click="mobileMenuOpen = false"
+                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
+                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                        Blog
+                    </a>
+                    <a href="{{ route('testimonials.index') }}"
+                       @click="mobileMenuOpen = false"
+                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
+                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        Testimonios
+                    </a>
+                    <a href="#contacto"
+                       @click="mobileMenuOpen = false"
+                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
+                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        Contacto
+                    </a>
+
+                    <!-- CTA en menú móvil -->
+                    <div class="pt-4 mt-4 border-t border-zinc-200">
+                        <a href="#contacto"
+                           @click="mobileMenuOpen = false"
+                           class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] text-white font-bold rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            Cotizar Ahora
+                        </a>
+                    </div>
+                </nav>
             </div>
         </header>
 
-        <main class="font-sans">
+        <main class="font-sans"
+              x-show="showContent"
+              x-transition:enter="transition duration-700"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100">
             {{ $slot }}
         </main>
 
-        <footer class="mt-16 border-t border-zinc-200 bg-zinc-50 py-10 text-sm text-zinc-600">
+        <footer class="border-t border-zinc-200 bg-zinc-50 py-12 text-sm text-zinc-600"
+                x-show="showContent"
+                x-transition:enter="transition duration-700 delay-300"
+                x-transition:enter-start="opacity-0 transform translate-y-6"
+                x-transition:enter-end="opacity-100 transform translate-y-0">
             <div class="mx-auto max-w-7xl px-6">
-                <div class="flex flex-col items-start justify-between gap-6 md:flex-row">
-                    <div>
-                        <div class="flex items-center gap-2 font-bold text-[#021869]"><x-app-logo-icon class="h-5 w-5" /> IXXI TECNOLOGÍA</div>
-                        <p class="mt-2 max-w-md">Seguridad tecnológica y de campo. Sureste de México.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <x-app-logo-icon class="h-7 w-7" />
+                            <span class="font-bold text-[#021869] text-lg">IXXI TECNOLOGÍA</span>
+                        </div>
+                        <p class="max-w-md text-zinc-500">Soluciones integrales en seguridad tecnológica de México.</p>
+                        <div class="pt-2 flex space-x-4">
+                            <!-- Redes Sociales -->
+                            <a href="#" class="text-zinc-500 hover:text-[#021869] transition-colors duration-300" aria-label="Facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="text-zinc-500 hover:text-[#021869] transition-colors duration-300" aria-label="Instagram">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="text-zinc-500 hover:text-[#021869] transition-colors duration-300" aria-label="Twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="text-zinc-500 hover:text-[#021869] transition-colors duration-300" aria-label="LinkedIn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
-                    <div class="flex gap-6">
-                        <a href="{{ route('blog.index') }}">Blog</a>
-                        <a href="#servicios">Servicios</a>
-                        <a href="#contacto">Contacto</a>
+
+                    <div class="space-y-4">
+                        <h3 class="font-semibold text-base text-[#021869]">Enlaces rápidos</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#servicios" class="hover:text-[#021869] transition-colors duration-300">Servicios</a></li>
+                            <li><a href="{{ route('blog.index') }}" class="hover:text-[#021869] transition-colors duration-300">Blog</a></li>
+                            <li><a href="#contacto" class="hover:text-[#021869] transition-colors duration-300">Contacto</a></li>
+                            <li><a href="#" class="hover:text-[#021869] transition-colors duration-300">Sobre nosotros</a></li>
+                            <li><a href="#" class="hover:text-[#021869] transition-colors duration-300">Proyectos</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="font-semibold text-base text-[#021869]">Contáctanos</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#021869] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span>{{ config('branding.address', 'Mérida, Yucatán, México') }}</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#021869] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                                <span>{{ config('branding.phone', '+52 999 123 4567') }}</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#021869] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span>{{ config('branding.email', 'contacto@ixxitecnologia.com') }}</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="mt-6 text-xs">© {{ date('Y') }} IXXI TECNOLOGÍA. Todos los derechos reservados.</div>
+
+                <div class="mt-12 pt-6 border-t border-zinc-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-xs">© {{ date('Y') }} IXXI TECNOLOGÍA. Todos los derechos reservados.</div>
+                    <div class="flex gap-6 text-xs">
+                        <a href="#" class="hover:text-[#021869] transition-colors duration-300">Términos de uso</a>
+                        <a href="#" class="hover:text-[#021869] transition-colors duration-300">Política de privacidad</a>
+                    </div>
+                </div>
             </div>
         </footer>
+
+        <!-- Estilos personalizados -->
+        <style>
+            /* Animaciones de blob para el fondo */
+            @keyframes blob {
+                0%, 100% {
+                    transform: translate(0, 0) scale(1);
+                }
+                25% {
+                    transform: translate(20px, -20px) scale(1.05);
+                }
+                50% {
+                    transform: translate(0, 20px) scale(0.95);
+                }
+                75% {
+                    transform: translate(-20px, -15px) scale(1.05);
+                }
+            }
+
+            /* Animación de hover para tarjetas */
+            @keyframes cardFloat {
+                0% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+
+            .animate-blob {
+                animation: blob 20s infinite;
+            }
+
+            .animation-delay-2000 {
+                animation-delay: 2s;
+            }
+
+            .animation-delay-4000 {
+                animation-delay: 4s;
+            }
+
+            .animation-delay-6000 {
+                animation-delay: 6s;
+            }
+
+            .hover-float:hover {
+                animation: cardFloat 3s ease-in-out infinite;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Efecto parallax suave */
+            .parallax-bg {
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: background-position 0.5s ease-out;
+            }
+
+            /* Ocultar scrollbar pero permitir scroll */
+            .hide-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .hide-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* Efecto de brillo para botones */
+            .btn-shine {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .btn-shine::after {
+                content: "";
+                position: absolute;
+                top: -50%;
+                left: -100%;
+                width: 20%;
+                height: 200%;
+                opacity: 0;
+                transform: rotate(30deg);
+                background: rgba(255, 255, 255, 0.13);
+                background: linear-gradient(
+                    to right,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.13) 77%,
+                    rgba(255, 255, 255, 0.5) 92%,
+                    rgba(255, 255, 255, 0) 100%
+                );
+            }
+
+            .btn-shine:hover::after {
+                opacity: 1;
+                left: 130%;
+                transition: left 0.7s ease-in-out;
+            }
+
+            /* Ocultar contenido hasta que Alpine.js lo cargue */
+            [x-cloak] { display: none !important; }
+
+            /* Efecto de desvanecimiento suave para secciones */
+            .fade-up-trigger {
+                opacity: 0;
+                transform: translateY(40px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+
+            .fade-up-active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Detecta elementos con fade-up-trigger cuando entran en el viewport
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('fade-up-active');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.fade-up-trigger').forEach(el => {
+                    observer.observe(el);
+                });
+            });
+        </script>
 
         @fluxScripts
     </body>

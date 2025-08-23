@@ -12,5 +12,8 @@ class ContentSeeder extends Seeder
         \App\Models\Post::factory()->count(9)->create();
         \App\Models\Testimonial::factory()->count(6)->create();
         \App\Models\GalleryItem::factory()->count(8)->create();
+    // Clientes y Tickets demo
+    \App\Models\Cliente::factory()->count(12)->create();
+    \App\Models\Ticket::factory()->count(20)->create();
     }
 }

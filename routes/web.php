@@ -8,6 +8,8 @@ use App\Livewire\LandingPage;
 use App\Livewire\Blog\Index as BlogIndex;
 use App\Livewire\Blog\Show as BlogShow;
 use App\Livewire\ServiceShow;
+use App\Livewire\Gallery\Index as PublicGalleryIndex;
+use App\Livewire\Testimonials\Index as PublicTestimonialsIndex;
 use App\Livewire\Admin\Services\Index as AdminServicesIndex;
 use App\Livewire\Admin\Services\Edit as AdminServicesEdit;
 use App\Livewire\Admin\Testimonials\Index as AdminTestimonialsIndex;
@@ -26,6 +28,8 @@ Route::get('/', LandingPage::class)->name('home');
 Route::get('/blog', BlogIndex::class)->name('blog.index');
 Route::get('/blog/{slug}', BlogShow::class)->name('blog.show');
 Route::get('/servicios/{slug}', ServiceShow::class)->name('services.show');
+Route::get('/galeria', PublicGalleryIndex::class)->name('gallery.index');
+Route::get('/testimonios', PublicTestimonialsIndex::class)->name('testimonials.index');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/export/services.pdf', [ExportController::class, 'servicesPdf'])->middleware('auth')->name('export.services.pdf');
 
@@ -59,6 +63,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/posts', AdminPostsIndex::class)->name('admin.posts');
     Route::get('admin/posts/create', AdminPostsEdit::class)->name('admin.posts.create');
     Route::get('admin/posts/{id}', AdminPostsEdit::class)->name('admin.posts.edit');
+
+    // Admin - Tickets
+    Route::get('admin/tickets', App\Livewire\Admin\Tickets\Index::class)->name('admin.tickets');
+    Route::get('admin/tickets/create', App\Livewire\Admin\Tickets\Create::class)->name('admin.tickets.create');
+    Route::get('admin/tickets/{id}', App\Livewire\Admin\Tickets\Show::class)->name('admin.tickets.show');
 
     // Admin - Users (solo admin)
     Route::middleware('can:admin')->group(function () {

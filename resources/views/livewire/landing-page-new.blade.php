@@ -16,7 +16,7 @@
             <!-- Contenido principal con animación de fade-in -->
             <div class="max-w-2xl" data-aos="fade-up" data-aos-delay="100">
                 <h1 class="text-5xl font-extrabold leading-tight sm:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
-                    Seguridad tecnológica y de campo para el sureste de México
+                    Seguridad tecnológica y de campo para México
                 </h1>
                 <p class="mt-6 text-xl text-blue-100 leading-relaxed">
                     Somos IXXI TECNOLOGÍA, expertos en soluciones integrales: alta tecnología, inteligencia en campo y despliegue táctico.
@@ -328,18 +328,7 @@
                 </div>
             </div>
 
-            <!-- WhatsApp flotante con efecto de brillo -->
-            <a href="https://wa.me/{{ config('branding.whatsapp') }}"
-               class="fixed bottom-6 right-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 font-medium text-white shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 active:scale-95 group z-50 btn-shine"
-               target="_blank" rel="noopener"
-               data-aos="fade-up"
-               data-aos-delay="1000">
-                <span class="absolute inset-0 bg-gradient-to-r from-green-600 to-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 relative">
-                    <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.38 0 0 5.38 0 12c0 2.11.55 4.18 1.6 6.01L0 24l6.15-1.6A11.93 11.93 0 0012 24c6.62 0 12-5.38 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22a9.93 9.93 0 01-5.05-1.39l-.36-.21-3.65.95.98-3.56-.24-.37A9.95 9.95 0 1122 12c0 5.52-4.48 10-10 10zm5.64-7.36c-.31-.16-1.83-.9-2.11-1-.28-.1-.48-.16-.68.16-.2.31-.77 1-.94 1.2-.17.2-.35.23-.66.08-.31-.16-1.29-.47-2.46-1.49-.91-.81-1.53-1.81-1.71-2.12-.18-.31-.02-.48.13-.64.13-.13.31-.35.46-.53.15-.18.2-.31.31-.52.1-.2.05-.39-.02-.55-.08-.16-.68-1.64-.93-2.25-.25-.6-.5-.52-.68-.53h-.58c-.2 0-.52.08-.79.39-.27.31-1.04 1.02-1.04 2.5 0 1.48 1.07 2.92 1.22 3.12.16.2 2.1 3.2 5.08 4.49.71.31 1.26.5 1.69.64.71.23 1.36.2 1.88.12.57-.09 1.83-.75 2.09-1.47.26-.72.26-1.34.18-1.47-.08-.13-.28-.2-.59-.36z"/>
-                </svg>
-                <span class="relative">WhatsApp</span>
-            </a>
+
         </div>
     </section>
 </div>

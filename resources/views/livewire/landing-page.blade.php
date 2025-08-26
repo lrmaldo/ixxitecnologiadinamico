@@ -1,7 +1,7 @@
 <div x-data="{showPage: false}" x-init="setTimeout(() => showPage = true, 100)" x-cloak>
-    <!    <section class="py-24 bg-gradient-to-b from-white to-zinc-100 dark:from-gray-900 dark:to-gray-800" x-show="showPage" 
-            x-transition:enter="transition ease-out duration-700 delay-300" 
-            x-transition:enter-start="opacity-0" 
+    <!    <section class="py-24 bg-gradient-to-b from-white to-zinc-100 dark:from-gray-900 dark:to-gray-800" x-show="showPage"
+            x-transition:enter="transition ease-out duration-700 delay-300"
+            x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100">
         <div class="mx-auto max-w-7xl px-6">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between">
@@ -18,18 +18,18 @@
                     </svg>
                 </a>
             </div>
-            
+
             <!-- Carrusel de Testimonios con Scroll Horizontal -->
             <div class="mt-12 relative">
                 <div class="overflow-x-auto pb-8 hide-scrollbar snap-x snap-mandatory flex space-x-6">
                     @foreach($testimonials as $index => $t)
                         <div class="snap-start w-full sm:w-[calc(100%/2-12px)] lg:w-[calc(100%/3-16px)] shrink-0"
-                            x-show="showPage" 
-                            x-transition:enter="transition ease-out duration-700" 
-                            x-transition:enter-start="opacity-0 transform translate-y-12" 
+                            x-show="showPage"
+                            x-transition:enter="transition ease-out duration-700"
+                            x-transition:enter-start="opacity-0 transform translate-y-12"
                             x-transition:enter-end="opacity-100 transform translate-y-0"
                             style="transition-delay: {{ 400 + ($index * 150) }}ms">
-                            
+
                             <blockquote class="h-full rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                                 <div class="flex mb-5">
                                     @for($i = 0; $i < 5; $i++)
@@ -56,7 +56,7 @@
                         </div>
                     @endforeach
                 </div>
-                
+
                 <!-- Indicador de scroll horizontal -->
                 <div class="mt-8 flex justify-center space-x-2">
                     @for($i = 0; $i < min(count($testimonials), 5); $i++)
@@ -78,7 +78,7 @@
             <!-- Contenido principal con animación de fade-in -->
             <div class="max-w-2xl" x-show="showPage" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 transform translate-y-8" x-transition:enter-end="opacity-100 transform translate-y-0">
                 <h1 class="text-5xl font-extrabold leading-tight sm:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
-                    Seguridad tecnológica y de campo para el sureste de México
+                    Seguridad tecnológica y de campo para México
                 </h1>
                 <p class="mt-6 text-xl text-blue-100 leading-relaxed">
                     Somos IXXI TECNOLOGÍA, expertos en soluciones integrales: alta tecnología, inteligencia en campo y despliegue táctico.
@@ -101,10 +101,10 @@
             <div class="mt-16 lg:mt-0 flex-1" x-show="showPage" x-transition:enter="transition ease-out duration-700 delay-300" x-transition:enter-start="opacity-0 transform translate-y-12" x-transition:enter-end="opacity-100 transform translate-y-0">
                 <div class="grid grid-cols-2 gap-5">
                     @foreach($gallery as $index => $item)
-                        <div class="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-[1.02]" 
-                            x-show="showPage" 
-                            x-transition:enter="transition ease-out duration-500" 
-                            x-transition:enter-start="opacity-0 transform translate-y-8" 
+                        <div class="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-[1.02]"
+                            x-show="showPage"
+                            x-transition:enter="transition ease-out duration-500"
+                            x-transition:enter-start="opacity-0 transform translate-y-8"
                             x-transition:enter-end="opacity-100 transform translate-y-0"
                             style="transition-delay: {{ 200 + ($index * 100) }}ms">
                             <img class="h-48 w-full object-cover transition duration-700 ease-in-out hover:scale-110" src="{{ asset('storage/'.$item->image_path) }}" alt="{{ $item->title }}">
@@ -124,24 +124,24 @@
         </div>
     </section>
 
-    <section id="servicios" class="mx-auto max-w-7xl px-6 py-24" x-show="showPage" 
-            x-transition:enter="transition ease-out duration-700 delay-200" 
-            x-transition:enter-start="opacity-0" 
+    <section id="servicios" class="mx-auto max-w-7xl px-6 py-24" x-show="showPage"
+            x-transition:enter="transition ease-out duration-700 delay-200"
+            x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100">
         <h2 class="text-4xl font-bold text-[#021869] relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/3 after:h-1 after:bg-[#d9491e] after:rounded-full">
             Servicios
         </h2>
         <p class="mt-4 max-w-2xl text-lg text-zinc-600">Alta tecnología e inteligencia en campo. Diseñados para proteger y optimizar.</p>
-        
+
         <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             @foreach($services as $index => $service)
-                <div 
-                    x-show="showPage" 
-                    x-transition:enter="transition ease-out duration-700" 
-                    x-transition:enter-start="opacity-0 transform translate-y-12" 
+                <div
+                    x-show="showPage"
+                    x-transition:enter="transition ease-out duration-700"
+                    x-transition:enter-start="opacity-0 transform translate-y-12"
                     x-transition:enter-end="opacity-100 transform translate-y-0"
                     style="transition-delay: {{ 300 + ($index * 150) }}ms">
-                    
+
                     <a href="{{ route('services.show', $service->slug) }}" class="group block rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2 overflow-hidden relative">
                         <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div class="text-4xl text-[#d9491e] transition-transform duration-300 group-hover:scale-110">{{ $service->icon }}</div>
@@ -176,29 +176,29 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-7xl px-6 py-24" x-show="showPage" 
-            x-transition:enter="transition ease-out duration-700 delay-400" 
-            x-transition:enter-start="opacity-0" 
+    <section class="mx-auto max-w-7xl px-6 py-24" x-show="showPage"
+            x-transition:enter="transition ease-out duration-700 delay-400"
+            x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100">
         <h2 class="text-4xl font-bold text-[#021869] relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/3 after:h-1 after:bg-[#d9491e] after:rounded-full">
             Contenido más reciente
         </h2>
         <p class="mt-4 max-w-2xl text-lg text-zinc-600">Actualizaciones, noticias y recursos del sector</p>
-        
+
         <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             @foreach($posts as $index => $post)
-                <div 
-                    x-show="showPage" 
-                    x-transition:enter="transition ease-out duration-700" 
-                    x-transition:enter-start="opacity-0 transform translate-y-12" 
+                <div
+                    x-show="showPage"
+                    x-transition:enter="transition ease-out duration-700"
+                    x-transition:enter-start="opacity-0 transform translate-y-12"
                     x-transition:enter-end="opacity-100 transform translate-y-0"
                     style="transition-delay: {{ 500 + ($index * 150) }}ms">
-                    
+
                     <a href="{{ route('blog.show', $post->slug) }}" class="group block rounded-2xl bg-white overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                         @if($post->featured_image)
                             <div class="h-52 overflow-hidden">
-                                <img class="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" 
-                                     src="{{ asset('storage/'.$post->featured_image) }}" 
+                                <img class="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                                     src="{{ asset('storage/'.$post->featured_image) }}"
                                      alt="{{ $post->title }}">
                             </div>
                         @endif
@@ -225,44 +225,44 @@
         </div>
     </section>
 
-    <section id="contacto" class="bg-gradient-to-b from-zinc-50 to-white py-24" x-show="showPage" 
-            x-transition:enter="transition ease-out duration-700 delay-500" 
-            x-transition:enter-start="opacity-0" 
+    <section id="contacto" class="bg-gradient-to-b from-zinc-50 to-white py-24" x-show="showPage"
+            x-transition:enter="transition ease-out duration-700 delay-500"
+            x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100">
         <div class="mx-auto max-w-7xl px-6">
             <h2 class="text-4xl font-bold text-[#021869] relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/3 after:h-1 after:bg-[#d9491e] after:rounded-full">
                 Contáctanos
             </h2>
             <p class="mt-4 max-w-2xl text-lg text-zinc-600">Estamos listos para ayudarte con soluciones personalizadas</p>
-            
+
             <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="bg-white rounded-2xl shadow-xl border border-zinc-100 overflow-hidden" 
-                    x-show="showPage" 
-                    x-transition:enter="transition ease-out duration-700" 
-                    x-transition:enter-start="opacity-0 transform translate-x-12" 
+                <div class="bg-white rounded-2xl shadow-xl border border-zinc-100 overflow-hidden"
+                    x-show="showPage"
+                    x-transition:enter="transition ease-out duration-700"
+                    x-transition:enter-start="opacity-0 transform translate-x-12"
                     x-transition:enter-end="opacity-100 transform translate-x-0"
                     style="transition-delay: 600ms">
                     <div class="p-8">
                         <livewire:contact-form />
                     </div>
                 </div>
-                
-                <div class="space-y-8" 
-                    x-show="showPage" 
-                    x-transition:enter="transition ease-out duration-700" 
-                    x-transition:enter-start="opacity-0 transform translate-x-12" 
+
+                <div class="space-y-8"
+                    x-show="showPage"
+                    x-transition:enter="transition ease-out duration-700"
+                    x-transition:enter-start="opacity-0 transform translate-x-12"
                     x-transition:enter-end="opacity-100 transform translate-x-0"
                     style="transition-delay: 700ms">
-                    
+
                     <!-- Mapa -->
                     <div class="rounded-2xl overflow-hidden shadow-xl border border-zinc-100">
                         <iframe class="h-[350px] w-full" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="{{ config('branding.map_embed_src') }}"></iframe>
                     </div>
-                    
+
                     <!-- Información de contacto -->
                     <div class="bg-white p-8 rounded-2xl shadow-xl border border-zinc-100">
                         <h3 class="text-xl font-semibold text-[#021869] mb-6">Información de contacto</h3>
-                        
+
                         <div class="space-y-4">
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#021869]">
@@ -275,7 +275,7 @@
                                     <p class="text-gray-600">{{ config('branding.phone', '+52 999 123 4567') }}</p>
                                 </div>
                             </div>
-                            
+
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#021869]">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -287,7 +287,7 @@
                                     <p class="text-gray-600">{{ config('branding.email', 'contacto@ixxitecnologia.com') }}</p>
                                 </div>
                             </div>
-                            
+
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#021869]">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -304,20 +304,8 @@
                     </div>
                 </div>
             </div>
-            
-            <a href="https://wa.me/{{ config('branding.whatsapp') }}" 
-               class="fixed bottom-6 right-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 font-medium text-white shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 active:scale-95 group z-50" 
-               target="_blank" rel="noopener"
-               x-show="showPage"
-               x-transition:enter="transition ease-out duration-700 delay-1000"
-               x-transition:enter-start="opacity-0 transform translate-y-12"
-               x-transition:enter-end="opacity-100 transform translate-y-0">
-                <span class="absolute inset-0 bg-gradient-to-r from-green-600 to-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 relative">
-                    <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.38 0 0 5.38 0 12c0 2.11.55 4.18 1.6 6.01L0 24l6.15-1.6A11.93 11.93 0 0012 24c6.62 0 12-5.38 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22a9.93 9.93 0 01-5.05-1.39l-.36-.21-3.65.95.98-3.56-.24-.37A9.95 9.95 0 1122 12c0 5.52-4.48 10-10 10zm5.64-7.36c-.31-.16-1.83-.9-2.11-1-.28-.1-.48-.16-.68.16-.2.31-.77 1-.94 1.2-.17.2-.35.23-.66.08-.31-.16-1.29-.47-2.46-1.49-.91-.81-1.53-1.81-1.71-2.12-.18-.31-.02-.48.13-.64.13-.13.31-.35.46-.53.15-.18.2-.31.31-.52.1-.2.05-.39-.02-.55-.08-.16-.68-1.64-.93-2.25-.25-.6-.5-.52-.68-.53h-.58c-.2 0-.52.08-.79.39-.27.31-1.04 1.02-1.04 2.5 0 1.48 1.07 2.92 1.22 3.12.16.2 2.1 3.2 5.08 4.49.71.31 1.26.5 1.69.64.71.23 1.36.2 1.88.12.57-.09 1.83-.75 2.09-1.47.26-.72.26-1.34.18-1.47-.08-.13-.28-.2-.59-.36z"/>
-                </svg>
-                <span class="relative">WhatsApp</span>
-            </a>
+
+
         </div>
     </section>
 

@@ -12,11 +12,15 @@ class Edit extends Component
 
     #[Validate('required|string|min:3')]
     public string $author_name = '';
+    #[Validate('nullable|string|max:120')]
     public ?string $author_role = '';
+    #[Validate('nullable|string|max:160')]
     public ?string $company = '';
     #[Validate('required|string|min:5')]
     public string $content = '';
+    #[Validate('integer|min:1|max:5')]
     public int $rating = 5;
+    #[Validate('boolean')]
     public bool $is_active = true;
 
     public function mount(?int $id = null): void
@@ -29,7 +33,7 @@ class Edit extends Component
 
     public function save(): void
     {
-        $data = $this->validate();
+    $data = $this->validate(); // Ahora incluye author_role, company, rating, is_active
         if ($this->testimonial) {
             $this->testimonial->update($data);
         } else {

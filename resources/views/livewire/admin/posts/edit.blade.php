@@ -1,4 +1,4 @@
-<div class="p-4 sm:p-6 space-y-10">
+<div class="p-4 sm:p-6 space-y-10" x-data="{saving:false,saved:false,timeout:null}" @init-autosave.window="clearTimeout(timeout); saving=true; saved=false; timeout=setTimeout(()=>{ $wire.autosave(); }, 1200)" x-init="$watch('$wire.autoSaving', v=>saving=v); $watch('$wire.autoSaved', v=>{ if(v){ saving=false; saved=true; setTimeout(()=>saved=false,2500);} });">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
         <div>
             <h1 class="text-2xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-100 flex items-center gap-2">
@@ -10,6 +10,14 @@
         <div class="flex items-center gap-3 flex-wrap">
             <a href="{{ route('admin.posts') }}" wire:navigate class="inline-flex items-center gap-2 rounded-lg border border-zinc-300 dark:border-zinc-600 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 bg-white/70 dark:bg-zinc-800/60 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 backdrop-blur transition-colors shadow-sm">Cancelar</a>
             <button form="post-form" class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-tr from-[#021869] to-[#16327e] hover:from-[#021869]/90 hover:to-[#16327e]/90 px-5 py-2.5 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500/70 dark:focus:ring-indigo-400/60 transition-all">Guardar</button>
+            <div class="flex items-center text-xs font-medium" :class="saving ? 'text-indigo-600 dark:text-indigo-400' : (saved ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-400')">
+                <template x-if="saving">
+                    <div class="inline-flex items-center gap-1"><flux:icon name="loading" class="h-4 w-4 animate-spin" /> <span>Guardando...</span></div>
+                </template>
+                <template x-if="!saving && saved">
+                    <div class="inline-flex items-center gap-1"><flux:icon name="check" class="h-4 w-4" /> <span>Guardado</span></div>
+                </template>
+            </div>
         </div>
     </div>
 
@@ -52,21 +60,21 @@
                     <div class="space-y-1.5">
                         <div class="flex items-center justify-between">
                             <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">SEO Título</label>
-                            <span class="text-[11px] font-medium {{ $seoTitleLen > 60 ? 'text-amber-600 dark:text-amber-400' : 'text-zinc-400' }}">{{ $seoTitleLen }}/60</span>
+                            <span class="text-[11px] font-medium {{ $seoTitleLen > 60 ? 'text-amber-600 dark:text-amber-400' : ($seoTitleLen >= 50 ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-400') }}">{{ $seoTitleLen }}/60</span>
                         </div>
                         <input type="text" wire:model.live="seo_title" class="w-full rounded-lg border border-zinc-300/80 dark:border-zinc-600 bg-white dark:bg-zinc-800/70 px-3 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 transition" />
                         <div class="h-1 rounded bg-zinc-200 dark:bg-zinc-700 overflow-hidden">
-                            <div class="h-full bg-indigo-500/70 transition-all" style="width: {{ min(100, ($seoTitleLen/60)*100) }}%"></div>
+                            <div class="h-full transition-all {{ $seoTitleLen > 60 ? 'bg-amber-500/80' : ($seoTitleLen >= 50 ? 'bg-emerald-500/80' : 'bg-indigo-500/70') }}" style="width: {{ min(100, ($seoTitleLen/60)*100) }}%"></div>
                         </div>
                     </div>
                     <div class="space-y-1.5">
                         <div class="flex items-center justify-between">
                             <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">SEO Descripción</label>
-                            <span class="text-[11px] font-medium {{ $seoDescLen > 160 ? 'text-amber-600 dark:text-amber-400' : 'text-zinc-400' }}">{{ $seoDescLen }}/160</span>
+                            <span class="text-[11px] font-medium {{ $seoDescLen > 160 ? 'text-amber-600 dark:text-amber-400' : ($seoDescLen >= 140 ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-400') }}">{{ $seoDescLen }}/160</span>
                         </div>
                         <textarea wire:model.live="seo_description" rows="3" class="w-full rounded-lg border border-zinc-300/80 dark:border-zinc-600 bg-white dark:bg-zinc-800/70 px-3 py-2.5 text-sm leading-relaxed focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 transition"></textarea>
                         <div class="h-1 rounded bg-zinc-200 dark:bg-zinc-700 overflow-hidden">
-                            <div class="h-full bg-indigo-500/70 transition-all" style="width: {{ min(100, ($seoDescLen/160)*100) }}%"></div>
+                            <div class="h-full transition-all {{ $seoDescLen > 160 ? 'bg-amber-500/80' : ($seoDescLen >= 140 ? 'bg-emerald-500/80' : 'bg-indigo-500/70') }}" style="width: {{ min(100, ($seoDescLen/160)*100) }}%"></div>
                         </div>
                     </div>
                 </div>

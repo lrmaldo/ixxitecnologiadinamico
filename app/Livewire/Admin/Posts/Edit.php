@@ -23,6 +23,68 @@ class Edit extends Component
     public bool $is_published = false;
     public ?string $seo_title = '';
     public ?string $seo_description = '';
+    public bool $autoSaving = false;
+    public bool $autoSaved = false;
+
+    protected $listeners = [
+        'trix-updated' => 'contentUpdated'
+    ];
+
+    protected function rules(): array
+    {
+        return [
+            'title' => 'required|string|min:3',
+            'excerpt' => 'nullable|string',
+            'content' => 'nullable|string',
+            'featured_image' => 'nullable|string',
+            'featured_file' => 'nullable|image|max:6144',
+            'type' => 'required|in:articulo,infografia,caso_exito',
+            'is_published' => 'boolean',
+            'seo_title' => 'nullable|string|max:70',
+            'seo_description' => 'nullable|string|max:170',
+        ];
+    }
+
+    public function updated($name): void
+    {
+        if(in_array($name, ['title','excerpt','content','seo_title','seo_description'], true)) {
+            $this->triggerAutosave();
+        }
+    }
+
+    public function contentUpdated($html): void
+    {
+        $this->content = $html;
+        $this->triggerAutosave();
+    }
+
+    protected function triggerAutosave(): void
+    {
+        $this->autoSaved = false;
+        // Debounce manual vía dispatchBrowserEvent y setTimeout JS no requerido; Livewire agrupa.
+        // Programar guardado diferido mediante queue microtask (simplificado).
+        $this->dispatch('init-autosave');
+    }
+
+    public function autosave(): void
+    {
+        if ($this->autoSaving) return;
+        $this->autoSaving = true;
+        $data = $this->validate();
+        if ($this->featured_file) {
+            $stored = $this->featured_file->store('blog', 'public');
+            $data['featured_image'] = $stored;
+        }
+        $data['is_published'] = (bool)($data['is_published'] ?? false);
+        if ($this->post) {
+            $this->post->update($data);
+        } else {
+            $this->post = Post::create($data);
+        }
+        $this->autoSaving = false;
+        $this->autoSaved = true;
+        $this->dispatch('notify', type: 'success', message: 'Guardado automático');
+    }
 
     public function mount(?int $id = null): void
     {
@@ -34,18 +96,7 @@ class Edit extends Component
 
     public function save(): void
     {
-        // Validar y capturar todos los campos relevantes, incluyendo "type"
-        $data = $this->validate([
-            'title' => 'required|string|min:3',
-            'excerpt' => 'nullable|string',
-            'content' => 'nullable|string',
-            'featured_image' => 'nullable|string',
-            'featured_file' => 'nullable|image|max:6144',
-            'type' => 'required|in:articulo,infografia,caso_exito',
-            'is_published' => 'boolean',
-            'seo_title' => 'nullable|string',
-            'seo_description' => 'nullable|string',
-        ]);
+    $data = $this->validate();
         if ($this->featured_file) {
             $stored = $this->featured_file->store('blog', 'public');
             $data['featured_image'] = $stored;
@@ -64,7 +115,9 @@ class Edit extends Component
     public function render()
     {
         $title = $this->post ? 'Editar publicación' : 'Nueva publicación';
-        return view('livewire.admin.posts.edit')
-            ->layout('components.layouts.app', ['title' => $title]);
+        return view('livewire.admin.posts.edit', [
+            'seoTitleLen' => mb_strlen($this->seo_title ?? ''),
+            'seoDescLen' => mb_strlen($this->seo_description ?? ''),
+        ])->layout('components.layouts.app', ['title' => $title]);
     }
 }

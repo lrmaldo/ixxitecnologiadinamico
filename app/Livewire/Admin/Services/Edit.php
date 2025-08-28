@@ -44,17 +44,22 @@ class Edit extends Component
             $stored = $this->image_file->store('services', 'public');
             $data['image_path'] = $stored;
         }
+        $creating = !$this->service;
         if ($this->service) {
             $this->service->update($data);
         } else {
             $this->service = Service::create($data);
         }
-    session()->flash('status', 'Servicio guardado');
+        $this->dispatch($creating ? 'service-created' : 'service-updated');
+        session()->flash('status', 'Servicio guardado');
         $this->redirectRoute('admin.services');
     }
 
     public function render()
     {
-        return view('livewire.admin.services.edit')->title($this->service ? 'Editar servicio' : 'Nuevo servicio');
+        return view('livewire.admin.services.edit')
+            ->layout('components.layouts.app', [
+                'title' => ($this->service ? 'Editar' : 'Nuevo') . ' servicio'
+            ]);
     }
 }

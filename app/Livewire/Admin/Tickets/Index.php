@@ -22,11 +22,41 @@ class Index extends Component
     public ?string $prioridad = null;
     public string $q = '';
 
+    // Nuevos controles UI
+    public int $perPage = 10;
+    public string $sortField = 'created_at';
+    public string $sortDirection = 'desc';
+
+    protected $queryString = [
+        'cliente' => ['except' => ''],
+        'estado' => ['except' => ''],
+        'prioridad' => ['except' => ''],
+        'q' => ['except' => ''],
+        'sortField' => ['except' => 'created_at'],
+        'sortDirection' => ['except' => 'desc'],
+        'perPage' => ['except' => 10],
+    ];
+
     public function updating($field)
     {
         if (in_array($field, ['cliente', 'estado', 'prioridad', 'q'])) {
             $this->resetPage();
         }
+    }
+
+    public function sortBy(string $field): void
+    {
+        $allowed = ['created_at', 'titulo', 'prioridad', 'estado'];
+        if (!in_array($field, $allowed)) {
+            return;
+        }
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+        $this->resetPage();
     }
 
     public function render()
@@ -42,9 +72,9 @@ class Index extends Component
                         ->orWhere('descripcion', 'like', "%{$this->q}%");
                 });
             })
-            ->latest();
+            ->orderBy($this->sortField, $this->sortDirection);
 
-        $tickets = $query->paginate(10);
+        $tickets = $query->paginate($this->perPage);
         $clientes = Cliente::orderBy('nombre')->get(['id', 'nombre']);
 
         return view('livewire.admin.tickets.index', [

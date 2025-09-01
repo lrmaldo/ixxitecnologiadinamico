@@ -22,6 +22,8 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\ExportController;
 use App\Livewire\Admin\Users\Index as AdminUsersIndex;
 use App\Livewire\Admin\Users\Edit as AdminUsersEdit;
+use App\Livewire\Tickets\CreatePublic as PublicTicketCreate;
+use App\Livewire\Tickets\Thanks as PublicTicketThanks;
 
 Route::get('/', LandingPage::class)->name('home');
 
@@ -30,6 +32,8 @@ Route::get('/blog/{slug}', BlogShow::class)->name('blog.show');
 Route::get('/servicios/{slug}', ServiceShow::class)->name('services.show');
 Route::get('/galeria', PublicGalleryIndex::class)->name('gallery.index');
 Route::get('/testimonios', PublicTestimonialsIndex::class)->name('testimonials.index');
+Route::get('/soporte/ticket', PublicTicketCreate::class)->name('support.ticket.create');
+Route::get('/soporte/ticket/gracias/{id}', PublicTicketThanks::class)->name('support.ticket.thanks');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/export/services.pdf', [ExportController::class, 'servicesPdf'])->middleware('auth')->name('export.services.pdf');
 

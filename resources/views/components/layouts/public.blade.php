@@ -68,6 +68,10 @@
                         <span class="relative">Testimonios</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
                     </a>
+                    <a href="{{ route('support.ticket.create') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <span class="relative">Soporte</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
                     <a href="#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Contacto</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
@@ -159,6 +163,14 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                         Testimonios
+                    </a>
+                    <a href="{{ route('support.ticket.create') }}"
+                       @click="mobileMenuOpen = false"
+                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
+                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728" />
+                        </svg>
+                        Soporte
                     </a>
                     <a href="#contacto"
                        @click="mobileMenuOpen = false"

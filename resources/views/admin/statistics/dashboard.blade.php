@@ -11,7 +11,9 @@
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ $summary['today'] }}</p>
                     </div>
                     <div class="rounded-xl bg-indigo-500/10 p-3 text-indigo-600 dark:text-indigo-300">
-                        <flux:icon name="line-chart" class="h-6 w-6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4v16M3 4l4 4"></path>
+                        </svg>
                     </div>
                 </div>
                 <div class="mt-3 flex items-center text-xs">
@@ -19,17 +21,23 @@
 
                     @if($summary['percent_change'] > 0)
                         <span class="ml-2 flex items-center text-emerald-500 dark:text-emerald-400">
-                            <flux:icon name="trending-up" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
                             {{ $summary['percent_change'] }}%
                         </span>
                     @elseif($summary['percent_change'] < 0)
                         <span class="ml-2 flex items-center text-rose-500 dark:text-rose-400">
-                            <flux:icon name="trending-down" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6"></path>
+                            </svg>
                             {{ abs($summary['percent_change']) }}%
                         </span>
                     @else
                         <span class="ml-2 flex items-center text-zinc-500 dark:text-zinc-400">
-                            <flux:icon name="minus" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                            </svg>
                             0%
                         </span>
                     @endif
@@ -45,7 +53,9 @@
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ $summary['this_month'] }}</p>
                     </div>
                     <div class="rounded-xl bg-emerald-500/10 p-3 text-emerald-600 dark:text-emerald-300">
-                        <flux:icon name="calendar" class="h-6 w-6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
                     </div>
                 </div>
                 <div class="mt-3 flex items-center text-xs">
@@ -53,17 +63,23 @@
 
                     @if($summary['month_percent_change'] > 0)
                         <span class="ml-2 flex items-center text-emerald-500 dark:text-emerald-400">
-                            <flux:icon name="trending-up" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
                             {{ $summary['month_percent_change'] }}%
                         </span>
                     @elseif($summary['month_percent_change'] < 0)
                         <span class="ml-2 flex items-center text-rose-500 dark:text-rose-400">
-                            <flux:icon name="trending-down" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6"></path>
+                            </svg>
                             {{ abs($summary['month_percent_change']) }}%
                         </span>
                     @else
                         <span class="ml-2 flex items-center text-zinc-500 dark:text-zinc-400">
-                            <flux:icon name="minus" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                            </svg>
                             0%
                         </span>
                     @endif
@@ -79,7 +95,9 @@
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ $summary['total'] }}</p>
                     </div>
                     <div class="rounded-xl bg-indigo-500/10 p-3 text-indigo-600 dark:text-indigo-300">
-                        <flux:icon name="chart" class="h-6 w-6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
                     </div>
                 </div>
                 <div class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Desde el inicio de la medición</div>
@@ -96,7 +114,9 @@
                         </p>
                     </div>
                     <div class="rounded-xl bg-indigo-500/10 p-3 text-indigo-600 dark:text-indigo-300">
-                        <flux:icon name="bar-chart-2" class="h-6 w-6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2"></path>
+                        </svg>
                     </div>
                 </div>
                 <div class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Este mes</div>

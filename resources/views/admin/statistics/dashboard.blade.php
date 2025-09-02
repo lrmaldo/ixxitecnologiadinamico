@@ -11,7 +11,7 @@
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ $summary['today'] }}</p>
                     </div>
                     <div class="rounded-xl bg-indigo-500/10 p-3 text-indigo-600 dark:text-indigo-300">
-                        <flux:icon name="line-chart" class="h-6 w-6" />
+                        <flux:icon name="chart" class="h-6 w-6" />
                     </div>
                 </div>
                 <div class="mt-3 flex items-center text-xs">

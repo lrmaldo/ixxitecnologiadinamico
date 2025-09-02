@@ -107,6 +107,16 @@
                             >
                                 <span class="truncate" :class="collapsed ? 'hidden' : ''">Usuarios</span>
                             </flux:navlist.item>
+
+                            <flux:navlist.item
+                                icon="layout-grid"
+                                :href="route('admin.statistics')"
+                                :current="request()->routeIs('admin.statistics*')"
+                                class="group relative flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 hover:bg-zinc-100 dark:hover:bg-zinc-800 aria-[current=true]:bg-indigo-50 dark:aria-[current=true]:bg-indigo-900/30 aria-[current=true]:text-indigo-600 dark:aria-[current=true]:text-indigo-300"
+                                wire:navigate
+                            >
+                                <span class="truncate" :class="collapsed ? 'hidden' : ''">Estadísticas</span>
+                            </flux:navlist.item>
                             
                             <flux:navlist.item
                                 icon="phone"

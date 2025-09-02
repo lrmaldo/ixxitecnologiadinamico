@@ -78,6 +78,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('admin/users', AdminUsersIndex::class)->name('admin.users');
         Route::get('admin/users/create', AdminUsersEdit::class)->name('admin.users.create');
         Route::get('admin/users/{id}', AdminUsersEdit::class)->name('admin.users.edit');
+
+        // Estadísticas
+        Route::get('admin/statistics', [App\Http\Controllers\Admin\StatisticsController::class, 'dashboard'])->name('admin.statistics');
+        Route::get('admin/statistics/chart-data', [App\Http\Controllers\Admin\StatisticsController::class, 'chartData'])->name('admin.statistics.chart-data');
     });
 
     // Admin - Información de contacto

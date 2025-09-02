@@ -1,6 +1,14 @@
 <x-layouts.app :title="__('Dashboard')">
     @php
-        $visits = cache('site_visits', 0);
+        // Estadísticas de visitas
+        $siteStats = new \App\Models\SiteStatistic();
+        $visitStats = $siteStats->getSummary();
+        $visits = $visitStats['total'] ?? cache('site_visits', 0);
+        $todayVisits = $visitStats['today'] ?? 0;
+        $yesterdayVisits = $visitStats['yesterday'] ?? 0;
+        $percentChange = $visitStats['percent_change'] ?? 0;
+
+        // Datos del sitio
         $servicesCount = \App\Models\Service::count();
         $postsCount = \App\Models\Post::count();
         $latestPosts = \App\Models\Post::latest()->take(5)->get(['id','title','created_at','is_published']);
@@ -18,11 +26,30 @@
                         <p class="text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Visitas</p>
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ number_format($visits) }}</p>
                     </div>
-                    <div class="rounded-xl bg-indigo-500/10 p-3 text-indigo-600 dark:text-indigo-300">
-                        <flux:icon name="home" class="h-6 w-6" />
-                    </div>
+                    <a href="{{ auth()->user()->isAdmin() ? route('admin.statistics') : '#' }}" class="rounded-xl bg-indigo-500/10 p-3 text-indigo-600 dark:text-indigo-300 hover:bg-indigo-500/20 transition-colors">
+                        <flux:icon name="layout-grid" class="h-6 w-6" />
+                    </a>
                 </div>
-                <div class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Total acumulado</div>
+                <div class="mt-3 flex items-center text-xs">
+                    <span class="text-zinc-500 dark:text-zinc-400">Hoy: {{ number_format($todayVisits) }}</span>
+
+                    @if($percentChange > 0)
+                        <span class="ml-2 flex items-center text-emerald-500 dark:text-emerald-400">
+                            <flux:icon name="trending-up" class="h-3 w-3 mr-0.5" />
+                            {{ $percentChange }}%
+                        </span>
+                    @elseif($percentChange < 0)
+                        <span class="ml-2 flex items-center text-rose-500 dark:text-rose-400">
+                            <flux:icon name="trending-down" class="h-3 w-3 mr-0.5" />
+                            {{ abs($percentChange) }}%
+                        </span>
+                    @else
+                        <span class="ml-2 flex items-center text-zinc-500 dark:text-zinc-400">
+                            <flux:icon name="minus" class="h-3 w-3 mr-0.5" />
+                            0%
+                        </span>
+                    @endif
+                </div>
             </div>
 
             <!-- Servicios -->

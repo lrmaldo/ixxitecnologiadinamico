@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\ContactInformation;
 use App\Models\GalleryItem;
 use App\Models\Post;
 use App\Models\Service;
@@ -24,6 +25,7 @@ class LandingPage extends Component
         $gallery = GalleryItem::where('is_active', true)->orderBy('position')->limit(12)->get();
         $posts = Post::published()->latest('published_at')->limit(3)->get();
         $visitCount = Cache::get('site_visits', 0);
+        $contactInfo = ContactInformation::getDefault();
 
         return view('livewire.landing-page-new', compact(
             'services',
@@ -31,7 +33,8 @@ class LandingPage extends Component
             'testimonials',
             'gallery',
             'posts',
-            'visitCount'
+            'visitCount',
+            'contactInfo'
         ))
             ->layout('components.layouts.public')
             ->title('IXXI TECNOLOGÍA | Seguridad tecnológica y de campo');

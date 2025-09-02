@@ -79,6 +79,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('admin/users/create', AdminUsersEdit::class)->name('admin.users.create');
         Route::get('admin/users/{id}', AdminUsersEdit::class)->name('admin.users.edit');
     });
+
+    // Admin - Información de contacto
+    Route::middleware('can:admin')->group(function () {
+        Route::get('/admin/contact-information', [App\Http\Controllers\Admin\ContactInformationController::class, 'edit'])->name('admin.contact-information.edit');
+        Route::post('/admin/contact-information', [App\Http\Controllers\Admin\ContactInformationController::class, 'update'])->name('admin.contact-information.update');
+    });
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/contact-information.php';

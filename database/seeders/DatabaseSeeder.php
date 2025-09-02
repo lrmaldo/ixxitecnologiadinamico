@@ -27,5 +27,8 @@ class DatabaseSeeder extends Seeder
 
         // Contenido demo
         $this->call(ContentSeeder::class);
+
+        // Información de contacto
+        $this->call(ContactInformationSeeder::class);
     }
 }

@@ -107,6 +107,16 @@
                             >
                                 <span class="truncate" :class="collapsed ? 'hidden' : ''">Usuarios</span>
                             </flux:navlist.item>
+                            
+                            <flux:navlist.item
+                                icon="phone"
+                                :href="route('admin.contact-information.edit')"
+                                :current="request()->routeIs('admin.contact-information*')"
+                                class="group relative flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 hover:bg-zinc-100 dark:hover:bg-zinc-800 aria-[current=true]:bg-indigo-50 dark:aria-[current=true]:bg-indigo-900/30 aria-[current=true]:text-indigo-600 dark:aria-[current=true]:text-indigo-300"
+                                wire:navigate
+                            >
+                                <span class="truncate" :class="collapsed ? 'hidden' : ''">Información de Contacto</span>
+                            </flux:navlist.item>
                         </flux:navlist>
                     </div>
                     @endif

@@ -27,7 +27,9 @@
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ number_format($visits) }}</p>
                     </div>
                     <a href="{{ auth()->user()->isAdmin() ? route('admin.statistics') : '#' }}" class="rounded-xl bg-indigo-500/10 p-3 text-indigo-600 dark:text-indigo-300 hover:bg-indigo-500/20 transition-colors">
-                        <flux:icon name="layout-grid" class="h-6 w-6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
                     </a>
                 </div>
                 <div class="mt-3 flex items-center text-xs">
@@ -35,17 +37,23 @@
 
                     @if($percentChange > 0)
                         <span class="ml-2 flex items-center text-emerald-500 dark:text-emerald-400">
-                            <flux:icon name="trending-up" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
                             {{ $percentChange }}%
                         </span>
                     @elseif($percentChange < 0)
                         <span class="ml-2 flex items-center text-rose-500 dark:text-rose-400">
-                            <flux:icon name="trending-down" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6"></path>
+                            </svg>
                             {{ abs($percentChange) }}%
                         </span>
                     @else
                         <span class="ml-2 flex items-center text-zinc-500 dark:text-zinc-400">
-                            <flux:icon name="minus" class="h-3 w-3 mr-0.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                            </svg>
                             0%
                         </span>
                     @endif
@@ -61,7 +69,9 @@
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ $servicesCount }}</p>
                     </div>
                     <div class="rounded-xl bg-emerald-500/10 p-3 text-emerald-600 dark:text-emerald-300">
-                        <flux:icon name="layout-grid" class="h-6 w-6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
                     </div>
                 </div>
                 <div class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Activos actualmente</div>
@@ -76,7 +86,9 @@
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ $postsCount }}</p>
                     </div>
                     <div class="rounded-xl bg-rose-500/10 p-3 text-rose-600 dark:text-rose-300">
-                        <flux:icon name="book-open-text" class="h-6 w-6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
                     </div>
                 </div>
                 <div class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Totales creadas</div>
@@ -91,7 +103,9 @@
                         <p class="mt-2 text-3xl font-bold text-zinc-800 dark:text-zinc-100 tabular-nums">{{ $latestPosts->count() + $latestServices->count() }}</p>
                     </div>
                     <div class="rounded-xl bg-indigo-400/10 p-3 text-indigo-500 dark:text-indigo-300">
-                        <flux:icon name="folder-git-2" class="h-6 w-6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"></path>
+                        </svg>
                     </div>
                 </div>
                 <div class="mt-3 text-xs text-zinc-500 dark:text-zinc-400">Registros recientes</div>

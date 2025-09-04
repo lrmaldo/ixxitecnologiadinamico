@@ -9,8 +9,8 @@
                 <div class="flex items-center gap-2 px-4 pt-4 pb-3 border-b border-zinc-200 dark:border-zinc-700">
                     <flux:sidebar.toggle class="lg:hidden shrink-0" icon="x-mark" />
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2" wire:navigate>
-                        <x-app-logo class="h-8 w-auto" />
-                        <span class="font-semibold tracking-tight text-zinc-700 dark:text-zinc-200 text-lg hidden" :class="collapsed ? 'hidden' : 'sm:inline-block'"></span>
+                        <x-app-logo size="sm" class="shrink-0" />
+                        <span class="font-semibold tracking-tight text-zinc-700 dark:text-zinc-200 text-lg" :class="collapsed ? 'hidden' : 'sm:inline-block'">TECNOLOGÍA</span>
                     </a>
                     <div class="ms-auto hidden lg:flex items-center gap-1">
                         <button type="button" @click="document.documentElement.classList.toggle('dark')" class="p-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" aria-label="Toggle theme">
@@ -117,7 +117,7 @@
                             >
                                 <span class="truncate" :class="collapsed ? 'hidden' : ''">Estadísticas</span>
                             </flux:navlist.item>
-                            
+
                             <flux:navlist.item
                                 icon="phone"
                                 :href="route('admin.contact-information.edit')"

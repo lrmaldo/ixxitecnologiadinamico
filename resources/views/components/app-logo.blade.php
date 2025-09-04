@@ -1,6 +1,18 @@
-{{-- <div class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-    <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
-</div> --}}
-<div class="ms-1 grid flex-1 text-start text-sm">
-    <span class="mb-0.5 truncate leading-tight font-semibold">IXXI TECNOLOGÍA</span>
-</div>
+@props([
+    'href' => route('home'),
+    'size' => 'md', // md, sm, lg
+])
+
+@php
+    $sizes = [
+        'sm' => 'h-6',
+        'md' => 'h-8',
+        'lg' => 'h-10',
+    ];
+    $iconSize = $sizes[$size] ?? $sizes['md'];
+@endphp
+
+<a href="{{ $href }}" {{ $attributes->merge(['class' => 'inline-flex items-center gap-2 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#021869]/60 rounded-sm']) }}>
+    <x-app-logo-icon class="{{ $iconSize }} w-auto max-h-10" />
+    <span class="sr-only">{{ config('app.name', 'IXXI TECNOLOGÍA') }}</span>
+</a>

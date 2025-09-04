@@ -32,12 +32,12 @@
             <div class="mx-auto flex max-w-7xl items-center justify-between px-6">
                 <!-- Logo y nombre -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                    <x-app-logo-icon class="h-9 w-9 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" />
+                    <x-app-logo size="lg" class="transition-all duration-300 group-hover:scale-105" />
                     <div class="flex flex-col">
-                        <span class="font-black text-[#021869] text-xl tracking-tight leading-none relative after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-[#d9491e] after:transition-all after:duration-500 group-hover:after:w-full">
+                        <span class="font-black text-[#021869] dark:text-white text-xl tracking-tight leading-none relative after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-[#d9491e] after:transition-all after:duration-500 group-hover:after:w-full">
                             IXXI TECNOLOGÍA
                         </span>
-                        <span class="text-xs text-zinc-500 font-medium tracking-wide">Seguridad & Tecnología</span>
+                        <span class="text-xs text-zinc-500 dark:text-zinc-400 font-medium tracking-wide">Seguridad & Tecnología</span>
                     </div>
                 </a>
 
@@ -213,8 +213,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
-                            <x-app-logo-icon class="h-7 w-7" />
-                            <span class="font-bold text-[#021869] text-lg">IXXI TECNOLOGÍA</span>
+                            <x-app-logo size="sm" />
+                            <span class="font-bold text-[#021869] dark:text-white text-lg">IXXI TECNOLOGÍA</span>
                         </div>
                         <p class="max-w-md text-zinc-500">Soluciones integrales en seguridad tecnológica de México.</p>
                         <div class="pt-2 flex space-x-4">

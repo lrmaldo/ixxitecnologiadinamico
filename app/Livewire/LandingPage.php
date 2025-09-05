@@ -19,11 +19,19 @@ class LandingPage extends Component
 
     public function render()
     {
+        // Servicios publicados (fallback si no hay publicados)
         $services = Service::published()->orderBy('published_at', 'desc')->limit(8)->get();
+        if ($services->isEmpty()) {
+            $services = Service::orderBy('created_at', 'desc')->limit(8)->get();
+        }
         $featuredServices = $services->take(3);
         $testimonials = Testimonial::where('is_active', true)->latest()->limit(8)->get();
         $gallery = GalleryItem::where('is_active', true)->orderBy('position')->limit(12)->get();
+        // Posts publicados (fallback si no hay publicados)
         $posts = Post::published()->latest('published_at')->limit(3)->get();
+        if ($posts->isEmpty()) {
+            $posts = Post::orderBy('created_at', 'desc')->limit(3)->get();
+        }
         $visitCount = Cache::get('site_visits', 0);
         $contactInfo = ContactInformation::getDefault();
 

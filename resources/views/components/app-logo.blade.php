@@ -1,6 +1,6 @@
 @props([
     'href' => route('home'),
-    'size' => 'md', // md, sm, lg
+    'size' => 'md', // md, sm, lg, xl
 ])
 
 @php
@@ -8,6 +8,7 @@
         'sm' => 'h-6',
         'md' => 'h-8',
         'lg' => 'h-10',
+        'xl' => 'h-16',
     ];
     $iconSize = $sizes[$size] ?? $sizes['md'];
 @endphp

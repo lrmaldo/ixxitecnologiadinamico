@@ -86,7 +86,7 @@
                     <input type="text"
                            wire:model.debounce.300ms="q"
                            placeholder="Buscar en la galería..."
-                           class="w-full pl-12 pr-4 py-3 rounded-2xl border border-zinc-200 bg-white focus:ring-2 focus:ring-[#d9491e] focus:border-[#d9491e] transition-all duration-300 text-zinc-900 placeholder-zinc-500" />
+                           class="w-full pl-12 pr-4 py-3 rounded-2xl border border-zinc-200 bg-white focus:ring-2 focus:ring-[#0ea5a4] focus:border-[#0ea5a4] transition-all duration-300 text-zinc-900 placeholder-zinc-500" />
                 </div>
 
                 <!-- Modo de vista -->

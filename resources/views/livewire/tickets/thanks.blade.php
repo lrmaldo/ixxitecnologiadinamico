@@ -1,7 +1,7 @@
 <div class="relative overflow-hidden">
     <div class="absolute inset-0 -z-10 opacity-40">
-        <div class="absolute -top-24 -left-32 w-[500px] h-[500px] bg-gradient-to-br from-[#021869]/10 to-[#d9491e]/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 right-0 w-[520px] h-[520px] bg-gradient-to-tr from-[#d9491e]/10 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute -top-24 -left-32 w-[500px] h-[500px] bg-gradient-to-br from-[#021869]/10 to-[#0ea5a4]/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-[520px] h-[520px] bg-gradient-to-tr from-[#0ea5a4]/10 to-transparent rounded-full blur-3xl"></div>
     </div>
     <div class="max-w-3xl mx-auto px-6 py-16 space-y-10 text-center">
         <div class="space-y-4">
@@ -40,7 +40,7 @@
             <div class="p-6 border rounded-xl bg-white/70">Ticket no encontrado.</div>
         @endif
         <div class="pt-4 flex flex-col sm:flex-row gap-3 sm:justify-center">
-            <a href="{{ route('support.ticket.create') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-tr from-[#d9491e] to-[#e25a2f] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:from-[#d9491e]/90 hover:to-[#e25a2f]/90">
+            <a href="{{ route('support.ticket.create') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-tr from-[#0ea5a4] to-[#14b8a6] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:from-[#0ea5a4]/90 hover:to-[#14b8a6]/90">
                 <flux:icon name="plus" class="h-4 w-4" /> Crear otro ticket
             </a>
             <a href="{{ route('home') }}" class="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white/70 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-100">

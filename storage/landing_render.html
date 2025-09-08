@@ -1,0 +1,1193 @@
+<div>
+    
+    <div x-data="{
+    showPage: false,
+    // Carrusel
+    currentSlide: 0,
+    totalSlides: 6,
+    isHovering: false,
+    intervalId: null,
+    startX: 0, endX: 0,
+    startAutoplay(){ if(!this.intervalId) this.intervalId = setInterval(()=>{ if(!this.isHovering) this.currentSlide = (this.currentSlide + 1) % this.totalSlides }, 5000) },
+    stopAutoplay(){ if(this.intervalId){ clearInterval(this.intervalId); this.intervalId = null } }
+}"
+     x-init="setTimeout(()=>{ showPage = true; AOS.init({duration:800, once:false, mirror:true}); startAutoplay() }, 100)"
+     x-cloak>
+
+            <!-- 1) HERO PRINCIPAL (FONDO AZUL + LOGO) -->
+            <header class="relative flex justify-center items-center py-32 md:py-40 lg:py-48 bg-gradient-to-r from-[#021869] to-[#0a1f4c] overflow-hidden">
+                <!-- fondo animado -->
+                <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+                    <div class="absolute top-10 left-20 w-[500px] h-[500px] bg-blue-400/20 rounded-full filter blur-3xl animate-blob opacity-30"></div>
+                    <div class="absolute bottom-0 right-20 w-[400px] h-[400px] bg-indigo-400/20 rounded-full filter blur-3xl animate-blob animation-delay-2000 opacity-30"></div>
+                    <div class="absolute inset-0 bg-[url('/img/grid-pattern.svg')] bg-center opacity-5"></div>
+                </div>
+
+                <div class="relative z-10 max-w-4xl mx-auto px-6 text-center" x-show="showPage" x-transition:enter="transition ease-out duration-1200" x-transition:enter-start="opacity-0 scale-75" x-transition:enter-end="opacity-100 scale-100">
+                    <div class="flex flex-col items-center gap-6">
+                        <div class="relative group">
+                            <div class="absolute -inset-6 rounded-full blur-lg bg-gradient-to-r from-[#021869]/30 to-[#0ea5a4]/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <a href="http://:#" class="inline-flex items-center gap-2 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#021869]/60 rounded-sm h-44 md:h-60 lg:h-72 w-auto transform transition-transform duration-700 hover:scale-105">
+    <img src="http://:/img/logo.png" alt="Laravel" loading="lazy" class="block h-auto w-auto max-h-10 select-none h-16 w-auto max-h-10" />
+    <span class="sr-only">Laravel</span>
+</a>
+                        </div>
+
+                        <h1 class="mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                            <span class="block">Seguridad y Tecnología para México</span>
+                        </h1>
+                        <p class="mt-3 text-lg md:text-xl text-blue-100/80 italic font-light">Protección de última generación</p>
+                        <div class="mt-8 flex flex-wrap gap-4 justify-center">
+                            <a href="#contacto" class="group rounded-full bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] px-6 py-3 text-white font-semibold shadow-lg hover:shadow-xl transition">Contáctanos</a>
+                            <a href="#servicios" class="rounded-full border border-white/20 px-6 py-3 text-white/90">Ver servicios</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 2) CARRUSEL (debe aparecer inmediatamente debajo del fondo azul) -->
+            <section class="relative py-16 bg-gradient-to-br from-[#021869] to-[#0a1f4c] overflow-hidden">
+                <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+                    <div class="absolute top-0 left-0 w-96 h-96 bg-blue-400/30 rounded-full filter blur-3xl animate-blob opacity-20"></div>
+                    <div class="absolute bottom-40 right-20 w-96 h-96 bg-indigo-400/30 rounded-full filter blur-3xl animate-blob animation-delay-2000 opacity-20"></div>
+                </div>
+
+                <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-10" data-aos="fade-up">
+                        <h2 class="text-3xl font-bold text-white">Nuestra Galería</h2>
+                        <div class="w-24 h-1 bg-[#0ea5a4] mx-auto mt-4 rounded-full"></div>
+                        <p class="mt-4 text-blue-100 max-w-lg mx-auto">Descubre nuestros proyectos e implementaciones de seguridad</p>
+                    </div>
+
+                    <div class="relative mt-8" data-aos="fade-up"
+                         @mouseenter="isHovering = true; stopAutoplay()"
+                         @mouseleave="isHovering = false; startAutoplay()"
+                         @touchstart.window="startX = $event.touches ? $event.touches[0].clientX : $event.clientX"
+                         @touchend.window="endX = $event.changedTouches ? $event.changedTouches[0].clientX : $event.clientX; if(startX - endX > 50) currentSlide = (currentSlide + 1) % totalSlides; if(endX - startX > 50) currentSlide = (currentSlide - 1 + totalSlides) % totalSlides">
+
+                        <div class="overflow-hidden rounded-xl shadow-2xl">
+                            <div class="flex transition-transform duration-500 ease-in-out"
+                                 :style="'transform: translateX(-' + (currentSlide * 100) + '%)'">
+                                <!--[if BLOCK]><![endif]-->                                    <div class="w-full flex-shrink-0 relative aspect-video bg-zinc-100">
+                                        <img src="http://:/storage/placeholders/sample.jpg" alt="Excepturi modi ipsa." class="w-full h-full object-cover" loading="lazy">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#021869]/80 to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                            <h3 class="text-xl md:text-2xl font-bold">Excepturi modi ipsa.</h3>
+                                            <p class="text-sm md:text-base text-white/90 mt-2 line-clamp-2"></p>
+                                        </div>
+                                    </div>
+                                                                    <div class="w-full flex-shrink-0 relative aspect-video bg-zinc-100">
+                                        <img src="http://:/storage/placeholders/sample.jpg" alt="Facilis corrupti et illo." class="w-full h-full object-cover" loading="lazy">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#021869]/80 to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                            <h3 class="text-xl md:text-2xl font-bold">Facilis corrupti et illo.</h3>
+                                            <p class="text-sm md:text-base text-white/90 mt-2 line-clamp-2"></p>
+                                        </div>
+                                    </div>
+                                                                    <div class="w-full flex-shrink-0 relative aspect-video bg-zinc-100">
+                                        <img src="http://:/storage/placeholders/sample.jpg" alt="Ipsam maiores itaque cumque laudantium." class="w-full h-full object-cover" loading="lazy">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#021869]/80 to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                            <h3 class="text-xl md:text-2xl font-bold">Ipsam maiores itaque cumque laudantium.</h3>
+                                            <p class="text-sm md:text-base text-white/90 mt-2 line-clamp-2"></p>
+                                        </div>
+                                    </div>
+                                                                    <div class="w-full flex-shrink-0 relative aspect-video bg-zinc-100">
+                                        <img src="http://:/storage/placeholders/sample.jpg" alt="Eum et error reprehenderit quibusdam." class="w-full h-full object-cover" loading="lazy">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#021869]/80 to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                            <h3 class="text-xl md:text-2xl font-bold">Eum et error reprehenderit quibusdam.</h3>
+                                            <p class="text-sm md:text-base text-white/90 mt-2 line-clamp-2"></p>
+                                        </div>
+                                    </div>
+                                                                    <div class="w-full flex-shrink-0 relative aspect-video bg-zinc-100">
+                                        <img src="http://:/storage/placeholders/sample.jpg" alt="Qui nostrum recusandae." class="w-full h-full object-cover" loading="lazy">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#021869]/80 to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                            <h3 class="text-xl md:text-2xl font-bold">Qui nostrum recusandae.</h3>
+                                            <p class="text-sm md:text-base text-white/90 mt-2 line-clamp-2"></p>
+                                        </div>
+                                    </div>
+                                                                    <div class="w-full flex-shrink-0 relative aspect-video bg-zinc-100">
+                                        <img src="http://:/storage/placeholders/sample.jpg" alt="Quam qui corporis." class="w-full h-full object-cover" loading="lazy">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-[#021869]/80 to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                            <h3 class="text-xl md:text-2xl font-bold">Quam qui corporis.</h3>
+                                            <p class="text-sm md:text-base text-white/90 mt-2 line-clamp-2"></p>
+                                        </div>
+                                    </div>
+                                <!--[if ENDBLOCK]><![endif]-->
+                            </div>
+                        </div>
+
+                        <!-- controls -->
+                        <button @click.prevent="currentSlide = (currentSlide - 1 + totalSlides) % totalSlides" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white rounded-full p-3 shadow-lg">
+                            <svg class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        </button>
+                        <button @click.prevent="currentSlide = (currentSlide + 1) % totalSlides" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white rounded-full p-3 shadow-lg">
+                            <svg class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+                        </button>
+
+                        <!-- indicators -->
+                        <div class="flex justify-center mt-8 space-x-3">
+                            <template x-for="(_, i) in [...Array(totalSlides)]" :key="i">
+                                <button @click="currentSlide = i" class="w-3 h-3 md:w-4 md:h-4 rounded-full transition-transform duration-300"
+                                        :class="currentSlide === i ? 'bg-[#0ea5a4] scale-125' : 'bg-white/30 hover:bg-white/60'"></button>
+                            </template>
+                        </div>
+
+                        <div class="text-center mt-8">
+                            <a href="http://:/galeria#" class="inline-flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/30">Ver galería completa</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3) SECCIÓN BLANCA: SERVICIOS, CTA Y INSIGNIAS -->
+            <section class="relative py-20 bg-white text-zinc-800" data-aos="fade-up">
+                <div class="mx-auto max-w-7xl px-6">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <span class="inline-block py-1 px-3 bg-[#0ea5a4]/10 text-[#0ea5a4] rounded-full text-sm font-semibold mb-4">Soluciones de Seguridad Integrales</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-[#021869] mt-4">Somos IXXI TECNOLOGÍA</h2>
+                        <p class="mt-4 text-lg text-zinc-600">Experiencia en alta tecnología, inteligencia en campo y despliegue táctico diseñado para las necesidades de seguridad de tu negocio.</p>
+
+                        <div class="mt-8 flex flex-wrap gap-4 justify-center">
+                            <a href="#contacto" class="group rounded-full bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] px-6 py-3 text-white font-semibold shadow transition">Contáctanos</a>
+                            <a href="#servicios" class="rounded-full border border-zinc-200 px-6 py-3 text-zinc-700">Ver servicios</a>
+                        </div>
+
+                        <div class="mt-12 flex flex-wrap gap-4 justify-center">
+                            <div class="flex items-center bg-zinc-50 py-2 px-4 rounded-full border border-zinc-100">
+                                <svg class="h-5 w-5 text-[#0ea5a4]" fill="currentColor" viewBox="0 0 20 20"><path d="M6.267 3.455a3.066..."/></svg>
+                                <span class="ml-2 text-sm">Certificados</span>
+                            </div>
+                            <div class="flex items-center bg-zinc-50 py-2 px-4 rounded-full border border-zinc-100">
+                                <svg class="h-5 w-5 text-[#0ea5a4]" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <span class="ml-2 text-sm">Personal Capacitado</span>
+                            </div>
+                            <div class="flex items-center bg-zinc-50 py-2 px-4 rounded-full border border-zinc-100">
+                                <svg class="h-5 w-5 text-[#0ea5a4]" fill="currentColor" viewBox="0 0 20 20"><path d="M2.166 4.999..."/></svg>
+                                <span class="ml-2 text-sm">Respuesta Inmediata</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4) ESTADÍSTICAS (mantener estructura para futuros contadores) -->
+            <section class="py-20 bg-white relative overflow-hidden" data-aos="fade-up">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#021869]/5 to-[#0ea5a4]/5 opacity-30 -z-10"></div>
+                <div class="mx-auto max-w-7xl px-6 relative">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-[#021869]">Nuestra Experiencia en Números</h2>
+                        <div class="w-24 h-1 bg-[#0ea5a4] mx-auto mt-4 rounded-full"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
+                        <!-- Placeholder para contadores -->
+                        <div class="text-center">
+                            <div class="text-4xl font-extrabold text-[#021869]">+120</div>
+                            <div class="mt-2 text-sm text-zinc-600">Proyectos</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-extrabold text-[#021869]">+50</div>
+                            <div class="mt-2 text-sm text-zinc-600">Clientes</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-extrabold text-[#021869]">24/7</div>
+                            <div class="mt-2 text-sm text-zinc-600">Soporte</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-extrabold text-[#021869]">+10</div>
+                            <div class="mt-2 text-sm text-zinc-600">Años</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                        <!-- Botón de ver galería completa mejorado -->
+                <div class="text-center mt-10">
+                    <a href="http://:/galeria#" class="inline-flex items-center gap-2 text-white font-semibold transition-all duration-300 px-7 py-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 hover:border-white/50 group shadow-lg hover:shadow-xl">
+                        Ver galería completa
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1">
+                            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wave divider -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="w-full h-[70px] text-white">
+                <path fill="currentColor" fill-opacity="1" d="M0,224L80,213.3C160,203,320,181,480,181.3C640,181,800,203,960,213.3C1120,224,1280,224,1360,224L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>    <!-- Estadísticas con contadores y animaciones -->
+    <section class="py-20 bg-white relative overflow-hidden" data-aos="fade-up">
+        <!-- Fondo con efecto de patrón y gradiente -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#021869]/5 to-[#d9491e]/5 opacity-30 -z-10"></div>
+        <div class="absolute inset-0 bg-[url('/img/dot-pattern.svg')] opacity-10 -z-10"></div>
+
+        <div class="mx-auto max-w-7xl px-6 relative">
+            <!-- Título de sección -->
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-[#021869]">Nuestra Experiencia en Números</h2>
+                <div class="w-24 h-1 bg-[#d9491e] mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
+                <!-- Servicios con animación de contador -->
+                <div class="relative group" data-aos="zoom-in" data-aos-delay="100">
+                    <!-- Círculo decorativo con gradiente -->
+                    <div class="absolute -inset-1 bg-gradient-to-br from-[#021869] to-[#0b2252] rounded-lg opacity-70 blur group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-tilt"></div>
+
+                    <div class="relative p-6 bg-white rounded-lg shadow-lg border border-zinc-100 text-center transform transition-all duration-300 hover:-translate-y-2">
+                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#021869] to-[#0b2252] rounded-full flex items-center justify-center shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <div class="text-4xl lg:text-5xl font-bold text-[#021869]"
+                                 x-data="{ count: 0, target: 6 }"
+                                 x-init="() => {
+                                     let interval = setInterval(() => {
+                                         count = count + 1;
+                                         if(count >= target) {
+                                             count = target;
+                                             clearInterval(interval);
+                                         }
+                                     }, 50);
+                                 }"
+                                 x-text="count + '+'">0+</div>
+                            <p class="mt-3 text-zinc-600 font-medium">Servicios</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clientes satisfechos con animación de contador -->
+                <div class="relative group" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="absolute -inset-1 bg-gradient-to-br from-[#d9491e] to-[#e25a2f] rounded-lg opacity-70 blur group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-tilt"></div>
+
+                    <div class="relative p-6 bg-white rounded-lg shadow-lg border border-zinc-100 text-center transform transition-all duration-300 hover:-translate-y-2">
+                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#d9491e] to-[#e25a2f] rounded-full flex items-center justify-center shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905a3.61 3.61 0 01-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <div class="text-4xl lg:text-5xl font-bold text-[#d9491e]"
+                                 x-data="{ count: 0, target: 6 }"
+                                 x-init="() => {
+                                     let interval = setInterval(() => {
+                                         count = count + 1;
+                                         if(count >= target) {
+                                             count = target;
+                                             clearInterval(interval);
+                                         }
+                                     }, 40);
+                                 }"
+                                 x-text="count + '+'">0+</div>
+                            <p class="mt-3 text-zinc-600 font-medium">Clientes satisfechos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Años de experiencia con animación de contador -->
+                <div class="relative group" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="absolute -inset-1 bg-gradient-to-br from-[#021869] to-[#0b2252] rounded-lg opacity-70 blur group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-tilt"></div>
+
+                    <div class="relative p-6 bg-white rounded-lg shadow-lg border border-zinc-100 text-center transform transition-all duration-300 hover:-translate-y-2">
+                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#021869] to-[#0b2252] rounded-full flex items-center justify-center shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <div class="text-4xl lg:text-5xl font-bold text-[#021869]"
+                                 x-data="{ count: 0, target: 10 }"
+                                 x-init="() => {
+                                     let interval = setInterval(() => {
+                                         count = count + 1;
+                                         if(count >= target) {
+                                             count = target;
+                                             clearInterval(interval);
+                                         }
+                                     }, 200);
+                                 }"
+                                 x-text="count + '+'">0+</div>
+                            <p class="mt-3 text-zinc-600 font-medium">Años de experiencia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visitas con animación de contador -->
+                <div class="relative group" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="absolute -inset-1 bg-gradient-to-br from-[#d9491e] to-[#e25a2f] rounded-lg opacity-70 blur group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-tilt"></div>
+
+                    <div class="relative p-6 bg-white rounded-lg shadow-lg border border-zinc-100 text-center transform transition-all duration-300 hover:-translate-y-2">
+                        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#d9491e] to-[#e25a2f] rounded-full flex items-center justify-center shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <div class="text-4xl lg:text-5xl font-bold text-[#d9491e]"
+                                 x-data="{ count: 0, target: 0 }"
+                                 x-init="() => {
+                                     let interval = setInterval(() => {
+                                         count = Math.min(count + Math.ceil(target/20), target);
+                                         if(count >= target) {
+                                             count = target;
+                                             clearInterval(interval);
+                                         }
+                                     }, 30);
+                                 }"
+                                 x-text="count + '+'">0+</div>
+                            <p class="mt-3 text-zinc-600 font-medium">Visitas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Destacados -->
+    <section id="servicios-destacados" class="py-24 bg-gradient-to-b from-white to-zinc-50" data-aos="fade-up">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="inline-block text-4xl font-bold text-[#021869] relative after:content-[''] after:absolute after:-bottom-2 after:left-1/4 after:w-1/2 after:h-1 after:bg-[#d9491e] after:rounded-full">
+                    Servicios Destacados
+                </h2>
+                <p class="mt-6 text-lg text-zinc-600">Descubre nuestras soluciones más solicitadas para la seguridad y optimización de tu empresa</p>
+            </div>
+
+            <div class="mt-16">
+                <!--[if BLOCK]><![endif]-->                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!--[if BLOCK]><![endif]-->                            <div class="hover-float" data-aos="fade-up" data-aos-delay="100">
+                                <div class="relative group rounded-2xl bg-white border border-zinc-200 p-8 shadow-md overflow-hidden h-full flex flex-col">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <div class="text-5xl text-[#d9491e] transition-transform duration-300 group-hover:scale-110 mb-5">🛡️</div>
+                                    <h3 class="text-2xl font-bold text-[#021869] mb-3">Temporibus commodi tenetur.</h3>
+                                    <p class="text-zinc-600 flex-1">Nesciunt earum veniam et porro quae nesciunt.</p>
+                                    <div class="mt-6">
+                                        <a href="http://:/servicios/temporibus-commodi-tenetur#" class="inline-flex items-center text-[#d9491e] font-medium group">
+                                            <span class="relative">Ver detalles</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="hover-float" data-aos="fade-up" data-aos-delay="200">
+                                <div class="relative group rounded-2xl bg-white border border-zinc-200 p-8 shadow-md overflow-hidden h-full flex flex-col">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <div class="text-5xl text-[#d9491e] transition-transform duration-300 group-hover:scale-110 mb-5">🛡️</div>
+                                    <h3 class="text-2xl font-bold text-[#021869] mb-3">Ut qui omnis dolorum et.</h3>
+                                    <p class="text-zinc-600 flex-1">Nam facilis sapiente perferendis cumque distinctio delectus aut quasi delectus amet.</p>
+                                    <div class="mt-6">
+                                        <a href="http://:/servicios/ut-qui-omnis-dolorum-et#" class="inline-flex items-center text-[#d9491e] font-medium group">
+                                            <span class="relative">Ver detalles</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <div class="hover-float" data-aos="fade-up" data-aos-delay="300">
+                                <div class="relative group rounded-2xl bg-white border border-zinc-200 p-8 shadow-md overflow-hidden h-full flex flex-col">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <div class="text-5xl text-[#d9491e] transition-transform duration-300 group-hover:scale-110 mb-5">🛡️</div>
+                                    <h3 class="text-2xl font-bold text-[#021869] mb-3">Ducimus repudiandae dignissimos.</h3>
+                                    <p class="text-zinc-600 flex-1">Sunt id expedita aperiam nemo iusto nam soluta.</p>
+                                    <div class="mt-6">
+                                        <a href="http://:/servicios/ducimus-repudiandae-dignissimos#" class="inline-flex items-center text-[#d9491e] font-medium group">
+                                            <span class="relative">Ver detalles</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--[if ENDBLOCK]><![endif]-->
+                    </div>
+                <!--[if ENDBLOCK]><![endif]-->
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Principales -->
+    <section id="servicios" class="mx-auto max-w-7xl px-6 py-24" data-aos="fade-up">
+        <h2 class="text-4xl font-bold text-[#021869] relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/3 after:h-1 after:bg-[#d9491e] after:rounded-full">
+            Todos Nuestros Servicios
+        </h2>
+        <p class="mt-4 max-w-2xl text-lg text-zinc-600">Alta tecnología e inteligencia en campo. Diseñados para proteger y optimizar.</p>
+
+        <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <!--[if BLOCK]><![endif]-->                <div class="fade-up-trigger" data-aos="fade-up" data-aos-delay="150">
+                    <a href="http://:/servicios/temporibus-commodi-tenetur#" class="group block rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="text-4xl text-[#d9491e] transition-transform duration-500 group-hover:scale-110">🛡️</div>
+                        <h3 class="mt-5 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">Temporibus commodi tenetur.</h3>
+                        <p class="mt-3 text-zinc-600">Nesciunt earum veniam et porro quae nesciunt.</p>
+                        <div class="mt-6 flex items-center text-[#d9491e] font-medium opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                            <span>Más información</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                            <div class="fade-up-trigger" data-aos="fade-up" data-aos-delay="200">
+                    <a href="http://:/servicios/ut-qui-omnis-dolorum-et#" class="group block rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="text-4xl text-[#d9491e] transition-transform duration-500 group-hover:scale-110">🛡️</div>
+                        <h3 class="mt-5 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">Ut qui omnis dolorum et.</h3>
+                        <p class="mt-3 text-zinc-600">Nam facilis sapiente perferendis cumque distinctio delectus aut quasi delectus amet.</p>
+                        <div class="mt-6 flex items-center text-[#d9491e] font-medium opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                            <span>Más información</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                            <div class="fade-up-trigger" data-aos="fade-up" data-aos-delay="250">
+                    <a href="http://:/servicios/ducimus-repudiandae-dignissimos#" class="group block rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="text-4xl text-[#d9491e] transition-transform duration-500 group-hover:scale-110">🛡️</div>
+                        <h3 class="mt-5 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">Ducimus repudiandae dignissimos.</h3>
+                        <p class="mt-3 text-zinc-600">Sunt id expedita aperiam nemo iusto nam soluta.</p>
+                        <div class="mt-6 flex items-center text-[#d9491e] font-medium opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                            <span>Más información</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                            <div class="fade-up-trigger" data-aos="fade-up" data-aos-delay="300">
+                    <a href="http://:/servicios/ex-dolorem-rerum#" class="group block rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="text-4xl text-[#d9491e] transition-transform duration-500 group-hover:scale-110">🛡️</div>
+                        <h3 class="mt-5 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">Ex dolorem rerum.</h3>
+                        <p class="mt-3 text-zinc-600">Voluptatem aperiam consequatur officiis eaque voluptas nesciunt voluptatem architecto quibusdam cupiditate quisquam quas similique.</p>
+                        <div class="mt-6 flex items-center text-[#d9491e] font-medium opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                            <span>Más información</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                            <div class="fade-up-trigger" data-aos="fade-up" data-aos-delay="350">
+                    <a href="http://:/servicios/vero-est-voluptatem-praesentium#" class="group block rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="text-4xl text-[#d9491e] transition-transform duration-500 group-hover:scale-110">🛡️</div>
+                        <h3 class="mt-5 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">Vero est voluptatem praesentium.</h3>
+                        <p class="mt-3 text-zinc-600">Voluptas nulla et accusamus eum quas adipisci minus aliquid a cupiditate illum.</p>
+                        <div class="mt-6 flex items-center text-[#d9491e] font-medium opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                            <span>Más información</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                            <div class="fade-up-trigger" data-aos="fade-up" data-aos-delay="400">
+                    <a href="http://:/servicios/debitis-maxime-est#" class="group block rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="text-4xl text-[#d9491e] transition-transform duration-500 group-hover:scale-110">🛡️</div>
+                        <h3 class="mt-5 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">Debitis maxime est.</h3>
+                        <p class="mt-3 text-zinc-600">Voluptatem ea accusamus consequatur dolores quia dolorem eaque autem ullam amet quam.</p>
+                        <div class="mt-6 flex items-center text-[#d9491e] font-medium opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                            <span>Más información</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            <!--[if ENDBLOCK]><![endif]-->
+        </div>
+    </section>
+
+    <!-- Carrusel de Testimonios -->
+    <section class="py-24 bg-gradient-to-b from-zinc-50 to-white" data-aos="fade-up">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between">
+                <div>
+                    <h2 class="text-4xl font-bold text-[#021869] relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/3 after:h-1 after:bg-[#d9491e] after:rounded-full">
+                        Testimonios
+                    </h2>
+                    <p class="mt-4 max-w-2xl text-lg text-zinc-600">Lo que nuestros clientes dicen sobre nuestros servicios</p>
+                </div>
+                <a href="http://:/testimonios#" class="mt-4 md:mt-0 inline-flex items-center group text-[#d9491e] font-medium hover:text-[#c03f19] transition-all duration-300 btn-shine">
+                    <span>Ver todos los testimonios</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Carrusel de Testimonios con Scroll Horizontal y Autoplay -->
+            <div class="mt-12 relative" x-data="{ activeSlide: 0, totalSlides: 5 }" x-init="
+                setInterval(() => {
+                    activeSlide = (activeSlide + 1) % totalSlides;
+                }, 5000);
+            ">
+                <div class="overflow-x-auto pb-8 hide-scrollbar snap-x snap-mandatory flex space-x-6">
+                    <!--[if BLOCK]><![endif]-->                        <div class="snap-start w-full sm:w-[calc(100%/2-12px)] lg:w-[calc(100%/3-16px)] shrink-0"
+                            data-aos="fade-up"
+                            data-aos-delay="400">
+
+                            <blockquote class="h-full rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 hover-float">
+                                <div class="flex mb-5">
+                                    <!--[if BLOCK]><![endif]-->                                        <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    <!--[if ENDBLOCK]><![endif]-->
+                                </div>
+                                <p class="text-lg text-zinc-700 italic leading-relaxed">
+                                    "Architecto recusandae est ut sit. Unde omnis quia aliquid ipsum voluptas eligendi fuga occaecati. Et voluptatem fugiat vitae non."
+                                </p>
+                                <div class="mt-6 pt-6 border-t border-zinc-200 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-[#021869] to-[#0b2252] flex items-center justify-center text-white font-bold">
+                                        J
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-semibold text-zinc-900">Janae Mitchell</div>
+                                        <!--[if BLOCK]><![endif]-->                                            <div class="text-sm text-zinc-500">Langosh LLC</div>
+                                        <!--[if ENDBLOCK]><![endif]-->
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                                            <div class="snap-start w-full sm:w-[calc(100%/2-12px)] lg:w-[calc(100%/3-16px)] shrink-0"
+                            data-aos="fade-up"
+                            data-aos-delay="500">
+
+                            <blockquote class="h-full rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 hover-float">
+                                <div class="flex mb-5">
+                                    <!--[if BLOCK]><![endif]-->                                        <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    <!--[if ENDBLOCK]><![endif]-->
+                                </div>
+                                <p class="text-lg text-zinc-700 italic leading-relaxed">
+                                    "Iure enim accusantium quia eum. Illo fugit aliquid ad est voluptatum in. Incidunt atque qui sequi fuga."
+                                </p>
+                                <div class="mt-6 pt-6 border-t border-zinc-200 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-[#021869] to-[#0b2252] flex items-center justify-center text-white font-bold">
+                                        M
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-semibold text-zinc-900">Marie Pfannerstill</div>
+                                        <!--[if BLOCK]><![endif]-->                                            <div class="text-sm text-zinc-500">Cummerata Group</div>
+                                        <!--[if ENDBLOCK]><![endif]-->
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                                            <div class="snap-start w-full sm:w-[calc(100%/2-12px)] lg:w-[calc(100%/3-16px)] shrink-0"
+                            data-aos="fade-up"
+                            data-aos-delay="600">
+
+                            <blockquote class="h-full rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 hover-float">
+                                <div class="flex mb-5">
+                                    <!--[if BLOCK]><![endif]-->                                        <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    <!--[if ENDBLOCK]><![endif]-->
+                                </div>
+                                <p class="text-lg text-zinc-700 italic leading-relaxed">
+                                    "Est cum excepturi nemo et culpa minima minima. Provident consequuntur quis vitae et asperiores. Accusamus est impedit hic ut sit."
+                                </p>
+                                <div class="mt-6 pt-6 border-t border-zinc-200 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-[#021869] to-[#0b2252] flex items-center justify-center text-white font-bold">
+                                        M
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-semibold text-zinc-900">Mose Jerde</div>
+                                        <!--[if BLOCK]><![endif]-->                                            <div class="text-sm text-zinc-500">Parisian-Koelpin</div>
+                                        <!--[if ENDBLOCK]><![endif]-->
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                                            <div class="snap-start w-full sm:w-[calc(100%/2-12px)] lg:w-[calc(100%/3-16px)] shrink-0"
+                            data-aos="fade-up"
+                            data-aos-delay="700">
+
+                            <blockquote class="h-full rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 hover-float">
+                                <div class="flex mb-5">
+                                    <!--[if BLOCK]><![endif]-->                                        <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    <!--[if ENDBLOCK]><![endif]-->
+                                </div>
+                                <p class="text-lg text-zinc-700 italic leading-relaxed">
+                                    "Totam temporibus sunt aliquam quas recusandae magni numquam et. Eveniet unde explicabo voluptatem dolor nihil et autem sapiente. Delectus quia quas fu..."
+                                </p>
+                                <div class="mt-6 pt-6 border-t border-zinc-200 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-[#021869] to-[#0b2252] flex items-center justify-center text-white font-bold">
+                                        E
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-semibold text-zinc-900">Edd Bogan</div>
+                                        <!--[if BLOCK]><![endif]-->                                            <div class="text-sm text-zinc-500">Murazik-Douglas</div>
+                                        <!--[if ENDBLOCK]><![endif]-->
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                                            <div class="snap-start w-full sm:w-[calc(100%/2-12px)] lg:w-[calc(100%/3-16px)] shrink-0"
+                            data-aos="fade-up"
+                            data-aos-delay="800">
+
+                            <blockquote class="h-full rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 hover-float">
+                                <div class="flex mb-5">
+                                    <!--[if BLOCK]><![endif]-->                                        <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    <!--[if ENDBLOCK]><![endif]-->
+                                </div>
+                                <p class="text-lg text-zinc-700 italic leading-relaxed">
+                                    "Qui quis placeat id quas sapiente eos. Doloribus mollitia quae aliquam laudantium voluptatem est quo. Id excepturi aut quae architecto aut et laudanti..."
+                                </p>
+                                <div class="mt-6 pt-6 border-t border-zinc-200 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-[#021869] to-[#0b2252] flex items-center justify-center text-white font-bold">
+                                        K
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-semibold text-zinc-900">Khalil Blick DVM</div>
+                                        <!--[if BLOCK]><![endif]-->                                            <div class="text-sm text-zinc-500">Hegmann, Anderson and Goyette</div>
+                                        <!--[if ENDBLOCK]><![endif]-->
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                                            <div class="snap-start w-full sm:w-[calc(100%/2-12px)] lg:w-[calc(100%/3-16px)] shrink-0"
+                            data-aos="fade-up"
+                            data-aos-delay="900">
+
+                            <blockquote class="h-full rounded-2xl border border-zinc-200 bg-white p-8 shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2 hover-float">
+                                <div class="flex mb-5">
+                                    <!--[if BLOCK]><![endif]-->                                        <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    <!--[if ENDBLOCK]><![endif]-->
+                                </div>
+                                <p class="text-lg text-zinc-700 italic leading-relaxed">
+                                    "Natus exercitationem quo voluptatem doloremque unde ut facere. Perspiciatis qui aut sint repudiandae et aut. Est quam sint consequatur numquam molesti..."
+                                </p>
+                                <div class="mt-6 pt-6 border-t border-zinc-200 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-[#021869] to-[#0b2252] flex items-center justify-center text-white font-bold">
+                                        H
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="font-semibold text-zinc-900">Henri Kling</div>
+                                        <!--[if BLOCK]><![endif]-->                                            <div class="text-sm text-zinc-500">Carroll-Pacocha</div>
+                                        <!--[if ENDBLOCK]><![endif]-->
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                    <!--[if ENDBLOCK]><![endif]-->
+                </div>
+
+                <!-- Indicador de scroll horizontal con animación -->
+                <div class="mt-8 flex justify-center space-x-2">
+                    <!--[if BLOCK]><![endif]-->                        <button
+                            @click="activeSlide = 0"
+                            class="h-3 w-3 rounded-full transition-all duration-300"
+                            :class="activeSlide === 0 ? 'bg-[#d9491e] scale-125' : 'bg-zinc-300 hover:bg-zinc-400'">
+                        </button>
+                                            <button
+                            @click="activeSlide = 1"
+                            class="h-3 w-3 rounded-full transition-all duration-300"
+                            :class="activeSlide === 1 ? 'bg-[#d9491e] scale-125' : 'bg-zinc-300 hover:bg-zinc-400'">
+                        </button>
+                                            <button
+                            @click="activeSlide = 2"
+                            class="h-3 w-3 rounded-full transition-all duration-300"
+                            :class="activeSlide === 2 ? 'bg-[#d9491e] scale-125' : 'bg-zinc-300 hover:bg-zinc-400'">
+                        </button>
+                                            <button
+                            @click="activeSlide = 3"
+                            class="h-3 w-3 rounded-full transition-all duration-300"
+                            :class="activeSlide === 3 ? 'bg-[#d9491e] scale-125' : 'bg-zinc-300 hover:bg-zinc-400'">
+                        </button>
+                                            <button
+                            @click="activeSlide = 4"
+                            class="h-3 w-3 rounded-full transition-all duration-300"
+                            :class="activeSlide === 4 ? 'bg-[#d9491e] scale-125' : 'bg-zinc-300 hover:bg-zinc-400'">
+                        </button>
+                    <!--[if ENDBLOCK]><![endif]-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenido más reciente con animación -->
+    <section class="mx-auto max-w-7xl px-6 py-24" data-aos="fade-up" data-aos-delay="100">
+        <h2 class="text-4xl font-bold text-[#021869] relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/3 after:h-1 after:bg-[#d9491e] after:rounded-full">
+            Contenido más reciente
+        </h2>
+        <p class="mt-4 max-w-2xl text-lg text-zinc-600">Actualizaciones, noticias y recursos del sector</p>
+
+        <div class="mt-12">
+            <!--[if BLOCK]><![endif]-->                <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                    <!--[if BLOCK]><![endif]-->                        <div data-aos="fade-up" data-aos-delay="300">
+                            <a href="http://:/blog/maxime-inventore-et-ut-eos-est-eos#" class="group block rounded-2xl bg-white overflow-hidden shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
+                                <!--[if BLOCK]><![endif]-->                                    <div class="h-52 overflow-hidden">
+                                        <img class="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                                             src="http://:/storage/placeholders/post.jpg"
+                                             alt="Maxime inventore et ut eos est eos.">
+                                    </div>
+                                <!--[if ENDBLOCK]><![endif]-->
+                                <div class="p-6 border border-t-0 border-zinc-200 rounded-b-2xl">
+                                    <div class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-[#021869]">
+                                        articulo
+                                    </div>
+                                    <h3 class="mt-4 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">
+                                        Maxime inventore et ut eos est eos.
+                                    </h3>
+                                    <p class="mt-2 text-zinc-600 line-clamp-2">
+                                        Reiciendis accusantium quod nam hic quis dolorum quod ea minus fugiat dolores libero quis voluptatem autem repudiandae ab aut libero in.
+                                    </p>
+                                    <div class="mt-6 flex items-center text-[#d9491e] font-medium transition-all duration-300 group-hover:translate-x-1">
+                                        <span>Leer artículo</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                            <div data-aos="fade-up" data-aos-delay="450">
+                            <a href="http://:/blog/sunt-eveniet-ipsum-id-qui-sunt-cumque#" class="group block rounded-2xl bg-white overflow-hidden shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
+                                <!--[if BLOCK]><![endif]-->                                    <div class="h-52 overflow-hidden">
+                                        <img class="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                                             src="http://:/storage/placeholders/post.jpg"
+                                             alt="Sunt eveniet ipsum id qui sunt cumque.">
+                                    </div>
+                                <!--[if ENDBLOCK]><![endif]-->
+                                <div class="p-6 border border-t-0 border-zinc-200 rounded-b-2xl">
+                                    <div class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-[#021869]">
+                                        articulo
+                                    </div>
+                                    <h3 class="mt-4 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">
+                                        Sunt eveniet ipsum id qui sunt cumque.
+                                    </h3>
+                                    <p class="mt-2 text-zinc-600 line-clamp-2">
+                                        Omnis qui est repellendus qui eius aut fugiat quisquam fugit quo necessitatibus tempora numquam et voluptatem dolorem nobis assumenda quod ut non minima minima cum.
+                                    </p>
+                                    <div class="mt-6 flex items-center text-[#d9491e] font-medium transition-all duration-300 group-hover:translate-x-1">
+                                        <span>Leer artículo</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                            <div data-aos="fade-up" data-aos-delay="600">
+                            <a href="http://:/blog/error-corporis-exercitationem-ut-quidem#" class="group block rounded-2xl bg-white overflow-hidden shadow-md transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
+                                <!--[if BLOCK]><![endif]-->                                    <div class="h-52 overflow-hidden">
+                                        <img class="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                                             src="http://:/storage/placeholders/post.jpg"
+                                             alt="Error corporis exercitationem ut quidem.">
+                                    </div>
+                                <!--[if ENDBLOCK]><![endif]-->
+                                <div class="p-6 border border-t-0 border-zinc-200 rounded-b-2xl">
+                                    <div class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-[#021869]">
+                                        articulo
+                                    </div>
+                                    <h3 class="mt-4 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">
+                                        Error corporis exercitationem ut quidem.
+                                    </h3>
+                                    <p class="mt-2 text-zinc-600 line-clamp-2">
+                                        Quidem saepe iure eius dolor minus at quos repudiandae voluptas ut mollitia esse aperiam laborum odit necessitatibus unde similique voluptates.
+                                    </p>
+                                    <div class="mt-6 flex items-center text-[#d9491e] font-medium transition-all duration-300 group-hover:translate-x-1">
+                                        <span>Leer artículo</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <!--[if ENDBLOCK]><![endif]-->
+                </div>
+            <!--[if ENDBLOCK]><![endif]-->
+        </div>
+    </section>
+
+    <!-- Sección de Contacto con Efecto Parallax y Diseño Moderno -->
+    <section id="contacto" class="relative py-24 overflow-hidden" data-aos="fade-up">
+        <!-- Elementos decorativos de fondo con animación -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-20 right-0 w-96 h-96 bg-[#021869]/10 rounded-full filter blur-3xl animate-blob animation-delay-4000"></div>
+            <div class="absolute bottom-10 left-20 w-80 h-80 bg-[#d9491e]/5 rounded-full filter blur-3xl animate-blob"></div>
+        </div>
+
+        <div class="mx-auto max-w-7xl px-6 relative">
+            <div class="text-center mb-16" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="text-4xl font-bold text-[#021869] relative inline-block mx-auto after:content-[''] after:absolute after:-bottom-2 after:left-1/4 after:w-1/2 after:h-1 after:bg-[#d9491e] after:rounded-full">
+                    Contáctanos
+                </h2>
+                <p class="mt-6 max-w-2xl text-lg text-zinc-600 mx-auto">Estamos listos para ayudarte a implementar soluciones personalizadas de seguridad para tu negocio</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <!-- Formulario de contacto con diseño mejorado -->
+                <div class="lg:col-span-3 relative" data-aos="fade-right" data-aos-delay="200">
+                    <div class="bg-white rounded-2xl shadow-xl border border-zinc-100 overflow-hidden hover-float backdrop-blur-sm relative z-10 transform transition-all duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#021869]/5 to-[#021869]/0 opacity-30 rounded-2xl"></div>
+                        <div class="p-8 lg:p-10">
+                            <form wire:snapshot="{&quot;data&quot;:{&quot;name&quot;:&quot;&quot;,&quot;email&quot;:&quot;&quot;,&quot;phone&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;submitted&quot;:false},&quot;memo&quot;:{&quot;id&quot;:&quot;lKtMkaA5EdmkY48MaJnG&quot;,&quot;name&quot;:&quot;contact-form&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;},&quot;checksum&quot;:&quot;690fbca3d5ad74d72bfaa9b2ed4490d78f2de1eec25fd0e3aa0787e073c9e05a&quot;}" wire:effects="[]" wire:id="lKtMkaA5EdmkY48MaJnG" wire:submit="submit" class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div class="md:col-span-1">
+        <label class="block text-sm font-medium text-zinc-700">Nombre</label>
+        <input type="text" wire:model.live="name" class="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#021869]" />
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    </div>
+    <div class="md:col-span-1">
+        <label class="block text-sm font-medium text-zinc-700">Correo</label>
+        <input type="email" wire:model.live="email" class="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#021869]" />
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    </div>
+    <div class="md:col-span-1">
+        <label class="block text-sm font-medium text-zinc-700">Teléfono</label>
+        <input type="text" wire:model.live="phone" class="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#021869]" />
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    </div>
+    <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-zinc-700">Mensaje</label>
+        <textarea wire:model.live="message" rows="4" class="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#021869]"></textarea>
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    </div>
+    <div class="md:col-span-2">
+        <button type="submit" class="inline-flex items-center rounded-md bg-[#021869] px-5 py-2.5 font-semibold text-white hover:bg-[#0a268b]">Enviar</button>
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    </div>
+</form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjetas de información de contacto con diseño moderno -->
+                <div class="lg:col-span-2" data-aos="fade-left" data-aos-delay="300">
+                    <!-- Tarjetas de información con animaciones y efectos hover -->
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-r from-[#021869] to-[#0b2252] p-1 rounded-2xl hover-float group">
+                            <div class="bg-white rounded-xl p-6 h-full transform transition duration-500 group-hover:bg-opacity-95">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#021869]/10 flex items-center justify-center text-[#021869] group-hover:bg-[#021869] group-hover:text-white transition-all duration-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-5">
+                                        <h3 class="text-lg font-semibold text-[#021869]">Llámanos</h3>
+                                        <p class="mt-1 text-zinc-600 text-lg">+52 999 123 4567</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-[#d9491e] to-[#e25a2f] p-1 rounded-2xl hover-float group">
+                            <div class="bg-white rounded-xl p-6 h-full transform transition duration-500 group-hover:bg-opacity-95">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#d9491e]/10 flex items-center justify-center text-[#d9491e] group-hover:bg-[#d9491e] group-hover:text-white transition-all duration-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-5">
+                                        <h3 class="text-lg font-semibold text-[#021869]">Escríbenos</h3>
+                                        <p class="mt-1 text-zinc-600 text-lg">contacto@ixxitecnologia.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-[#0a1f4c] to-[#021869] p-1 rounded-2xl hover-float group">
+                            <div class="bg-white rounded-xl p-6 h-full transform transition duration-500 group-hover:bg-opacity-95">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#021869]/10 flex items-center justify-center text-[#021869] group-hover:bg-[#021869] group-hover:text-white transition-all duration-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-5">
+                                        <h3 class="text-lg font-semibold text-[#021869]">Visítanos</h3>
+                                        <p class="mt-1 text-zinc-600 text-lg">Mérida, Yucatán, México</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Horarios de Atención -->
+                        <div class="bg-gradient-to-r from-[#021869] to-[#0b2252] p-1 rounded-2xl hover-float group">
+                            <div class="bg-white rounded-xl p-6 h-full transform transition duration-500 group-hover:bg-opacity-95">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#021869]/10 flex items-center justify-center text-[#021869] group-hover:bg-[#021869] group-hover:text-white transition-all duration-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-5">
+                                        <h3 class="text-lg font-semibold text-[#021869]">Horario de Atención</h3>
+                                        <p class="mt-1 text-zinc-600">Lunes a Viernes: 9AM - 6PM</p>
+                                        <p class="text-zinc-600">Sábados: 9AM - 2PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Redes Sociales -->
+            <div class="mt-16 flex justify-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="flex items-center space-x-6">
+                    
+                    <!--[if BLOCK]><![endif]-->                    <a href="https://facebook.com/ixxitecnologia" target="_blank" class="group">
+                        <div class="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center text-[#021869] group-hover:bg-[#021869] group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </div>
+                    </a>
+                    <!--[if ENDBLOCK]><![endif]-->
+
+                    <!--[if BLOCK]><![endif]-->                    <a href="https://instagram.com/ixxitecnologia" target="_blank" class="group">
+                        <div class="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center text-[#021869] group-hover:bg-[#021869] group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </div>
+                    </a>
+                    <!--[if ENDBLOCK]><![endif]-->
+
+                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+
+                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estilos personalizados -->
+    <style>
+        /* Animaciones de blob para el fondo */
+        @keyframes blob {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(20px, -20px) scale(1.05);
+            }
+            50% {
+                transform: translate(0, 20px) scale(0.95);
+            }
+            75% {
+                transform: translate(-20px, -15px) scale(1.05);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 20s infinite;
+        }
+
+        /* Animación de rotación lenta */
+        @keyframes spin-slow {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 15s linear infinite;
+        }
+
+        /* Animación de brillo para botones */
+        @keyframes shine {
+            from {
+                left: -100%;
+            }
+            to {
+                left: 200%;
+            }
+        }
+
+        .animate-shine {
+            animation: shine 1.5s linear;
+        }
+
+        /* Animación de inclinación sutil */
+        @keyframes tilt {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(1deg);
+            }
+            75% {
+                transform: rotate(-1deg);
+            }
+        }
+
+        .animate-tilt {
+            animation: tilt 10s infinite linear;
+        }
+
+        /* Escalas y transiciones adicionales */
+        .scale-98 {
+            transform: scale(0.98);
+        }
+
+        .hover-float {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-float:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Efecto de brillo en botones */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-shine:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 45%;
+            height: 100%;
+            left: -100%;
+            transform: skewX(-20deg);
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 1s;
+        }
+
+        /* Delays de animación */
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        /* Ocultar scrollbar pero permitir scroll */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Ocultar contenido hasta que Alpine.js lo cargue */
+        [x-cloak] { display: none !important; }
+    </style>
+</div>
+</div>

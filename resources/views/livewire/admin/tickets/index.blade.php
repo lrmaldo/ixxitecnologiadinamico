@@ -6,7 +6,7 @@
             <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Gestión de solicitudes de soporte.</p>
         </div>
         <div class="flex items-center gap-3">
-            <a href="{{ route('admin.tickets.create') }}" class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-tr from-[#d9491e] to-[#e25a2f] hover:from-[#d9491e]/90 hover:to-[#e25a2f]/90 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition">
+            <a href="{{ route('admin.tickets.create') }}" class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-tr from-[#0ea5a4] to-[#14b8a6] hover:from-[#0ea5a4]/90 hover:to-[#14b8a6]/90 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition">
                 <flux:icon name="plus" class="h-4 w-4" /> Nuevo ticket
             </a>
         </div>
@@ -17,7 +17,7 @@
         <div class="flex-1 min-w-[220px]">
             <label class="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Buscar</label>
             <div class="mt-1 relative">
-                <input type="text" wire:model.live.debounce.350ms="q" placeholder="Título o descripción..." class="w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#d9491e] focus:ring-2 focus:ring-[#d9491e]/30" />
+                <input type="text" wire:model.live.debounce.350ms="q" placeholder="Título o descripción..." class="w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#0ea5a4] focus:ring-2 focus:ring-[#0ea5a4]/30" />
                 @if($q !== '')
                     <button type="button" wire:click="$set('q','')" class="absolute inset-y-0 right-2 flex items-center text-zinc-400 hover:text-zinc-600 text-xs">✕</button>
                 @endif
@@ -25,7 +25,7 @@
         </div>
         <div class="min-w-[180px]">
             <label class="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Cliente</label>
-            <select wire:model.live="cliente" class="mt-1 w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#d9491e] focus:ring-2 focus:ring-[#d9491e]/30">
+            <select wire:model.live="cliente" class="mt-1 w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#0ea5a4] focus:ring-2 focus:ring-[#0ea5a4]/30">
                 <option value="">Todos</option>
                 @foreach($clientes as $c)
                     <option value="{{ $c->id }}">{{ $c->nombre }}</option>
@@ -34,7 +34,7 @@
         </div>
         <div class="min-w-[160px]">
             <label class="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Estado</label>
-            <select wire:model.live="estado" class="mt-1 w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#d9491e] focus:ring-2 focus:ring-[#d9491e]/30">
+            <select wire:model.live="estado" class="mt-1 w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#0ea5a4] focus:ring-2 focus:ring-[#0ea5a4]/30">
                 <option value="">Todos</option>
                 @foreach($estados as $e)
                     <option value="{{ $e }}" class="capitalize">{{ str_replace('_',' ', $e) }}</option>
@@ -43,7 +43,7 @@
         </div>
         <div class="min-w-[160px]">
             <label class="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Prioridad</label>
-            <select wire:model.live="prioridad" class="mt-1 w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#d9491e] focus:ring-2 focus:ring-[#d9491e]/30">
+            <select wire:model.live="prioridad" class="mt-1 w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#0ea5a4] focus:ring-2 focus:ring-[#0ea5a4]/30">
                 <option value="">Todas</option>
                 @foreach($prioridades as $p)
                     <option value="{{ $p }}" class="capitalize">{{ $p }}</option>
@@ -52,7 +52,7 @@
         </div>
         <div class="min-w-[120px]">
             <label class="text-[11px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Mostrar</label>
-            <select wire:model.live="perPage" class="mt-1 w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#d9491e] focus:ring-2 focus:ring-[#d9491e]/30">
+            <select wire:model.live="perPage" class="mt-1 w-full rounded-xl border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-950/40 px-3 py-2.5 text-sm focus:border-[#0ea5a4] focus:ring-2 focus:ring-[#0ea5a4]/30">
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
@@ -84,7 +84,7 @@
                 @forelse($tickets as $t)
                     <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition">
                         <td class="px-4 py-3 align-top">
-                            <a href="{{ route('admin.tickets.show', $t->id) }}" class="font-medium text-zinc-800 dark:text-zinc-100 hover:text-[#d9491e] line-clamp-2">{{ $t->titulo }}</a>
+                            <a href="{{ route('admin.tickets.show', $t->id) }}" class="font-medium text-zinc-800 dark:text-zinc-100 hover:text-[#0ea5a4] line-clamp-2">{{ $t->titulo }}</a>
                             <div class="mt-1 text-[11px] text-zinc-500 dark:text-zinc-400 line-clamp-2">{{ Str::limit($t->descripcion, 110) }}</div>
                         </td>
                         <td class="px-4 py-3 align-top">

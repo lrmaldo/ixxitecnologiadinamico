@@ -18,8 +18,8 @@
         <!-- Elementos decorativos del fondo con animaciones mejoradas -->
         <div class="fixed top-0 -left-64 w-96 h-96 bg-[#021869]/5 rounded-full blur-3xl -z-10 animate-blob"></div>
         <div class="fixed -top-20 right-20 w-72 h-72 bg-[#021869]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-2000"></div>
-        <div class="fixed bottom-0 -right-64 w-96 h-96 bg-[#d9491e]/5 rounded-full blur-3xl -z-10 animate-blob animation-delay-4000"></div>
-        <div class="fixed left-40 bottom-20 w-72 h-72 bg-[#d9491e]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-6000"></div>
+        <div class="fixed bottom-0 -right-64 w-96 h-96 bg-[#0ea5a4]/5 rounded-full blur-3xl -z-10 animate-blob animation-delay-4000"></div>
+        <div class="fixed left-40 bottom-20 w-72 h-72 bg-[#0ea5a4]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-6000"></div>
 
         <header class="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-500"
                 x-data="{ mobileMenuOpen: false, scrolled: false }"
@@ -34,7 +34,7 @@
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
                     <x-app-logo size="lg" class="transition-all duration-300 group-hover:scale-105" />
                     <div class="flex flex-col">
-                        <span class="font-black text-[#021869] dark:text-white text-xl tracking-tight leading-none relative after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-[#d9491e] after:transition-all after:duration-500 group-hover:after:w-full">
+                        <span class="font-black text-[#021869] dark:text-white text-xl tracking-tight leading-none relative after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-[#0ea5a4] after:transition-all after:duration-500 group-hover:after:w-full">
                             IXXI TECNOLOGÍA
                         </span>
                         <span class="text-xs text-zinc-500 dark:text-zinc-400 font-medium tracking-wide">Seguridad & Tecnología</span>
@@ -45,7 +45,7 @@
                 <nav class="hidden lg:flex items-center gap-10">
                     <a href="{{ route('home') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Inicio</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <div class="relative group">
                         <a href="#servicios" class="flex items-center gap-1 py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
@@ -53,47 +53,47 @@
                             <svg class="h-4 w-4 transition-transform duration-300 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
-                            <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                            <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                         </a>
                     </div>
                     <a href="{{ route('gallery.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Galería</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <a href="{{ route('blog.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Blog</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <a href="{{ route('testimonials.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Testimonios</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <a href="{{ route('support.ticket.create') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Soporte</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <a href="#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Contacto</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                 </nav>
 
                 <!-- Botón CTA y menú móvil -->
                 <div class="flex items-center gap-4">
                     <!-- Botón CTA mejorado -->
-                    <a href="#contacto" class="hidden sm:flex group relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#d9491e] to-[#e25a2f] px-6 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#d9491e]/30 hover:-translate-y-0.5 active:scale-95 btn-shine">
+                    <a href="#contacto" class="hidden sm:flex group relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] px-6 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#0ea5a4]/30 hover:-translate-y-0.5 active:scale-95 btn-shine">
                         <span class="relative z-10 flex items-center gap-2">
                             <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
-                            Cotizar Ahora
+                            Contáctanos
                         </span>
-                        <span class="absolute inset-0 bg-gradient-to-r from-[#e25a2f] to-[#d9491e] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-[#14b8a6] to-[#0ea5a4] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
                     </a>
 
                     <!-- Botón de menú móvil mejorado -->
                     <button @click="mobileMenuOpen = !mobileMenuOpen"
-                            class="lg:hidden relative p-2 text-zinc-700 hover:text-[#021869] focus:outline-none focus:ring-2 focus:ring-[#d9491e] focus:ring-opacity-50 rounded-xl transition-all duration-300"
+                            class="lg:hidden relative p-2 text-zinc-700 hover:text-[#021869] focus:outline-none focus:ring-2 focus:ring-[#0ea5a4] focus:ring-opacity-50 rounded-xl transition-all duration-300"
                             :class="{ 'bg-zinc-100': mobileMenuOpen }"
                             aria-label="Menú de navegación">
                         <svg x-show="!mobileMenuOpen"
@@ -127,7 +127,7 @@
                     <a href="{{ route('home') }}"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                         </svg>
                         Inicio
@@ -135,7 +135,7 @@
                     <a href="#servicios"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                         </svg>
                         Servicios
@@ -143,7 +143,7 @@
                     <a href="{{ route('gallery.index') }}"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         Galería
@@ -151,7 +151,7 @@
                     <a href="{{ route('blog.index') }}"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                         </svg>
                         Blog
@@ -159,7 +159,7 @@
                     <a href="{{ route('testimonials.index') }}"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                         Testimonios
@@ -167,7 +167,7 @@
                     <a href="{{ route('support.ticket.create') }}"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728" />
                         </svg>
                         Soporte
@@ -175,7 +175,7 @@
                     <a href="#contacto"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#d9491e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                         Contacto
@@ -185,7 +185,7 @@
                     <div class="pt-4 mt-4 border-t border-zinc-200">
                         <a href="#contacto"
                            @click="mobileMenuOpen = false"
-                           class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-[#d9491e] to-[#e25a2f] text-white font-bold rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
+                           class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] text-white font-bold rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
@@ -295,7 +295,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#021869] mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                 </svg>
-                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $contactInfo->whatsapp) }}" target="_blank" class="hover:text-[#d9491e] transition-colors">
+                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $contactInfo->whatsapp) }}" target="_blank" class="hover:text-[#0ea5a4] transition-colors">
                                     WhatsApp
                                 </a>
                             </li>

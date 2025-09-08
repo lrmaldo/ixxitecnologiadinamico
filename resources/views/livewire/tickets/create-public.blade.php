@@ -1,20 +1,20 @@
 <div class="relative overflow-hidden" x-data="ticketFormHandler()">
     <div class="absolute inset-0 -z-10 opacity-40 pointer-events-none">
-        <div class="absolute -top-40 -left-24 w-96 h-96 bg-gradient-to-br from-[#021869]/10 to-[#d9491e]/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 right-0 w-[520px] h-[520px] bg-gradient-to-tr from-[#d9491e]/10 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute -top-40 -left-24 w-96 h-96 bg-gradient-to-br from-[#021869]/10 to-[#0ea5a4]/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-[520px] h-[520px] bg-gradient-to-tr from-[#0ea5a4]/10 to-transparent rounded-full blur-3xl"></div>
     </div>
 
     <!-- Loading Overlay -->
     <div x-show="loading" x-transition.opacity class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
         <div class="bg-white rounded-xl p-8 flex flex-col items-center max-w-sm mx-4">
-            <div class="w-16 h-16 border-4 border-[#d9491e]/30 border-t-[#d9491e] rounded-full animate-spin mb-4"></div>
+            <div class="w-16 h-16 border-4 border-[#0ea5a4]/30 border-t-[#0ea5a4] rounded-full animate-spin mb-4"></div>
             <h3 class="text-lg font-semibold text-zinc-800 mb-2">Enviando ticket...</h3>
             <p class="text-sm text-zinc-600 text-center">Por favor espera mientras procesamos tu solicitud</p>
         </div>
     </div>
     <div class="absolute inset-0 -z-10 opacity-40 pointer-events-none">
-        <div class="absolute -top-40 -left-24 w-96 h-96 bg-gradient-to-br from-[#021869]/10 to-[#d9491e]/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 right-0 w-[520px] h-[520px] bg-gradient-to-tr from-[#d9491e]/10 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute -top-40 -left-24 w-96 h-96 bg-gradient-to-br from-[#021869]/10 to-[#0ea5a4]/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-[520px] h-[520px] bg-gradient-to-tr from-[#0ea5a4]/10 to-transparent rounded-full blur-3xl"></div>
     </div>
 
     <div class="max-w-4xl mx-auto px-6 py-12 space-y-10">
@@ -106,7 +106,7 @@
                         </div>
                         <input type="text" x-model="formData.titulo" x-on:input="tituloLength = $event.target.value.length" :class="getInputClass('titulo')" maxlength="140" class="w-full rounded-lg border bg-white/90 focus:ring-2 text-sm px-3 py-2 shadow-sm placeholder:text-zinc-400" placeholder="Resumen breve (máx 140 caracteres)" />
                         <div class="h-1 rounded bg-zinc-200 overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-indigo-500 to-[#d9491e] transition-all" :style="`width:${(tituloLength/140)*100}%`"></div>
+                            <div class="h-full bg-gradient-to-r from-indigo-500 to-[#0ea5a4] transition-all" :style="`width:${(tituloLength/140)*100}%`"></div>
                         </div>
                         <div x-show="fieldErrors.titulo" class="text-[11px] text-red-600" x-text="fieldErrors.titulo"></div>
                     </div>
@@ -118,7 +118,7 @@
                         <textarea rows="7" x-model="formData.descripcion" x-on:input="descLength = $event.target.value.length" :class="getTextareaClass('descripcion')" class="w-full rounded-lg border bg-white/90 focus:ring-2 text-sm leading-relaxed px-3 py-2 shadow-sm placeholder:text-zinc-400" placeholder="Explica problema, contexto, pasos para reproducir y resultado esperado."></textarea>
                         <div class="flex items-center gap-2">
                             <div class="h-1 flex-1 rounded bg-zinc-200 overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-indigo-500 to-[#d9491e] transition-all" :style="`width:${Math.min((descLength/descMin)*100,100)}%`"></div>
+                                <div class="h-full bg-gradient-to-r from-indigo-500 to-[#0ea5a4] transition-all" :style="`width:${Math.min((descLength/descMin)*100,100)}%`"></div>
                             </div>
                             <span class="text-[10px] text-zinc-400" x-text="(descLength < descMin) ? ('mín ' + descMin) : 'ok'" :class="descLength < descMin ? 'text-red-500' : 'text-emerald-600'"></span>
                         </div>
@@ -131,8 +131,8 @@
                                 :class="[
                                     'flex-1 text-xs font-medium px-3 py-2 rounded-lg border transition-all duration-200 ease-in-out flex items-center justify-center gap-1.5',
                                     prioridad==='baja'
-                                        ? 'border-[#d9491e] bg-gradient-to-tr from-[#d9491e]/90 to-[#e25a2f] text-white shadow-md transform scale-[1.02]'
-                                        : 'border-zinc-300 bg-white text-zinc-700 hover:border-[#d9491e]/70 hover:text-[#d9491e] hover:shadow-sm'
+                                        ? 'border-[#0ea5a4] bg-gradient-to-tr from-[#0ea5a4]/90 to-[#14b8a6] text-white shadow-md transform scale-[1.02]'
+                                        : 'border-zinc-300 bg-white text-zinc-700 hover:border-[#0ea5a4]/70 hover:text-[#0ea5a4] hover:shadow-sm'
                                 ]">
                                 <span class="w-2 h-2 rounded-full" :class="prioridad==='baja' ? 'bg-white' : 'bg-emerald-400'"></span>
                                 Baja
@@ -141,8 +141,8 @@
                                 :class="[
                                     'flex-1 text-xs font-medium px-3 py-2 rounded-lg border transition-all duration-200 ease-in-out flex items-center justify-center gap-1.5',
                                     prioridad==='media'
-                                        ? 'border-[#d9491e] bg-gradient-to-tr from-[#d9491e]/90 to-[#e25a2f] text-white shadow-md transform scale-[1.02]'
-                                        : 'border-zinc-300 bg-white text-zinc-700 hover:border-[#d9491e]/70 hover:text-[#d9491e] hover:shadow-sm'
+                                        ? 'border-[#0ea5a4] bg-gradient-to-tr from-[#0ea5a4]/90 to-[#14b8a6] text-white shadow-md transform scale-[1.02]'
+                                        : 'border-zinc-300 bg-white text-zinc-700 hover:border-[#0ea5a4]/70 hover:text-[#0ea5a4] hover:shadow-sm'
                                 ]">
                                 <span class="w-2 h-2 rounded-full" :class="prioridad==='media' ? 'bg-white' : 'bg-amber-400'"></span>
                                 Media
@@ -151,8 +151,8 @@
                                 :class="[
                                     'flex-1 text-xs font-medium px-3 py-2 rounded-lg border transition-all duration-200 ease-in-out flex items-center justify-center gap-1.5',
                                     prioridad==='alta'
-                                        ? 'border-[#d9491e] bg-gradient-to-tr from-[#d9491e]/90 to-[#e25a2f] text-white shadow-md transform scale-[1.02]'
-                                        : 'border-zinc-300 bg-white text-zinc-700 hover:border-[#d9491e]/70 hover:text-[#d9491e] hover:shadow-sm'
+                                        ? 'border-[#0ea5a4] bg-gradient-to-tr from-[#0ea5a4]/90 to-[#14b8a6] text-white shadow-md transform scale-[1.02]'
+                                        : 'border-zinc-300 bg-white text-zinc-700 hover:border-[#0ea5a4]/70 hover:text-[#0ea5a4] hover:shadow-sm'
                                 ]">
                                 <span class="w-2 h-2 rounded-full" :class="prioridad==='alta' ? 'bg-white' : 'bg-red-400'"></span>
                                 Alta
@@ -166,10 +166,10 @@
             <!-- Acciones -->
             <div class="pt-2 flex flex-col sm:flex-row sm:items-center gap-4">
                 <button type="submit" :disabled="loading || (descLength < descMin)" :class="[
-                    'inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#d9491e]/40 transition-all duration-200',
+                    'inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5a4]/40 transition-all duration-200',
                     loading || (descLength < descMin)
                         ? 'bg-zinc-400 cursor-not-allowed opacity-50'
-                        : 'bg-gradient-to-tr from-[#d9491e] to-[#e25a2f] hover:shadow-lg hover:scale-[1.02]'
+                        : 'bg-gradient-to-tr from-[#0ea5a4] to-[#14b8a6] hover:shadow-lg hover:scale-[1.02]'
                 ]">
                     <template x-if="!loading">
                         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -245,7 +245,7 @@
 
                     // Método para obtener clases CSS de inputs según estado de error
                     getInputClass(field) {
-                        const baseClass = 'border-zinc-300 focus:border-[#d9491e] focus:ring-[#d9491e]/30';
+                        const baseClass = 'border-zinc-300 focus:border-[#0ea5a4] focus:ring-[#0ea5a4]/30';
                         const errorClass = 'border-red-300 focus:border-red-500 focus:ring-red-500/30';
                         return this.fieldErrors[field] ? errorClass : baseClass;
                     },

@@ -16,7 +16,7 @@
                 {{ $ticket->prioridad->value }}
             </span>
             @if($ticket->estado->value !== 'cerrado')
-                <button wire:click="closeTicket" class="px-3 py-1 bg-[#d9491e] text-white rounded-2xl shadow">Cerrar</button>
+                <button wire:click="closeTicket" class="px-3 py-1 bg-[#0ea5a4] text-white rounded-2xl shadow">Cerrar</button>
             @endif
         </div>
     </div>
@@ -29,7 +29,7 @@
     <div class="bg-white rounded-2xl shadow p-6 transition hover:shadow-lg">
             <div class="flex items-center justify-between mb-3">
                 <h2 class="font-semibold">Cliente</h2>
-                <button wire:click="editClienteToggle" class="text-sm text-[#d9491e] hover:underline">{{ $editCliente ? 'Cancelar' : 'Editar' }}</button>
+                <button wire:click="editClienteToggle" class="text-sm text-[#0ea5a4] hover:underline">{{ $editCliente ? 'Cancelar' : 'Editar' }}</button>
             </div>
             @if(!$editCliente)
                 <dl class="text-sm">
@@ -50,21 +50,21 @@
                 <div class="space-y-3">
                     <div>
                         <label class="block text-sm">Nombre</label>
-                        <input type="text" wire:model.defer="clienteNombre" class="mt-1 w-full rounded-2xl border-gray-300 focus:ring-[#d9491e]" />
+                        <input type="text" wire:model.defer="clienteNombre" class="mt-1 w-full rounded-2xl border-gray-300 focus:ring-[#0ea5a4]" />
                         @error('clienteNombre') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
                     </div>
                     <div>
                         <label class="block text-sm">Email</label>
-                        <input type="email" wire:model.defer="clienteEmail" class="mt-1 w-full rounded-2xl border-gray-300 focus:ring-[#d9491e]" />
+                        <input type="email" wire:model.defer="clienteEmail" class="mt-1 w-full rounded-2xl border-gray-300 focus:ring-[#0ea5a4]" />
                         @error('clienteEmail') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
                     </div>
                     <div>
                         <label class="block text-sm">Teléfono</label>
-                        <input type="text" wire:model.defer="clienteTelefono" class="mt-1 w-full rounded-2xl border-gray-300 focus:ring-[#d9491e]" />
+                        <input type="text" wire:model.defer="clienteTelefono" class="mt-1 w-full rounded-2xl border-gray-300 focus:ring-[#0ea5a4]" />
                         @error('clienteTelefono') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
                     </div>
                     <div class="text-right">
-                        <button wire:click="updateCliente" class="px-3 py-2 bg-[#d9491e] text-white rounded-2xl shadow hover:opacity-95 transition">Guardar</button>
+                        <button wire:click="updateCliente" class="px-3 py-2 bg-[#0ea5a4] text-white rounded-2xl shadow hover:opacity-95 transition">Guardar</button>
                     </div>
                 </div>
             @endif
@@ -76,7 +76,7 @@
         <div class="space-y-4">
             @forelse($ticket->comentarios as $c)
                 <div class="flex gap-3">
-                    <div class="w-2 h-2 mt-2 rounded-full bg-[#d9491e]"></div>
+                    <div class="w-2 h-2 mt-2 rounded-full bg-[#0ea5a4]"></div>
                     <div class="flex-1">
                         <div class="text-sm text-gray-500">{{ $c->created_at->format('d/m/Y H:i') }} · {{ $c->empleado->name }}</div>
                         <div class="text-gray-800">{{ $c->comentario }}</div>
@@ -89,10 +89,10 @@
 
         @if($ticket->estado->value !== 'cerrado')
         <form wire:submit.prevent="addComment" class="mt-6">
-            <textarea rows="3" wire:model="comentario" class="w-full rounded-2xl border-gray-300 focus:ring-[#d9491e]" placeholder="Agregar comentario..."></textarea>
+            <textarea rows="3" wire:model="comentario" class="w-full rounded-2xl border-gray-300 focus:ring-[#0ea5a4]" placeholder="Agregar comentario..."></textarea>
             @error('comentario') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
             <div class="text-right mt-2">
-                <button class="px-4 py-2 bg-[#d9491e] text-white rounded-2xl shadow">Agregar</button>
+                <button class="px-4 py-2 bg-[#0ea5a4] text-white rounded-2xl shadow">Agregar</button>
             </div>
         </form>
         @endif

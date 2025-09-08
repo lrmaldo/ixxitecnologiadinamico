@@ -35,7 +35,7 @@ class LandingPage extends Component
         $visitCount = Cache::get('site_visits', 0);
         $contactInfo = ContactInformation::getDefault();
 
-        return view('livewire.landing-page-new', compact(
+    return view('livewire.landing-page', compact(
             'services',
             'featuredServices',
             'testimonials',

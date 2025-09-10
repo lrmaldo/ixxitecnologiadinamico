@@ -496,6 +496,7 @@
         </script>
 
         <!-- Botón flotante de WhatsApp -->
+        @if($contactInfo->whatsapp)
         <div x-data="{ showWhatsApp: false }"
              x-init="setTimeout(() => showWhatsApp = true, 2000)"
              class="fixed bottom-6 right-6 z-50"
@@ -505,10 +506,17 @@
              x-transition:enter-end="opacity-100 scale-100 rotate-0">
 
             <!-- Botón principal de WhatsApp -->
+            @if($contactInfo->whatsapp)
+            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $contactInfo->whatsapp) }}?text=¡Hola!%20Me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20IXXI%20Tecnología"
+               target="_blank"
+               class="group relative flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 animate-bounce"
+               style="animation-duration: 2s;">
+            @else
             <a href="https://wa.me/528123456789?text=¡Hola!%20Me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20IXXI%20Tecnología"
                target="_blank"
                class="group relative flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 animate-bounce"
                style="animation-duration: 2s;">
+            @endif
 
                 <!-- Ondas de pulso -->
                 <div class="absolute inset-0 rounded-full bg-green-500 opacity-75 animate-ping"></div>
@@ -571,6 +579,7 @@
                 <div class="absolute -bottom-2 right-8 md:-right-2 w-4 h-4 bg-white border-r border-b border-gray-100 rotate-45 transform"></div>
             </div>
         </div>
+        @endif
 
         <!-- Estilos adicionales para efectos avanzados -->
         <style>

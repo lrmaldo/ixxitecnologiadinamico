@@ -34,109 +34,93 @@
      x-init="setTimeout(()=>{ showPage = true; startAutoplay(); startHeaderAutoplay() }, 100)"
      x-cloak>
 
-    <!-- 1) HERO PRINCIPAL OPTIMIZADO -->
-    <header class="relative min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-[#021869] via-[#0a1f4c] to-[#021869] overflow-hidden">
-        <!-- Fondo animado mejorado -->
+    <!-- 1) HERO PRINCIPAL OPTIMIZADO CON CARRUSEL DE FONDO -->
+    <header class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden">
+        <!-- Carrusel de imágenes de fondo -->
+        <div class="absolute inset-0 w-full h-full">
+            @if($gallery && $gallery->count() > 0)
+                @foreach($gallery->take(6) as $index => $item)
+                    <div class="absolute inset-0 w-full h-full transition-opacity duration-[2000ms] ease-in-out"
+                         :class="headerSlide === {{ $index }} ? 'opacity-100' : 'opacity-0'">
+                        @if($item->image_path && file_exists(storage_path('app/public/' . $item->image_path)))
+                            <img src="{{ asset('storage/'.$item->image_path) }}"
+                                 alt="{{ $item->title ?? 'Proyecto de seguridad' }}"
+                                 class="hero-bg-image"
+                                 loading="{{ $index === 0 ? 'eager' : 'lazy' }}">
+                        @else
+                            <!-- Fallback con gradiente cuando no hay imagen -->
+                            <div class="w-full h-full bg-gradient-to-br from-[#021869] via-[#0a1f4c] to-[#021869]"></div>
+                        @endif
+                    </div>
+                @endforeach
+            @else
+                <!-- Fallback cuando no hay galería -->
+                <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#021869] via-[#0a1f4c] to-[#021869]"></div>
+            @endif
+        </div>
+
+        <!-- Overlay degradado para contraste -->
+        <div class="absolute inset-0 bg-gradient-to-b from-blue-900/70 via-blue-900/50 to-blue-900/40"></div>
+
+        <!-- Elementos decorativos adicionales -->
         <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-            <div class="absolute top-1/4 left-10 w-96 h-96 bg-[#0ea5a4]/20 rounded-full filter blur-3xl animate-blob opacity-40"></div>
-            <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-blue-400/20 rounded-full filter blur-3xl animate-blob animation-delay-2000 opacity-40"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-400/10 rounded-full filter blur-3xl animate-pulse opacity-30"></div>
+            <div class="absolute top-1/4 left-10 w-96 h-96 bg-[#0ea5a4]/10 rounded-full filter blur-3xl animate-blob opacity-30"></div>
+            <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-blue-400/10 rounded-full filter blur-3xl animate-blob animation-delay-2000 opacity-30"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-400/5 rounded-full filter blur-3xl animate-pulse opacity-20"></div>
         </div>
 
         <!-- Contenedor principal del hero -->
-        <div class="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-16" x-show="showPage" x-transition:enter="transition ease-out duration-1200" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
+        <div class="relative z-20 max-w-7xl mx-auto px-4 md:px-6 pt-20 pb-16" x-show="showPage" x-transition:enter="transition ease-out duration-1200" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
 
             <!-- Sección superior: Logo y texto principal -->
-            <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="1000">
-                <div class="relative group inline-block mb-8" data-aos="zoom-in" data-aos-duration="1200">
+            <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-duration="1000">
+                <div class="relative group inline-block mb-6 md:mb-8" data-aos="zoom-in" data-aos-duration="1200">
                     <div class="absolute -inset-8 rounded-full blur-lg bg-gradient-to-r from-[#0ea5a4]/30 to-[#E6A4B4]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="relative">
                         <div class="absolute inset-0 rounded-full blur-xl bg-gradient-to-r from-[#0ea5a4]/40 to-[#021869]/40 animate-pulse scale-110"></div>
-                        <img src="{{ asset('img/logo.png') }}" alt="IXXI Tecnología" class="h-32 md:h-48 lg:h-56 w-auto relative z-10 transform transition-transform duration-700 hover:scale-105 drop-shadow-2xl" />
+                        <img src="{{ asset('img/logo.png') }}" alt="IXXI Tecnología" class="h-24 md:h-32 lg:h-48 xl:h-56 w-auto relative z-10 transform transition-transform duration-700 hover:scale-105 drop-shadow-2xl" />
                     </div>
                 </div>
 
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6" data-aos="fade-up" data-aos-delay="300">
-                    <span class="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">Seguridad y Tecnología</span>
-                    <span class="block text-[#0ea5a4] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-2">para México</span>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight mb-4 md:mb-6 text-shadow-strong" data-aos="fade-up" data-aos-delay="300">
+                    <span class="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent text-shadow-strong">Seguridad y Tecnología</span>
+                    <span class="block text-[#0ea5a4] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mt-2 text-shadow-strong">para México</span>
                 </h1>
 
-                <p class="text-xl md:text-2xl text-blue-100/90 font-light max-w-3xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="500">
+                <p class="text-lg md:text-xl lg:text-2xl text-white/95 font-light max-w-3xl mx-auto mb-6 md:mb-8 text-shadow-strong" data-aos="fade-up" data-aos-delay="500">
                     Protección de última generación con tecnología avanzada
                 </p>
 
-                <div class="flex flex-wrap gap-6 justify-center" data-aos="fade-up" data-aos-delay="700">
-                    <a href="#contacto" class="group relative overflow-hidden rounded-full bg-gradient-to-r from-[#0ea5a4] to-[#E6A4B4] px-8 py-4 text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-[#0ea5a4]/25">
+                <div class="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center" data-aos="fade-up" data-aos-delay="700">
+                    <a href="#contacto" class="group relative overflow-hidden rounded-full bg-gradient-to-r from-[#0ea5a4] to-[#E6A4B4] px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-[#0ea5a4]/25 w-full sm:w-auto">
                         <span class="relative z-10">Contáctanos Ahora</span>
                         <div class="absolute inset-0 bg-gradient-to-r from-[#E6A4B4] to-[#0ea5a4] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
-                    <a href="#galeria" class="rounded-full border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white/95 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/50">
+                    <a href="#galeria" class="rounded-full border-2 border-white/50 px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold text-white/95 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/70 w-full sm:w-auto">
                         Ver Galería
                     </a>
                 </div>
             </div>
 
-            <!-- Carrusel crossfade optimizado -->
-            <div class="w-full max-w-5xl mx-auto" data-aos="fade-up" data-aos-delay="900">
-                @if($gallery && $gallery->count() > 0)
-                    <div class="relative h-56 md:h-72 lg:h-80 w-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-gray-900">
+            <!-- Indicadores del carrusel de fondo -->
+            @if($gallery && $gallery->count() > 0)
+                <div class="flex justify-center" data-aos="fade-up" data-aos-delay="900">
+                    <div class="flex space-x-3 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
                         @foreach($gallery->take(6) as $index => $item)
-                            <div class="absolute inset-0 transition-opacity duration-2000 ease-in-out"
-                                 :class="headerSlide === {{ $index }} ? 'opacity-100' : 'opacity-0'">
-                                @if($item->image_path && file_exists(storage_path('app/public/' . $item->image_path)))
-                                    <img src="{{ asset('storage/'.$item->image_path) }}"
-                                         alt="{{ $item->title ?? 'Proyecto de seguridad' }}"
-                                         class="w-full h-full object-cover"
-                                         loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
-                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                @endif
-
-                                <!-- Fallback cuando la imagen no carga -->
-                                <div class="w-full h-full bg-gradient-to-br from-[#0ea5a4]/20 to-[#021869]/40 flex items-center justify-center" style="display: {{ $item->image_path && file_exists(storage_path('app/public/' . $item->image_path)) ? 'none' : 'flex' }};">
-                                    <div class="text-center text-white">
-                                        <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
-                                        </svg>
-                                        <p class="text-lg font-semibold">{{ $item->title ?? 'Proyecto de Seguridad' }}</p>
-                                    </div>
-                                </div>
-
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                                <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                                    <h3 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 drop-shadow-lg">{{ $item->title ?? 'Proyecto de Seguridad' }}</h3>
-                                    <p class="text-sm md:text-base text-white/95 line-clamp-2 drop-shadow">{{ $item->description ?? 'Solución de seguridad avanzada implementada por IXXI Tecnología' }}</p>
-                                </div>
-                            </div>
+                            <button @click="headerSlide = {{ $index }}; stopHeaderAutoplay(); setTimeout(() => startHeaderAutoplay(), 3000)"
+                                    class="w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50"
+                                    :class="headerSlide === {{ $index }} ? 'bg-white scale-125 shadow-lg' : 'bg-white/60 hover:bg-white/80'"
+                                    :aria-label="`Ir a imagen ${{{ $index + 1 }}}`">
+                            </button>
                         @endforeach
-
-                        <!-- Indicadores mejorados -->
-                        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
-                            @foreach($gallery->take(6) as $index => $item)
-                                <button @click="headerSlide = {{ $index }}; stopHeaderAutoplay(); setTimeout(() => startHeaderAutoplay(), 1000)"
-                                        class="w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 hover:scale-110"
-                                        :class="headerSlide === {{ $index }} ? 'bg-white scale-125 shadow-lg' : 'bg-white/60 hover:bg-white/80'">
-                                </button>
-                            @endforeach
-                        </div>
                     </div>
-                @else
-                    <!-- Fallback cuando no hay datos de galería -->
-                    <div class="relative h-56 md:h-72 lg:h-80 w-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-gradient-to-br from-[#0ea5a4]/20 to-[#021869]/40 flex items-center justify-center">
-                        <div class="text-center text-white">
-                            <svg class="w-20 h-20 mx-auto mb-6 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
-                            </svg>
-                            <h3 class="text-2xl md:text-3xl font-bold mb-4">Galería de Proyectos</h3>
-                            <p class="text-lg opacity-90">Próximamente mostraremos nuestros mejores proyectos</p>
-                        </div>
-                    </div>
-                @endif
-            </div>
+                </div>
+            @endif
         </div>
 
         <!-- Flecha indicadora de scroll -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" data-aos="fade-up" data-aos-delay="1200">
-            <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-20" data-aos="fade-up" data-aos-delay="1200">
+            <svg class="w-6 h-6 text-white/90 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
         </div>
@@ -1127,4 +1111,54 @@
             }, 100);
         });
     </script>
+
+    <!-- Estilos personalizados para el carrusel de fondo -->
+    <style>
+        /* Transición suave para el carrusel de fondo */
+        .transition-opacity-smooth {
+            transition: opacity 2000ms ease-in-out;
+        }
+
+        /* Mejorar el objeto-cover para diferentes aspectos */
+        .bg-image-cover {
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Asegurar que las imágenes de fondo cubran completamente */
+        .hero-bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Mejoras responsivas para móviles */
+        @media (max-width: 768px) {
+            .hero-bg-image {
+                object-position: center center;
+            }
+        }
+
+        /* Animación blob mejorada */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        /* Mejorar contraste del texto */
+        .text-shadow-strong {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+    </style>
 </div>

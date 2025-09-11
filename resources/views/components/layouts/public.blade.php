@@ -48,11 +48,9 @@
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <div class="relative group">
-                        <a href="#servicios" class="flex items-center gap-1 py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <a href="{{ route('services.index') }}" class="flex items-center gap-1 py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                             <span class="relative">Servicios</span>
-                            <svg class="h-4 w-4 transition-transform duration-300 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
+
                             <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                         </a>
                     </div>
@@ -132,7 +130,7 @@
                         </svg>
                         Inicio
                     </a>
-                    <a href="#servicios"
+                    <a href="{{ route('services.index') }}"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
                         <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -260,7 +258,7 @@
                     <div class="space-y-4">
                         <h3 class="font-semibold text-base text-[#021869]">Enlaces rápidos</h3>
                         <ul class="space-y-2">
-                            <li><a href="#servicios" class="hover:text-[#021869] transition-colors duration-300">Servicios</a></li>
+                            <li><a href="{{ route('services.index') }}" class="hover:text-[#021869] transition-colors duration-300">Servicios</a></li>
                             <li><a href="{{ route('blog.index') }}" class="hover:text-[#021869] transition-colors duration-300">Blog</a></li>
                             <li><a href="#contacto" class="hover:text-[#021869] transition-colors duration-300">Contacto</a></li>
                             <li><a href="#" class="hover:text-[#021869] transition-colors duration-300">Sobre nosotros</a></li>

@@ -7,6 +7,7 @@ use App\Models\GalleryItem;
 use App\Models\Post;
 use App\Models\Service;
 use App\Models\Testimonial;
+use App\Models\CompanyInfo;
 use Livewire\Component;
 use Illuminate\Support\Facades\Cache;
 
@@ -34,6 +35,7 @@ class LandingPage extends Component
         }
         $visitCount = Cache::get('site_visits', 0);
         $contactInfo = ContactInformation::getDefault();
+        $companyInfo = CompanyInfo::getInstance();
 
     return view('livewire.landing-page', compact(
             'services',
@@ -42,7 +44,8 @@ class LandingPage extends Component
             'gallery',
             'posts',
             'visitCount',
-            'contactInfo'
+            'contactInfo',
+            'companyInfo'
         ))
             ->layout('components.layouts.public')
             ->title('IXXI TECNOLOGÍA | Seguridad tecnológica y de campo');

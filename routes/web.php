@@ -8,6 +8,7 @@ use App\Livewire\LandingPage;
 use App\Livewire\Blog\Index as BlogIndex;
 use App\Livewire\Blog\Show as BlogShow;
 use App\Livewire\ServiceShow;
+use App\Livewire\Services\Index as ServicesIndex;
 use App\Livewire\Gallery\Index as PublicGalleryIndex;
 use App\Livewire\Testimonials\Index as PublicTestimonialsIndex;
 use App\Livewire\Admin\Services\Index as AdminServicesIndex;
@@ -29,7 +30,9 @@ Route::get('/', LandingPage::class)->name('home');
 
 Route::get('/blog', BlogIndex::class)->name('blog.index');
 Route::get('/blog/{slug}', BlogShow::class)->name('blog.show');
+Route::get('/servicios', ServicesIndex::class)->name('services.index');
 Route::get('/servicios/{slug}', ServiceShow::class)->name('services.show');
+
 Route::get('/galeria', PublicGalleryIndex::class)->name('gallery.index');
 Route::get('/testimonios', PublicTestimonialsIndex::class)->name('testimonials.index');
 Route::get('/soporte/ticket', PublicTicketCreate::class)->name('support.ticket.create');
@@ -88,6 +91,11 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('can:admin')->group(function () {
         Route::get('/admin/contact-information', [App\Http\Controllers\Admin\ContactInformationController::class, 'edit'])->name('admin.contact-information.edit');
         Route::post('/admin/contact-information', [App\Http\Controllers\Admin\ContactInformationController::class, 'update'])->name('admin.contact-information.update');
+    });
+
+    // Admin - Información de la empresa
+    Route::middleware('can:admin')->group(function () {
+        Route::get('/admin/company-info', App\Livewire\Admin\CompanyInfoManager::class)->name('admin.company-info');
     });
 });
 

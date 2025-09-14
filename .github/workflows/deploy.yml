@@ -1,0 +1,36 @@
+name: Deploy to IONOS
+
+on:
+  push:
+    branches:
+      - master  # Cambia por tu rama principal
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clonar el repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Instalar PHP y Composer
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v3
+        with:
+          php-version: '8.3'
+
+      # 3. Instalar dependencias localmente en GitHub
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      # 4. Subir todo listo al hosting
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.IONOS_HOST }}
+          username: ${{ secrets.IONOS_USER }}
+          password: ${{ secrets.IONOS_PASSWORD }}
+          local-dir: ./      # Todo el repo con vendor incluido
+          server-dir: /path_en_el_servidor/  # Carpeta en el hosting
+          dry-run: false

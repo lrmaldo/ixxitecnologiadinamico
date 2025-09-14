@@ -10,23 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Clonar el repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Configurar PHP 8.3
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v3.8.1
+      - name: Set up PHP 8.3
+        uses: shivammathur/setup-php@v2.33.0
         with:
           php-version: '8.3'
 
-      # 3. Instalar dependencias con Composer
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader
 
-      # 4. Subir todo listo al hosting
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.IONOS_HOST }}
           username: ${{ secrets.IONOS_USER }}

@@ -16,17 +16,17 @@ class DatabaseSeeder extends Seeder
     {
         // Admin por defecto
         User::query()->updateOrCreate(
-            ['email' => 'admin@ixxi.local'],
+            ['email' => 'lrmaldo@gmail.com'],
             [
                 'name' => 'Admin IXXI',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('password123'),
                 'role' => 'admin',
                 'is_active' => true,
             ]
         );
 
         // Contenido demo
-        $this->call(ContentSeeder::class);
+        //$this->call(ContentSeeder::class);
 
         // Información de contacto
         $this->call(ContactInformationSeeder::class);

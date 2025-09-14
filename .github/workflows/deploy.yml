@@ -1,16 +1,16 @@
-name: Deploy to IONOS
+name: build-and-deploy
 
 on:
   push:
     branches:
-      - master
+      - master   # ajusta según tu rama principal
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: ixxitecnologia
+    environment: ixxitecnologia   # nombre de tu Environment en GitHub
 
-     steps:
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 

@@ -6,6 +6,32 @@
         @isset($metaImage)
             <meta property="og:image" content="{{ $metaImage }}" />
         @endisset
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('/img/logo.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('/img/logo.png') }}">
+
+        <!-- SEO Meta Tags -->
+        <meta name="robots" content="index, follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Ing Leonardo Maldonado">
+        <link rel="canonical" href="{{ request()->url() }}">
+
+        <!-- Social Media Meta Tags -->
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="IXXI TECNOLOGÍA">
+        <meta property="og:image:alt" content="IXXI TECNOLOGÍA Logo">
+        <meta property="og:locale" content="es_MX">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}">
+        <meta name="twitter:description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}">
+        @isset($metaImage)
+            <meta name="twitter:image" content="{{ $metaImage }}">
+        @else
+            <meta name="twitter:image" content="{{ asset('/img/logo.png') }}">
+        @endisset
+        <meta property="og:url" content="{{ request()->fullUrl() }}" />
         <meta property="og:title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}" />
         <meta property="og:description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}" />
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

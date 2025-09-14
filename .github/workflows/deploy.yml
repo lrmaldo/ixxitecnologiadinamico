@@ -32,5 +32,5 @@ jobs:
           username: ${{ secrets.IONOS_USER }}
           password: ${{ secrets.IONOS_PASSWORD }}
           local-dir: ./      # Todo el repo con vendor incluido
-          server-dir: /path_en_el_servidor/  # Carpeta en el hosting
+          server-dir: /  # Carpeta en el hosting
           dry-run: false

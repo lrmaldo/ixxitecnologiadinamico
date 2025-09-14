@@ -28,6 +28,8 @@ jobs:
           server: ${{ secrets.IONOS_HOST }}
           username: ${{ secrets.IONOS_USER }}
           password: ${{ secrets.IONOS_PASSWORD }}
+          protocol: sftp                 
+          port: 22      
           local-dir: ./
           server-dir: /
           dangerous-clean-slate: true

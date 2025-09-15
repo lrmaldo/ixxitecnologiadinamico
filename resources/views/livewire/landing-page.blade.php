@@ -358,6 +358,17 @@
                 <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Quiénes Somos</h2>
                 <div class="w-24 h-1 bg-[#0ea5a4] mx-auto rounded-full"></div>
                 <p class="text-gray-300 mt-6 max-w-2xl mx-auto text-sm md:text-base">Conoce nuestra misión, visión y los valores que nos guían</p>
+
+                {{-- Mostrar about_us si existe en la base de datos --}}
+                @if(isset($companyInfo) && $companyInfo->about_us)
+                    <div class="mt-6 text-gray-100 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+                        {!! nl2br(e($companyInfo->about_us)) !!}
+                    </div>
+                @else
+                    <div class="mt-6 text-gray-100 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+                        Somos una empresa dedicada a ofrecer soluciones tecnológicas a la medida, apoyando a las organizaciones en su transformación digital y crecimiento.
+                    </div>
+                @endif
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

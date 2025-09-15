@@ -91,6 +91,25 @@
                     @endif
                 </div>
             </div>
+
+            {{-- Área editable: Quiénes somos / About us (solo para usuarios con permiso) --}}
+
+                <div class="mt-8 bg-white/6 backdrop-blur-md p-4 rounded-xl border border-white/10">
+                    <h4 class="text-white font-semibold mb-3">Editar sección "Quiénes somos"</h4>
+                    <form action="{{ route('admin.company-info.update') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <label for="about_us" class="text-sm text-gray-200">Texto "Quiénes somos"</label>
+                        <textarea name="about_us" id="about_us" rows="5" class="w-full mt-2 p-3 rounded-lg bg-white/10 border border-white/20 text-gray-100 placeholder-gray-400" placeholder="Escribe aquí el texto que aparecerá en la sección 'Quiénes Somos'">@if(isset($companyInfo) && $companyInfo->about_us){{ $companyInfo->about_us }}@endif</textarea>
+
+                        <div class="mt-3 flex items-center gap-3">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-[#0ea5a4] hover:bg-[#0ca89f] text-white rounded-md shadow-sm">Guardar</button>
+                            <a href="{{ route('home') }}" class="text-sm text-gray-300">Cancelar</a>
+                        </div>
+                    </form>
+                    <p class="text-xs text-gray-400 mt-2">El texto puede incluir saltos de línea. Se guardará como contenido enriquecido simple.</p>
+                </div>
+
         </div>
     </div>
 </section>

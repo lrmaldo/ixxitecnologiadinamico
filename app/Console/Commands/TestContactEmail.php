@@ -56,7 +56,7 @@ class TestContactEmail extends Command
             // Enviar el correo
             Mail::send($mail);
 
-            $this->success("✅ Correo de prueba enviado exitosamente a: {$testEmail}");
+            $this->info("✅ Correo de prueba enviado exitosamente a: {$testEmail}");
             if ($ccUsers->count() > 0) {
                 $this->info("📧 Copias enviadas a {$ccUsers->count()} usuario(s) adicional(es)");
             }

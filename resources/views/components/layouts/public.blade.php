@@ -96,6 +96,10 @@
                         <span class="relative">Soporte</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
+                    <a href="/#sobre-nosotros" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <span class="relative">Sobre nosotros</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
                     <a href="/#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Contacto</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
@@ -639,7 +643,69 @@
             .animate-shake {
                 animation: shake 0.5s ease-in-out infinite;
             }
+
+            /* Scroll suave para toda la página */
+            html {
+                scroll-behavior: smooth;
+            }
         </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Función para manejar navegación suave a anclas desde cualquier página
+                function handleAnchorNavigation() {
+                    // Obtener todos los enlaces que apuntan a anclas
+                    const anchorLinks = document.querySelectorAll('a[href^="/#"]');
+
+                    anchorLinks.forEach(link => {
+                        link.addEventListener('click', function(e) {
+                            const href = this.getAttribute('href');
+                            const currentPath = window.location.pathname;
+
+                            // Si estamos en la página principal
+                            if (currentPath === '/' || currentPath === '') {
+                                const hash = href.substring(1); // Quitar el "/"
+                                if (hash && hash.length > 1) {
+                                    const targetId = hash.substring(1); // Quitar el "#"
+                                    const targetElement = document.getElementById(targetId);
+
+                                    if (targetElement) {
+                                        e.preventDefault();
+
+                                        // Scroll suave al elemento
+                                        targetElement.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
+
+                                        // Actualizar URL
+                                        history.pushState(null, null, hash);
+                                    }
+                                }
+                            }
+                            // Si estamos en otra página, permitir la navegación normal
+                        });
+                    });
+                }
+
+                // Inicializar navegación por anclas
+                handleAnchorNavigation();
+
+                // Verificar si hay un hash al cargar la página
+                const hash = window.location.hash;
+                if (hash && hash.length > 1 && (window.location.pathname === '/' || window.location.pathname === '')) {
+                    setTimeout(() => {
+                        const targetElement = document.getElementById(hash.substring(1));
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 500);
+                }
+            });
+        </script>
 
         @fluxScripts
     </body>

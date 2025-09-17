@@ -348,7 +348,7 @@
     </section>
 
     <!-- SECCIÓN DE MISIÓN, VISIÓN Y VALORES -->
-    <section class="py-16 md:py-24 bg-gradient-to-br from-[#021869] to-[#0a1f4c] relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
+    <section class="py-16 md:py-24 bg-gradient-to-br from-[#021869] to-[#0a1f4c] relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000" id="sobre-nosotros">
         <!-- Elementos decorativos de fondo -->
         <div class="absolute top-10 left-10 w-32 h-32 md:w-64 md:h-64 bg-[#0ea5a4]/10 rounded-full filter blur-3xl opacity-50"></div>
         <div class="absolute bottom-10 right-10 w-40 h-40 md:w-80 md:h-80 bg-blue-400/10 rounded-full filter blur-3xl opacity-50"></div>
@@ -357,7 +357,6 @@
             <div class="text-center mb-12 md:mb-16" data-aos="fade-down">
                 <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Quiénes Somos</h2>
                 <div class="w-24 h-1 bg-[#0ea5a4] mx-auto rounded-full"></div>
-                <p class="text-gray-300 mt-6 max-w-2xl mx-auto text-sm md:text-base">Conoce nuestra misión, visión y los valores que nos guían</p>
 
                 {{-- Mostrar about_us si existe en la base de datos --}}
                 @if(isset($companyInfo) && $companyInfo->about_us)
@@ -369,6 +368,8 @@
                         Somos una empresa dedicada a ofrecer soluciones tecnológicas a la medida, apoyando a las organizaciones en su transformación digital y crecimiento.
                     </div>
                 @endif
+                 <p class="text-gray-300 mt-6 max-w-2xl mx-auto text-sm md:text-base">Conoce nuestra misión, visión y los valores que nos guían</p>
+
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -1178,4 +1179,63 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para manejar navegación suave a anclas
+            function handleSmoothScroll() {
+                // Obtener todos los enlaces que apuntan a anclas
+                const anchorLinks = document.querySelectorAll('a[href^="#"]');
+
+                anchorLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const href = this.getAttribute('href');
+
+                        // Verificar si es un ancla válida
+                        if (href && href.length > 1) {
+                            const targetId = href.substring(1);
+                            const targetElement = document.getElementById(targetId);
+
+                            if (targetElement) {
+                                e.preventDefault();
+
+                                // Scroll suave al elemento
+                                targetElement.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+
+                                // Actualizar URL sin recargar la página
+                                history.pushState(null, null, href);
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Función para verificar si hay un hash en la URL al cargar la página
+            function scrollToHashOnLoad() {
+                const hash = window.location.hash;
+                if (hash && hash.length > 1) {
+                    setTimeout(() => {
+                        const targetElement = document.getElementById(hash.substring(1));
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 500); // Esperar un poco para que la página cargue completamente
+                }
+            }
+
+            // Inicializar funciones
+            handleSmoothScroll();
+            scrollToHashOnLoad();
+
+            // Reinicializar después de actualizaciones de Livewire
+            document.addEventListener('livewire:navigated', handleSmoothScroll);
+            document.addEventListener('livewire:load', handleSmoothScroll);
+        });
+    </script>
 </div>

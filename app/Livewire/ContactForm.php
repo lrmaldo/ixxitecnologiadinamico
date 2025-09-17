@@ -26,14 +26,29 @@ class ContactForm extends Component
 
     public function submit(): void
     {
+        \Log::info('🚀 ContactForm: Iniciando proceso de envío');
+
         $data = $this->validate();
         $data['source'] = 'landing';
 
+        \Log::info('✅ ContactForm: Datos validados correctamente', [
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+        ]);
+
         // Guardar en la base de datos
-        ContactSubmission::create($data);
+        try {
+            ContactSubmission::create($data);
+            \Log::info('💾 ContactForm: Datos guardados en base de datos');
+        } catch (\Exception $e) {
+            \Log::error('❌ ContactForm: Error guardando en BD: ' . $e->getMessage());
+        }
 
         // Enviar correo de notificación
         try {
+            \Log::info('📧 ContactForm: Intentando enviar correo...');
+
             Mail::send(new ContactFormMail(
                 customerName: $this->name,
                 customerEmail: $this->email,
@@ -41,13 +56,19 @@ class ContactForm extends Component
                 customerMessage: $this->message,
                 source: 'landing'
             ));
+
+            \Log::info('✅ ContactForm: Correo enviado exitosamente');
+
         } catch (\Exception $e) {
             // Log del error pero no interrumpir el flujo
-            \Log::error('Error enviando correo de contacto: ' . $e->getMessage());
+            \Log::error('❌ ContactForm: Error enviando correo: ' . $e->getMessage());
+            \Log::error('❌ ContactForm: Stack trace: ' . $e->getTraceAsString());
         }
 
         $this->reset(['name', 'email', 'phone', 'message']);
         $this->submitted = true;
+
+        \Log::info('🎉 ContactForm: Proceso completado, enviando notificación al usuario');
         $this->dispatch('notify', title: 'Enviado', body: 'Gracias, te contactaremos en breve.');
     }
 

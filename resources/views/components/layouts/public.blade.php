@@ -378,8 +378,8 @@
                     </div>
 
                     <div class="flex gap-6 text-xs">
-                        <a href="#" class="hover:text-[#021869] transition-colors duration-300">Términos de uso</a>
-                        <a href="#" class="hover:text-[#021869] transition-colors duration-300">Política de privacidad</a>
+                        <a href="{{ route('terminos') }}" class="hover:text-[#021869] transition-colors duration-300">Términos y Condiciones</a>
+                        <a href="{{ route('privacidad') }}" class="hover:text-[#021869] transition-colors duration-300">Política de Privacidad</a>
                     </div>
                 </div>
             </div>

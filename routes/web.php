@@ -101,3 +101,7 @@ Route::middleware(['auth'])->group(function () {
 
 require __DIR__.'/auth.php';
 require __DIR__.'/contact-information.php';
+
+// Páginas legales públicas
+Route::view('/terminos', 'terminos')->name('terminos');
+Route::view('/privacidad', 'privacidad')->name('privacidad');

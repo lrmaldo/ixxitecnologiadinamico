@@ -707,6 +707,26 @@
             });
         </script>
 
+        <!-- Debug Script para eventos Livewire -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Escuchar todos los eventos notify que se envían
+                window.addEventListener('notify', function(event) {
+                    console.log('🚨 Evento notify recibido:', event.detail);
+                });
+
+                // Debug general de Livewire
+                window.addEventListener('livewire:load', function() {
+                    console.log('✅ Livewire cargado correctamente');
+                });
+
+                // Debug para actualizaciones
+                document.addEventListener('livewire:update', function() {
+                    console.log('🔄 Livewire actualizado');
+                });
+            });
+        </script>
+
         <!-- Sistema de notificaciones -->
         <div x-data="{show:false,title:'',body:'',type:'success'}"
              x-show="show"

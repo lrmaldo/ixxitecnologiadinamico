@@ -24,6 +24,11 @@ class ContactForm extends Component
 
     public bool $submitted = false;
 
+    public function testNotification(): void
+    {
+        $this->dispatch('notify', title: 'Test', body: 'Esta es una notificación de prueba');
+    }
+
     public function submit(): void
     {
         \Log::info('🚀 ContactForm: Iniciando proceso de envío');
@@ -69,7 +74,14 @@ class ContactForm extends Component
         $this->submitted = true;
 
         \Log::info('🎉 ContactForm: Proceso completado, enviando notificación al usuario');
-        $this->dispatch('notify', title: 'Enviado', body: 'Gracias, te contactaremos en breve.');
+
+        // Agregar más debug para el dispatch
+        try {
+            $this->dispatch('notify', title: 'Enviado', body: 'Gracias, te contactaremos en breve.');
+            \Log::info('📢 ContactForm: Evento notify despachado exitosamente');
+        } catch (\Exception $e) {
+            \Log::error('❌ ContactForm: Error despachando evento notify: ' . $e->getMessage());
+        }
     }
 
     public function render()

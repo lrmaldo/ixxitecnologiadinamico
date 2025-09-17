@@ -28,7 +28,7 @@
                     <a href="{{ route('home') }}" class="z-20 flex flex-col items-center gap-2 font-medium lg:hidden" wire:navigate>
                         <div class="flex items-center gap-2">
                             <x-app-logo size="sm" />
-                            <span class="font-bold text-[#021869] dark:text-white text-xl">IXXI</span>
+
                         </div>
                         <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
                     </a>

@@ -14,8 +14,8 @@
             <div class="relative w-full max-w-sm">
                 <a href="{{ route('home') }}" class="flex flex-col items-center gap-2 font-medium mb-4" wire:navigate>
                     <div class="flex items-center gap-2">
-                        <x-app-logo size="sm" />
-                        <span class="font-bold text-[#021869] dark:text-white text-xl">TECNOLOGÍA</span>
+                       {{--  <x-app-logo size="sm" />
+                        <span class="font-bold text-[#021869] dark:text-white text-xl">TECNOLOGÍA</span> --}}
                     </div>
                     <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
                 </a>

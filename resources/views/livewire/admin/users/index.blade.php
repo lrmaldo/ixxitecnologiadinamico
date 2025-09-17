@@ -13,6 +13,7 @@
                     <th class="border-b p-2">Email</th>
                     <th class="border-b p-2">Rol</th>
                     <th class="border-b p-2">Activo</th>
+                    <th class="border-b p-2">Correos contacto</th>
                     <th class="border-b p-2"></th>
                 </tr>
             </thead>
@@ -22,7 +23,20 @@
                         <td class="border-b p-2">{{ $user->name }}</td>
                         <td class="border-b p-2">{{ $user->email }}</td>
                         <td class="border-b p-2">{{ $user->role ?? 'editor' }}</td>
-                        <td class="border-b p-2">{{ $user->is_active ? 'Sí' : 'No' }}</td>
+                        <td class="border-b p-2">
+                            <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium {{ $user->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                {{ $user->is_active ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td class="border-b p-2">
+                            @if($user->receive_contact_emails)
+                                <span class="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">
+                                    📧 Sí
+                                </span>
+                            @else
+                                <span class="text-gray-400 text-xs">No</span>
+                            @endif
+                        </td>
                         <td class="border-b p-2 text-right">
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="text-[#021869]">Editar</a>
                             @if (auth()->id() !== $user->id)

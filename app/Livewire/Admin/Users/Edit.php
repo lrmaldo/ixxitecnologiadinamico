@@ -17,13 +17,14 @@ class Edit extends Component
     public string $password_confirmation = '';
     public string $role = 'editor';
     public bool $is_active = true;
+    public bool $receive_contact_emails = false;
 
     public function mount(?int $id = null): void
     {
         abort_unless(auth()->user()?->isAdmin(), 403);
         if ($id) {
             $this->user = User::findOrFail($id);
-            $this->fill($this->user->only(['name','email','role','is_active']));
+            $this->fill($this->user->only(['name','email','role','is_active','receive_contact_emails']));
         }
     }
 
@@ -34,6 +35,7 @@ class Edit extends Component
             'email' => ['required','email','max:255','unique:users,email'.($this->user?','.$this->user->id:'')],
             'role' => ['required','in:admin,editor,viewer'],
             'is_active' => ['boolean'],
+            'receive_contact_emails' => ['boolean'],
         ];
 
         if (!$this->user) {

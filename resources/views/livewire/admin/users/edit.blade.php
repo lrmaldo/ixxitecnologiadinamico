@@ -35,9 +35,15 @@
                     </select>
                     @error('role') <div class="text-sm text-red-600">{{ $message }}</div> @enderror
                 </div>
-                <div class="flex items-center gap-2 pt-6">
-                    <input id="is_active" type="checkbox" wire:model.defer="is_active" class="h-4 w-4" />
-                    <label for="is_active" class="text-sm">Activo</label>
+                <div class="space-y-4 pt-6">
+                    <div class="flex items-center gap-2">
+                        <input id="is_active" type="checkbox" wire:model.defer="is_active" class="h-4 w-4" />
+                        <label for="is_active" class="text-sm">Activo</label>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="receive_contact_emails" type="checkbox" wire:model.defer="receive_contact_emails" class="h-4 w-4" />
+                        <label for="receive_contact_emails" class="text-sm">Recibir correos de contacto</label>
+                    </div>
                 </div>
             </div>
             <div class="pt-4">

@@ -22,8 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-    'role',
-    'is_active',
+        'role',
+        'is_active',
+        'receive_contact_emails',
     ];
 
     /**
@@ -47,6 +48,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_active' => 'boolean',
+            'receive_contact_emails' => 'boolean',
         ];
     }
 
@@ -65,5 +67,15 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
+    }
+
+    /**
+     * Obtener usuarios que reciben correos de contacto
+     */
+    public static function contactEmailRecipients()
+    {
+        return static::where('receive_contact_emails', true)
+                     ->where('is_active', true)
+                     ->get();
     }
 }

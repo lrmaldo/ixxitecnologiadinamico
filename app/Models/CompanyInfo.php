@@ -15,6 +15,7 @@ class CompanyInfo extends Model
         'mission',
         'vision',
         'values',
+        'about_us',
     ];
 
     /**
@@ -23,6 +24,7 @@ class CompanyInfo extends Model
     public static function getInstance()
     {
         return self::first() ?: self::create([
+            'about_us' => 'Somos una empresa comprometida con la excelencia en servicios tecnológicos, enfocados en brindar soluciones innovadoras y de calidad para satisfacer las necesidades de nuestros clientes.',
             'mission' => 'Nuestra misión es proporcionar soluciones tecnológicas innovadoras.',
             'vision' => 'Ser líderes en transformación digital.',
             'values' => 'Innovación, Calidad, Compromiso, Transparencia.'

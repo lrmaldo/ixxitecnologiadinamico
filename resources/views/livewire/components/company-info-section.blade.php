@@ -1,5 +1,5 @@
 <!-- SECCIÓN DE MISIÓN, VISIÓN Y VALORES -->
-<section class="py-16 md:py-24 bg-gradient-to-br from-[#021869] to-[#0a1f4c] relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
+<section class="py-16 md:py-24 bg-gradient-to-br from-[#021869] to-[#0a1f4c] relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000" id="sobre-nosotros">
     <!-- Elementos decorativos de fondo -->
     <div class="absolute top-10 left-10 w-32 h-32 md:w-64 md:h-64 bg-[#0ea5a4]/10 rounded-full filter blur-3xl opacity-50"></div>
     <div class="absolute bottom-10 right-10 w-40 h-40 md:w-80 md:h-80 bg-blue-400/10 rounded-full filter blur-3xl opacity-50"></div>
@@ -8,7 +8,14 @@
         <div class="text-center mb-12 md:mb-16" data-aos="fade-down">
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Quiénes Somos</h2>
             <div class="w-24 h-1 bg-[#0ea5a4] mx-auto rounded-full"></div>
+            <!-- Sección de About Us -->
+            @if($companyInfo && $companyInfo->about_us)
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 mt-6 border border-white/20 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    <p class="text-white/90 leading-relaxed text-sm md:text-base">{{ $companyInfo->about_us }}</p>
+                </div>
+            @endif
             <p class="text-gray-300 mt-6 max-w-2xl mx-auto text-sm md:text-base">Conoce nuestra misión, visión y los valores que nos guían</p>
+
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

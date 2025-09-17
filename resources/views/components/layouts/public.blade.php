@@ -96,7 +96,7 @@
                         <span class="relative">Soporte</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                    <a href="/#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
                         <span class="relative">Contacto</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
@@ -196,7 +196,7 @@
                         </svg>
                         Soporte
                     </a>
-                    <a href="#contacto"
+                    <a href="/#contacto"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
                         <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -213,7 +213,7 @@
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
-                            Cotizar Ahora
+                            Contáctanos
                         </a>
                     </div>
                 </nav>
@@ -286,8 +286,8 @@
                         <ul class="space-y-2">
                             <li><a href="{{ route('services.index') }}" class="hover:text-[#021869] transition-colors duration-300">Servicios</a></li>
                             <li><a href="{{ route('blog.index') }}" class="hover:text-[#021869] transition-colors duration-300">Blog</a></li>
-                            <li><a href="#contacto" class="hover:text-[#021869] transition-colors duration-300">Contacto</a></li>
-                            <li><a href="#" class="hover:text-[#021869] transition-colors duration-300">Sobre nosotros</a></li>
+                            <li><a href="/#contacto" class="hover:text-[#021869] transition-colors duration-300">Contacto</a></li>
+                            <li><a href="/#sobre-nosotros" class="hover:text-[#021869] transition-colors duration-300">Sobre nosotros</a></li>
 
                         </ul>
                     </div>

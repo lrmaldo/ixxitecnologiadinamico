@@ -24,71 +24,26 @@ class ContactForm extends Component
 
     public bool $submitted = false;
 
-    // Listeners para eventos personalizados (frontend o otros componentes)
-    protected $listeners = [
-        'debugSetName' => 'handleDebugSetName',
-        'forceRefresh' => '$refresh',
-        'notify' => 'onNotify', // si se emite desde JS/otro componente
-    ];
-
-    public function testNotification(): void
-    {
-        \Log::info('🧪 Test notification button clicked');
-        $this->dispatch('notify', title: 'Test', body: 'Esta es una notificación de prueba');
-        session()->flash('status', 'Test notification enviada!');
-    }
-
-    public function testSetName(): void
-    {
-        \Log::info('🧪 Test set name button clicked');
-        $this->name = 'Test Name - ' . now()->format('H:i:s');
-        $this->dispatch('notify', title: 'Debug', body: 'Name set to: ' . $this->name);
-    }
-
-    public function handleDebugSetName($value = null): void
-    {
-        $prev = $this->name;
-        $this->name = $value ?? 'Emit Name ' . now()->format('H:i:s');
-        \Log::info('🛰️ Evento debugSetName recibido', ['antes' => $prev, 'despues' => $this->name]);
-    }
-
-    public function onNotify($payload = []): void
-    {
-        \Log::info('📨 Listener onNotify ejecutado', ['payload' => $payload]);
-    }
-
-    // Hook de Livewire para monitorear cambios de propiedades
-    public function updated($propertyName): void
-    {
-        if (in_array($propertyName, ['name','email','phone','message'])) {
-            \Log::debug('🔍 Change', ['prop' => $propertyName]);
-        }
-    }
-
     public function submit(): void
     {
-        \Log::info('🚀 ContactForm: Iniciando proceso de envío');
+    \Log::info('ContactForm: submit start');
 
         $data = $this->validate();
         $data['source'] = 'landing';
 
-        \Log::info('✅ ContactForm: Datos validados correctamente', [
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-        ]);
+    \Log::debug('ContactForm: validated');
 
         // Guardar en la base de datos
         try {
             ContactSubmission::create($data);
-            \Log::info('💾 ContactForm: Datos guardados en base de datos');
+            \Log::debug('ContactForm: saved');
         } catch (\Exception $e) {
             \Log::error('❌ ContactForm: Error guardando en BD: ' . $e->getMessage());
         }
 
         // Enviar correo de notificación
         try {
-            \Log::info('📧 ContactForm: Intentando enviar correo...');
+            \Log::debug('ContactForm: sending mail');
 
             Mail::send(new ContactFormMail(
                 customerName: $this->name,
@@ -98,7 +53,7 @@ class ContactForm extends Component
                 source: 'landing'
             ));
 
-            \Log::info('✅ ContactForm: Correo enviado exitosamente');
+            \Log::debug('ContactForm: mail ok');
 
         } catch (\Exception $e) {
             // Log del error pero no interrumpir el flujo
@@ -109,12 +64,12 @@ class ContactForm extends Component
         $this->reset(['name', 'email', 'phone', 'message']);
         $this->submitted = true;
 
-        \Log::info('🎉 ContactForm: Proceso completado, enviando notificación al usuario');
+    \Log::info('ContactForm: submit done');
 
         // Agregar más debug para el dispatch
         try {
             $this->dispatch('notify', title: 'Enviado', body: 'Gracias, te contactaremos en breve.');
-            \Log::info('📢 ContactForm: Evento notify despachado exitosamente');
+            \Log::debug('ContactForm: notify dispatched');
         } catch (\Exception $e) {
             \Log::error('❌ ContactForm: Error despachando evento notify: ' . $e->getMessage());
         }

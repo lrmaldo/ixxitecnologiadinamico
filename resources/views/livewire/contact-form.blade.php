@@ -1,30 +1,4 @@
 <div>
-    <!-- Debug Livewire Status -->
-    {{-- <div class="mb-4 p-3 bg-gray-100 border rounded text-xs">
-        <strong>Debug Info:</strong><br>
-        Name: {{ $name ?? 'vacío' }}<br>
-        Email: {{ $email ?? 'vacío' }}<br>
-        Phone: {{ $phone ?? 'vacío' }}<br>
-        Message: {{ $message ?? 'vacío' }}<br>
-        Submitted: {{ $submitted ? 'true' : 'false' }}<br>
-        <button wire:click="$refresh" class="mt-2 px-2 py-1 bg-blue-500 text-white text-xs rounded">
-            🔄 Refresh Debug
-        </button>
-        <!-- Test manual de binding -->
-        <button wire:click="testSetName" class="mt-2 ml-2 px-2 py-1 bg-green-500 text-white text-xs rounded">
-            Test Set Name
-        </button>
-        <button type="button"
-                wire:click="handleDebugSetName"
-                class="mt-2 ml-2 px-2 py-1 bg-purple-600 text-white text-xs rounded">
-            Debug Set (method)
-        </button>
-        <button type="button"
-                wire:click="$refresh"
-                class="mt-2 ml-2 px-2 py-1 bg-gray-600 text-white text-xs rounded">
-            Force Refresh
-        </button>
-    </div> --}}
 
     <form wire:submit.prevent="submit" class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div class="md:col-span-1">
@@ -74,12 +48,6 @@
                 </span>
             </button>
 
-            <!-- Botón de prueba (temporal para debug) -->
-            <button type="button"
-                    wire:click="testNotification"
-                    class="ml-3 inline-flex items-center rounded-md bg-yellow-600 px-3 py-2 text-sm font-semibold text-white hover:bg-yellow-700">
-                🧪 Test Livewire
-            </button>
 
             @if(session('status'))
                 <span class="ml-3 text-sm text-blue-700 font-semibold">{{ session('status') }}</span>
@@ -91,12 +59,5 @@
         </div>
     </form>
 
-    <!-- Debug de eventos -->
-    <div x-data="{ showDebug: false }"
-         @notify.window="showDebug = true; console.log('Evento notify recibido:', $event.detail); setTimeout(() => showDebug = false, 3000)"
-         class="mt-4">
-        <div x-show="showDebug" x-transition class="p-3 bg-blue-100 border border-blue-300 rounded text-sm text-blue-800">
-            ✅ Debug: Evento notify detectado correctamente
-        </div>
-    </div>
+    <!-- Mensaje de éxito -->
 </div>

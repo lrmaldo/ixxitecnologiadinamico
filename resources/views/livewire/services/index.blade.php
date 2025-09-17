@@ -181,9 +181,9 @@
                 Contáctanos para una solución personalizada según las necesidades específicas de tu negocio
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
-                <a href="#contacto"
+                <a href="/#contacto"
                    class="bg-gradient-to-r from-[#0ea5a4] to-[#E6A4B4] text-white font-bold px-8 py-4 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                    Solicitar Cotización
+                    Contactar Ahora
                 </a>
                 <a href="{{ route('support.ticket.create') }}"
                    class="border-2 border-white text-white font-bold px-8 py-4 rounded-full hover:bg-white hover:text-[#021869] transition-all duration-300">

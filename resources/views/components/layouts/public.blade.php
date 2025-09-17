@@ -581,7 +581,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <div class="text-sm font-semibold text-gray-800 mb-1">IXXI Tecnología</div>
-                        <div class="text-xs text-gray-600 leading-relaxed">¿Necesitas una cotización? ¡Escríbenos!</div>
+                        <div class="text-xs text-gray-600 leading-relaxed">¿Necesitas ayuda? ¡Escríbenos!</div>
                         <div class="text-xs text-gray-400 mt-1">Ahora</div>
                     </div>
                     <button @click="showNotification = false"

@@ -34,11 +34,10 @@
         <meta property="og:url" content="{{ request()->fullUrl() }}" />
         <meta property="og:title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}" />
         <meta property="og:description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}" />
-        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        @livewireStyles
     </head>
-    <body class="min-h-screen bg-white font-serif text-zinc-800 antialiased" x-data="{ showContent: false }" x-init="setTimeout(() => {showContent = true; AOS.init({duration: 800, once: false, mirror: true});}, 100)">
+    <body class="min-h-screen bg-white font-serif text-zinc-800 antialiased" x-data="{ showContent: false }" x-init="setTimeout(() => {showContent = true}, 100)">
         <div class="fixed inset-0 bg-gradient-to-br from-[#021869]/5 to-white/40 -z-10"></div>
 
         <!-- Elementos decorativos del fondo con animaciones mejoradas -->
@@ -767,6 +766,11 @@
                 </div>
             </div>
         </div>
+
+    @livewireScripts
+
+    <!-- AOS Library (solo una vez) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
         @fluxScripts
     </body>

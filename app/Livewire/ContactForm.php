@@ -24,9 +24,45 @@ class ContactForm extends Component
 
     public bool $submitted = false;
 
+    // Listeners para eventos personalizados (frontend o otros componentes)
+    protected $listeners = [
+        'debugSetName' => 'handleDebugSetName',
+        'forceRefresh' => '$refresh',
+        'notify' => 'onNotify', // si se emite desde JS/otro componente
+    ];
+
     public function testNotification(): void
     {
+        \Log::info('🧪 Test notification button clicked');
         $this->dispatch('notify', title: 'Test', body: 'Esta es una notificación de prueba');
+        session()->flash('status', 'Test notification enviada!');
+    }
+
+    public function testSetName(): void
+    {
+        \Log::info('🧪 Test set name button clicked');
+        $this->name = 'Test Name - ' . now()->format('H:i:s');
+        $this->dispatch('notify', title: 'Debug', body: 'Name set to: ' . $this->name);
+    }
+
+    public function handleDebugSetName($value = null): void
+    {
+        $prev = $this->name;
+        $this->name = $value ?? 'Emit Name ' . now()->format('H:i:s');
+        \Log::info('🛰️ Evento debugSetName recibido', ['antes' => $prev, 'despues' => $this->name]);
+    }
+
+    public function onNotify($payload = []): void
+    {
+        \Log::info('📨 Listener onNotify ejecutado', ['payload' => $payload]);
+    }
+
+    // Hook de Livewire para monitorear cambios de propiedades
+    public function updated($propertyName): void
+    {
+        if (in_array($propertyName, ['name','email','phone','message'])) {
+            \Log::debug('🔍 Change', ['prop' => $propertyName]);
+        }
     }
 
     public function submit(): void

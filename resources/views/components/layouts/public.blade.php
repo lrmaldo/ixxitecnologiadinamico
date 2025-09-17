@@ -513,9 +513,12 @@
                     });
                 }, { threshold: 0.1 });
 
-                document.querySelectorAll('.fade-up-trigger').forEach(el => {
-                    observer.observe(el);
-                });
+                const fadeTriggers = document.querySelectorAll('.fade-up-trigger');
+                if (fadeTriggers && fadeTriggers.length > 0) {
+                    fadeTriggers.forEach(el => {
+                        observer.observe(el);
+                    });
+                }
             });
         </script>
 

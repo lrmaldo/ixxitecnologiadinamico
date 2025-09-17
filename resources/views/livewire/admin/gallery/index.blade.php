@@ -184,11 +184,32 @@
                 this.$watch('enable', (val)=>{ if(val){ this.refreshOrder(); }});
             },
             refreshOrder(){
-                this.order = Array.from(this.$el.querySelectorAll('[x-ref^=\'card-\']'))
-                    .map(el => parseInt(el.getAttribute('data-id')));
+                if (!this.$el) {
+                    this.order = [];
+                    return;
+                }
+
+                const nodes = this.$el.querySelectorAll('[x-ref^=\'card-\']') || [];
+                this.order = Array.from(nodes).map(el => parseInt(el.getAttribute('data-id')));
             },
             dragStart(e,id){ if(!this.enable) return; this.draggingId = id; e.dataTransfer.effectAllowed='move'; },
-            dragOver(e,id){ if(!this.enable || this.draggingId===id) return; const draggingEl = this.$el.querySelector('[data-id="'+this.draggingId+'"]'); const targetEl = this.$el.querySelector('[data-id="'+id+'"]'); const rect = targetEl.getBoundingClientRect(); const after = (e.clientY - rect.top) > rect.height/2; if(after){ targetEl.after(draggingEl); } else { targetEl.before(draggingEl); } },
+            dragOver(e,id){
+                if(!this.enable || this.draggingId===id) return;
+                if (!this.$el) return;
+
+                const draggingEl = this.$el.querySelector('[data-id="'+this.draggingId+'"]');
+                const targetEl = this.$el.querySelector('[data-id="'+id+'"]');
+                if (!targetEl || !draggingEl) return;
+
+                const rect = targetEl.getBoundingClientRect();
+                const after = (e.clientY - rect.top) > rect.height/2;
+
+                if(after){
+                    targetEl.after(draggingEl);
+                } else {
+                    targetEl.before(draggingEl);
+                }
+            },
             drop(e,id){ if(!this.enable) return; this.refreshOrder(); livewire.call('syncOrder', {order: this.order}); },
         }
     }

@@ -178,12 +178,17 @@
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // Asegurar que los gráficos se inicialicen correctamente
+        function initializeCharts() {
             // Inicializar datos
             const dailyLabels = @json($dailyStats->pluck('day'));
             const dailyData = @json($dailyStats->pluck('visits'));
             const monthlyLabels = @json($monthlyStats->pluck('month'));
             const monthlyData = @json($monthlyStats->pluck('visits'));
+
+            // Variables globales para los gráficos
+            window.visitsChart = window.visitsChart || null;
+            window.trafficChart = window.trafficChart || null;
 
             // Gráfico de visitas
             let currentPeriod = 'daily';
@@ -252,19 +257,43 @@
                 colors: ['#4f46e5']
             };
 
-            const visitsChart = new ApexCharts(document.querySelector("#visits-chart"), chartOptions);
-            visitsChart.render().then(() => {
-                // Forzar un pequeño reflow/resize justo después del render inicial.
-                // Soluciona casos donde el gráfico queda en blanco en la primera carga.
-                setTimeout(() => {
-                    try {
-                        visitsChart.resize();
-                        visitsChart.updateOptions({});
-                    } catch (e) {
-                        // ignore
+            const visitsContainerEl = document.querySelector("#visits-chart");
+
+            // Destruir gráfico existente si existe
+            if (window.visitsChart) {
+                try {
+                    window.visitsChart.destroy();
+                } catch(e) {}
+                window.visitsChart = null;
+            }
+
+            // Esperar a que el contenedor tenga dimensiones reales
+            if (visitsContainerEl) {
+                // Forzar el cálculo de dimensiones y esperar a que esté visible
+                const checkAndCreateChart = () => {
+                    const rect = visitsContainerEl.getBoundingClientRect();
+                    const isVisible = rect.width > 0 && rect.height > 0 &&
+                                    visitsContainerEl.offsetParent !== null;
+
+                    if (isVisible) {
+                        window.visitsChart = new ApexCharts(visitsContainerEl, chartOptions);
+                        window.visitsChart.render().then(() => {
+                            setTimeout(() => {
+                                try {
+                                    if (window.visitsChart && typeof window.visitsChart.resize === 'function') {
+                                        window.visitsChart.resize();
+                                    }
+                                } catch(e) {}
+                            }, 300);
+                        }).catch(()=>{});
+                    } else {
+                        // Reintentar después de un breve delay
+                        setTimeout(checkAndCreateChart, 100);
                     }
-                }, 120);
-            });
+                };
+
+                checkAndCreateChart();
+            }
 
             // Gráfico de distribución de tráfico
             // Datos de distribución provistos por el servidor
@@ -313,22 +342,48 @@
                 }]
             };
 
-            const trafficChart = new ApexCharts(document.querySelector("#traffic-chart"), trafficOptions);
-            trafficChart.render().then(() => {
-                // Similar fix para el donut chart
-                setTimeout(() => {
-                    try {
-                        trafficChart.resize();
-                        trafficChart.updateOptions({});
-                    } catch (e) {
-                        // ignore
+            const trafficContainerEl = document.querySelector("#traffic-chart");
+
+            // Destruir gráfico existente si existe
+            if (window.trafficChart) {
+                try {
+                    window.trafficChart.destroy();
+                } catch(e) {}
+                window.trafficChart = null;
+            }
+
+            if (trafficContainerEl) {
+                // Verificar dimensiones y visibilidad del contenedor
+                const checkAndCreateTrafficChart = () => {
+                    const rect = trafficContainerEl.getBoundingClientRect();
+                    const isVisible = rect.width > 0 && rect.height > 0 &&
+                                    trafficContainerEl.offsetParent !== null;
+
+                    if (isVisible) {
+                        window.trafficChart = new ApexCharts(trafficContainerEl, trafficOptions);
+                        window.trafficChart.render().then(() => {
+                            setTimeout(() => {
+                                try {
+                                    if (window.trafficChart && typeof window.trafficChart.resize === 'function') {
+                                        window.trafficChart.resize();
+                                    }
+                                } catch(e) {}
+                            }, 300);
+                        }).catch(()=>{});
+                    } else {
+                        // Reintentar después de un breve delay
+                        setTimeout(checkAndCreateTrafficChart, 100);
                     }
-                }, 120);
-            });
+                };
+
+                checkAndCreateTrafficChart();
+            }
 
             // Cambiar entre datos diarios y mensuales
-            document.querySelectorAll('.period-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+            const periodButtons = document.querySelectorAll('.period-btn');
+            if (periodButtons && periodButtons.length > 0) {
+                periodButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
                     const period = this.getAttribute('data-period');
 
                     // No hacer nada si ya estamos en este periodo
@@ -343,68 +398,83 @@
                     this.classList.add('active', 'bg-indigo-50', 'dark:bg-indigo-900/30', 'text-indigo-600', 'dark:text-indigo-300');
 
                     // Actualizar datos del gráfico
-                    if (period === 'monthly') {
-                        visitsChart.updateOptions({
-                            xaxis: { categories: monthlyLabels }
-                        });
-                        visitsChart.updateSeries([{ name: 'Visitas', data: monthlyData }]);
-                    } else {
-                        visitsChart.updateOptions({
-                            xaxis: { categories: dailyLabels }
-                        });
-                        visitsChart.updateSeries([{ name: 'Visitas', data: dailyData }]);
+                    if (window.visitsChart) {
+                        if (period === 'monthly') {
+                            if (window.visitsChart && typeof window.visitsChart.updateOptions === 'function') {
+                                const p = window.visitsChart.updateOptions({ xaxis: { categories: monthlyLabels } });
+                                if (p && typeof p.catch === 'function') p.catch(()=>{});
+                            }
+                            if (window.visitsChart && typeof window.visitsChart.updateSeries === 'function') {
+                                try { window.visitsChart.updateSeries([{ name: 'Visitas', data: monthlyData }]); } catch(e){}
+                            }
+                        } else {
+                            if (window.visitsChart && typeof window.visitsChart.updateOptions === 'function') {
+                                const p = window.visitsChart.updateOptions({ xaxis: { categories: dailyLabels } });
+                                if (p && typeof p.catch === 'function') p.catch(()=>{});
+                            }
+                            if (window.visitsChart && typeof window.visitsChart.updateSeries === 'function') {
+                                try { window.visitsChart.updateSeries([{ name: 'Visitas', data: dailyData }]); } catch(e){}
+                            }
+                        }
                     }
 
                     // Forzar resize tras actualizar datos para evitar canvas vacío
                     setTimeout(() => {
                         try {
-                            visitsChart.resize();
-                            visitsChart.updateOptions({});
+                            if (window.visitsChart) window.visitsChart.resize();
+                            if (window.trafficChart) window.trafficChart.resize();
                         } catch (e) {}
-                    }, 80);
+                    }, 100);
 
                     currentPeriod = period;
+                    });
                 });
-            });
+            }
 
             // Aplicar tema oscuro a los gráficos si corresponde
             function applyDarkTheme(isDark) {
                 const textColor = isDark ? '#d4d4d8' : '#52525b';
                 const gridColor = isDark ? '#3f3f46' : '#e2e8f0';
 
-                visitsChart.updateOptions({
-                    chart: {
-                        background: isDark ? '#18181b' : '#ffffff',
-                    },
-                    xaxis: {
-                        labels: {
-                            style: {
-                                colors: textColor
-                            }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            style: {
-                                colors: textColor
-                            }
-                        }
-                    },
-                    grid: {
-                        borderColor: gridColor
-                    }
-                });
+                // Tomar referencias a los contenedores actuales por si Livewire los ha reemplazado
+                const visitsContainerEl = document.getElementById('visits-chart');
+                const trafficContainerEl = document.getElementById('traffic-chart');
 
-                trafficChart.updateOptions({
-                    chart: {
-                        background: isDark ? '#18181b' : '#ffffff',
-                    },
-                    legend: {
-                        labels: {
-                            colors: textColor
+                // Actualizar visitasChart con protecciones
+                try {
+                    if (window.visitsChart && visitsContainerEl && document.contains(visitsContainerEl)) {
+                        try {
+                            const p = window.visitsChart.updateOptions({
+                                chart: { background: isDark ? '#18181b' : '#ffffff' },
+                                xaxis: { labels: { style: { colors: textColor } } },
+                                yaxis: { labels: { style: { colors: textColor } } },
+                                grid: { borderColor: gridColor }
+                            });
+                            if (p && typeof p.catch === 'function') p.catch(()=>{});
+                        } catch(e) {
+                            // ignore synchronous errors from ApexCharts internals
                         }
                     }
-                });
+                } catch (e) {
+                    // ignore outer errors
+                }
+
+                // Actualizar trafficChart con protecciones
+                try {
+                    if (window.trafficChart && trafficContainerEl && document.contains(trafficContainerEl)) {
+                        try {
+                            const p2 = window.trafficChart.updateOptions({
+                                chart: { background: isDark ? '#18181b' : '#ffffff' },
+                                legend: { labels: { colors: textColor } }
+                            });
+                            if (p2 && typeof p2.catch === 'function') p2.catch(()=>{});
+                        } catch(e) {
+                            // ignore
+                        }
+                    }
+                } catch (e) {
+                    // ignore
+                }
             }
 
             // Verificar tema actual
@@ -430,21 +500,58 @@
             // Observar visibilidad/estilos del contenedor del gráfico y forzar resize cuando cambie
             try {
                 const visitsContainer = document.querySelector('#visits-chart');
-                if (visitsContainer) {
+                    if (visitsContainer) {
                     const visObs = new MutationObserver(() => {
                         try {
-                            visitsChart.resize();
-                            trafficChart.resize();
+                            if (window.visitsChart && visitsContainer && document.contains(visitsContainer)) {
+                                window.visitsChart.resize();
+                            }
+                            if (window.trafficChart && trafficContainerEl && document.contains(trafficContainerEl)) {
+                                window.trafficChart.resize();
+                            }
                         } catch (e) {}
                     });
                     visObs.observe(visitsContainer, { attributes: true, attributeFilter: ['style', 'class'] });
                     // También un observer para el body en caso de que el contenedor sea mostrado por JS
                     const bodyObs = new MutationObserver(() => {
-                        try { visitsChart.resize(); trafficChart.resize(); } catch(e){}
+                        try {
+                            if (window.visitsChart && visitsContainer && document.contains(visitsContainer)) {
+                                window.visitsChart.resize();
+                            }
+                            if (window.trafficChart && trafficContainerEl && document.contains(trafficContainerEl)) {
+                                window.trafficChart.resize();
+                            }
+                        } catch(e){}
                     });
                     bodyObs.observe(document.body, { attributes: true, subtree: false, attributeFilter: ['class', 'style'] });
                 }
             } catch (e) {}
+        }
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+        });
+
+        // Reinicializar cuando Livewire termine de actualizar
+        document.addEventListener('livewire:navigated', function() {
+            setTimeout(() => {
+                initializeCharts();
+            }, 100);
+        });
+
+        // También escuchar eventos de Livewire v3
+        document.addEventListener('livewire:load', function() {
+            setTimeout(() => {
+                initializeCharts();
+            }, 100);
+        });
+
+        // Escuchar cambios de contenido
+        document.addEventListener('livewire:update', function() {
+            setTimeout(() => {
+                initializeCharts();
+            }, 100);
         });
     </script>
     @endpush

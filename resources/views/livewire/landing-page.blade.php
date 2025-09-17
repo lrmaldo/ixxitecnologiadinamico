@@ -1098,9 +1098,12 @@
             }, observerOptions);
 
             // Observar elementos con animaciones personalizadas
-            document.querySelectorAll('.scroll-reveal, .counter-section').forEach(el => {
-                observer.observe(el);
-            });
+            const revealElements = document.querySelectorAll('.scroll-reveal, .counter-section');
+            if (revealElements && revealElements.length > 0) {
+                revealElements.forEach(el => {
+                    observer.observe(el);
+                });
+            }
 
             // Actualizar parallax en scroll (throttled)
             let ticking = false;
@@ -1116,9 +1119,12 @@
 
             // Efecto de aparición gradual de elementos
             setTimeout(() => {
-                document.querySelectorAll('[data-aos]').forEach((el, index) => {
-                    el.style.transitionDelay = `${index * 100}ms`;
-                });
+                const aosElements = document.querySelectorAll('[data-aos]');
+                if (aosElements && aosElements.length > 0) {
+                    aosElements.forEach((el, index) => {
+                        el.style.transitionDelay = `${index * 100}ms`;
+                    });
+                }
             }, 100);
         });
     </script>

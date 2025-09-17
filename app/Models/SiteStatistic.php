@@ -174,6 +174,56 @@ class SiteStatistic extends Model
     }
 
     /**
+     * Calcular la distribución de tráfico por canales simples.
+     * Retorna un array con keys: direct, search, social, referral (nombres legibles y valores en porcentaje o conteo).
+     *
+     * Esta función hace una estimación basada en el campo 'referer' y 'page'.
+     */
+    public static function getTrafficDistribution()
+    {
+        // Total de visitas
+        $total = (int) self::sum('visits');
+
+        if ($total === 0) {
+            return [
+                ['name' => 'Directo', 'value' => 0],
+                ['name' => 'Búsqueda', 'value' => 0],
+                ['name' => 'Redes sociales', 'value' => 0],
+                ['name' => 'Referencias', 'value' => 0],
+            ];
+        }
+
+        // Contadores básicos
+        $direct = (int) self::whereNull('referer')->orWhere('referer', '')->sum('visits');
+
+        // Buscadores (referer contiene dominios conocidos de motores de búsqueda)
+        $searchPatterns = ['google.', 'bing.', 'yahoo.', 'duckduckgo.', 'baidu.'];
+        $search = (int) self::where(function($q) use ($searchPatterns) {
+            foreach ($searchPatterns as $p) {
+                $q->orWhere('referer', 'like', "%{$p}%");
+            }
+        })->sum('visits');
+
+        // Redes sociales (facebook, twitter, instagram, t.co, whatsapp, linkedin)
+        $socialPatterns = ['facebook.', 'instagram.', 'twitter.', 't.co', 'linkedin.', 'wa.me', 'whatsapp.'];
+        $social = (int) self::where(function($q) use ($socialPatterns) {
+            foreach ($socialPatterns as $p) {
+                $q->orWhere('referer', 'like', "%{$p}%");
+            }
+        })->sum('visits');
+
+        // Referencias: resto de referers que no son buscadores ni social
+        $referral = max(0, $total - ($direct + $search + $social));
+
+        return [
+            ['name' => 'Directo', 'value' => $direct],
+            ['name' => 'Búsqueda', 'value' => $search],
+            ['name' => 'Redes sociales', 'value' => $social],
+            ['name' => 'Referencias', 'value' => $referral],
+        ];
+    }
+
+    /**
      * Obtener estadísticas generales
      *
      * @return array

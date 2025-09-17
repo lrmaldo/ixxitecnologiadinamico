@@ -253,15 +253,22 @@
             };
 
             const visitsChart = new ApexCharts(document.querySelector("#visits-chart"), chartOptions);
-            visitsChart.render();
+            visitsChart.render().then(() => {
+                // Forzar un pequeño reflow/resize justo después del render inicial.
+                // Soluciona casos donde el gráfico queda en blanco en la primera carga.
+                setTimeout(() => {
+                    try {
+                        visitsChart.resize();
+                        visitsChart.updateOptions({});
+                    } catch (e) {
+                        // ignore
+                    }
+                }, 120);
+            });
 
             // Gráfico de distribución de tráfico
-            const trafficData = [
-                { name: 'Directo', value: 60 },
-                { name: 'Búsquedas', value: 25 },
-                { name: 'Redes sociales', value: 10 },
-                { name: 'Referencias', value: 5 },
-            ];
+            // Datos de distribución provistos por el servidor
+            const trafficData = @json($trafficDistribution);
 
             const trafficOptions = {
                 series: trafficData.map(item => item.value),
@@ -307,7 +314,17 @@
             };
 
             const trafficChart = new ApexCharts(document.querySelector("#traffic-chart"), trafficOptions);
-            trafficChart.render();
+            trafficChart.render().then(() => {
+                // Similar fix para el donut chart
+                setTimeout(() => {
+                    try {
+                        trafficChart.resize();
+                        trafficChart.updateOptions({});
+                    } catch (e) {
+                        // ignore
+                    }
+                }, 120);
+            });
 
             // Cambiar entre datos diarios y mensuales
             document.querySelectorAll('.period-btn').forEach(btn => {
@@ -328,25 +345,23 @@
                     // Actualizar datos del gráfico
                     if (period === 'monthly') {
                         visitsChart.updateOptions({
-                            xaxis: {
-                                categories: monthlyLabels
-                            }
+                            xaxis: { categories: monthlyLabels }
                         });
-                        visitsChart.updateSeries([{
-                            name: 'Visitas',
-                            data: monthlyData
-                        }]);
+                        visitsChart.updateSeries([{ name: 'Visitas', data: monthlyData }]);
                     } else {
                         visitsChart.updateOptions({
-                            xaxis: {
-                                categories: dailyLabels
-                            }
+                            xaxis: { categories: dailyLabels }
                         });
-                        visitsChart.updateSeries([{
-                            name: 'Visitas',
-                            data: dailyData
-                        }]);
+                        visitsChart.updateSeries([{ name: 'Visitas', data: dailyData }]);
                     }
+
+                    // Forzar resize tras actualizar datos para evitar canvas vacío
+                    setTimeout(() => {
+                        try {
+                            visitsChart.resize();
+                            visitsChart.updateOptions({});
+                        } catch (e) {}
+                    }, 80);
 
                     currentPeriod = period;
                 });
@@ -411,6 +426,25 @@
             observer.observe(document.documentElement, {
                 attributes: true
             });
+
+            // Observar visibilidad/estilos del contenedor del gráfico y forzar resize cuando cambie
+            try {
+                const visitsContainer = document.querySelector('#visits-chart');
+                if (visitsContainer) {
+                    const visObs = new MutationObserver(() => {
+                        try {
+                            visitsChart.resize();
+                            trafficChart.resize();
+                        } catch (e) {}
+                    });
+                    visObs.observe(visitsContainer, { attributes: true, attributeFilter: ['style', 'class'] });
+                    // También un observer para el body en caso de que el contenedor sea mostrado por JS
+                    const bodyObs = new MutationObserver(() => {
+                        try { visitsChart.resize(); trafficChart.resize(); } catch(e){}
+                    });
+                    bodyObs.observe(document.body, { attributes: true, subtree: false, attributeFilter: ['class', 'style'] });
+                }
+            } catch (e) {}
         });
     </script>
     @endpush

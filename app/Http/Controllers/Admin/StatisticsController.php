@@ -17,12 +17,14 @@ class StatisticsController extends Controller
         $dailyStats = SiteStatistic::getDailyStats(30);
         $monthlyStats = SiteStatistic::getMonthlyStats(12);
         $topPages = SiteStatistic::getTopPages(10);
+        $trafficDistribution = SiteStatistic::getTrafficDistribution();
 
         return view('admin.statistics.dashboard', compact(
             'summary',
             'dailyStats',
             'monthlyStats',
-            'topPages'
+            'topPages',
+            'trafficDistribution'
         ));
     }
 

@@ -33,6 +33,18 @@ class Service extends Model
         return $query->where('is_active', true)->whereNotNull('published_at')->where('published_at', '<=', now());
     }
 
+    /**
+     * Listado público: incluye activos aunque no tengan fecha de publicación
+     */
+    public function scopePublicList($query)
+    {
+        return $query->where('is_active', true)
+            ->where(function ($q) {
+                $q->whereNull('published_at')
+                  ->orWhere('published_at', '<=', now());
+            });
+    }
+
     protected static function booted(): void
     {
         static::saving(function (Service $service) {

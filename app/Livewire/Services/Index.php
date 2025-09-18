@@ -23,14 +23,14 @@ class Index extends Component
 
     public function render()
     {
-        $query = Service::published()->latest('published_at');
+    $query = Service::publicList()->latest('published_at');
 
         // Aplicar filtro de búsqueda
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('description', 'like', '%' . $this->search . '%')
-                  ->orWhere('content', 'like', '%' . $this->search . '%');
+                                $q->where('title', 'like', '%' . $this->search . '%')
+                                    ->orWhere('summary', 'like', '%' . $this->search . '%')
+                                    ->orWhere('description', 'like', '%' . $this->search . '%');
             });
         }
 

@@ -72,8 +72,11 @@
                         <article class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                             <!-- Imagen del servicio -->
                             <div class="relative h-48 bg-gradient-to-br from-[#021869] to-[#0ea5a4] overflow-hidden">
-                                @if($service->featured_image)
-                                    <img src="{{ asset('storage/' . $service->featured_image) }}"
+                                @php
+                                    $image = $service->featured_image ?? $service->image_path;
+                                @endphp
+                                @if($image)
+                                    <img src="{{ asset('storage/' . $image) }}"
                                          alt="{{ $service->title }}"
                                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                 @else
@@ -97,7 +100,7 @@
                                 </p>
 
                                 <!-- Características destacadas -->
-                                @if($service->features)
+                                @if(!empty($service->features))
                                     <div class="mb-4">
                                         <div class="flex flex-wrap gap-2">
                                             @foreach(array_slice(explode(',', $service->features), 0, 3) as $feature)
@@ -110,7 +113,7 @@
                                 @endif
 
                                 <!-- Precio -->
-                                @if($service->price)
+                                @if(!empty($service->price))
                                     <div class="mb-4">
                                         <span class="text-2xl font-bold text-[#021869]">
                                             ${{ number_format($service->price, 0) }}

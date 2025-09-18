@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Service;
+use App\Models\ContactInformation;
 use Livewire\Component;
 
 class ServiceShow extends Component
@@ -17,7 +18,8 @@ class ServiceShow extends Component
     public function render()
     {
         $service = Service::where('slug', $this->slug)->firstOrFail();
-        return view('livewire.service-show', compact('service'))
+    $contactInfo = ContactInformation::getDefault();
+    return view('livewire.service-show', compact('service', 'contactInfo'))
             ->layout('components.layouts.public', [
                 'title' => $service->seo_title ?: $service->title,
                 'metaDescription' => $service->seo_description,

@@ -23,7 +23,7 @@
                         Nosotros
                     </label>
                     <textarea
-                        wire:model="about_us"
+                        wire:model.defer="about_us"
                         id="about_us"
                         rows="5"
                         class="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 ease-in-out resize-none text-sm md:text-base @error('about_us') border-red-500 focus:ring-red-500 focus:border-red-500 @enderror"
@@ -44,7 +44,7 @@
                         Misión
                     </label>
                     <textarea
-                        wire:model="mission"
+                        wire:model.defer="mission"
                         id="mission"
                         rows="4"
                         class="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 ease-in-out resize-none text-sm md:text-base @error('mission') border-red-500 focus:ring-red-500 focus:border-red-500 @enderror"
@@ -65,7 +65,7 @@
                         Visión
                     </label>
                     <textarea
-                        wire:model="vision"
+                        wire:model.defer="vision"
                         id="vision"
                         rows="4"
                         class="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out resize-none text-sm md:text-base @error('vision') border-red-500 focus:ring-red-500 focus:border-red-500 @enderror"
@@ -86,7 +86,7 @@
                         Valores
                     </label>
                     <textarea
-                        wire:model="values"
+                        wire:model.defer="values"
                         id="values"
                         rows="6"
                         class="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-200 ease-in-out resize-none text-sm md:text-base @error('values') border-red-500 focus:ring-red-500 focus:border-red-500 @enderror"

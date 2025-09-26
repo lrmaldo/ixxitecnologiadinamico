@@ -66,12 +66,18 @@
                         </div>
                     </a>
 
-                <!-- Menú de navegación para pantallas medianas y grandes -->
+                <!-- Menú de navegación para pantallas medianas y grandes (orden solicitado) -->
                 <nav class="hidden lg:flex items-center gap-10">
                     <a href="{{ route('home') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                         <span class="relative">Inicio</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                     </a>
+
+                    <a href="/#sobre-nosotros" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
+                        <span class="relative">Somos</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+
                     <div class="relative group">
                         <a href="{{ route('services.index') }}" class="flex items-center gap-1 py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                             <span class="relative">Servicios</span>
@@ -79,23 +85,21 @@
                             <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                         </a>
                     </div>
-                    <!-- Galería y Blog eliminados según solicitud -->
+
                     <a href="{{ route('testimonials.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                         <span class="relative">Testimonios</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                     </a>
+
                     <a href="{{ route('support.ticket.create') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                         <span class="relative">Soporte</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="/{{ '#sobre-nosotros' }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
-                        <span class="relative">Somos</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                   {{--  <a href="/#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
+
+                    <a href="/#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                         <span class="relative">Contacto</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
-                    </a> --}}
+                    </a>
                 </nav>
 
                 <!-- Botón CTA y menú móvil -->
@@ -152,6 +156,16 @@
                         </svg>
                         Inicio
                     </a>
+
+                          <a href="/#sobre-nosotros"
+                              @click="mobileMenuOpen = false"
+                              class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#204369] hover:bg-zinc-50 rounded-xl transition-all duration-300">
+                        <svg class="h-5 w-5 text-[#C8DBEF]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Somos
+                    </a>
+
                           <a href="{{ route('services.index') }}"
                               @click="mobileMenuOpen = false"
                               class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#204369] hover:bg-zinc-50 rounded-xl transition-all duration-300">
@@ -177,14 +191,14 @@
                         </svg>
                         Soporte
                     </a>
-                    {{-- <a href="/#contacto"
+                    <a href="/#contacto"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#204369] hover:bg-zinc-50 rounded-xl transition-all duration-300">
                         <svg class="h-5 w-5 text-[#C8DBEF]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                         Contacto
-                    </a> --}}
+                    </a>
 
                     <!-- CTA en menú móvil -->
                     <div class="pt-4 mt-4 border-t border-zinc-200">

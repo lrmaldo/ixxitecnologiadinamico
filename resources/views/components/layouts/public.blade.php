@@ -38,13 +38,13 @@
         @livewireStyles
     </head>
     <body class="min-h-screen bg-white font-serif text-zinc-800 antialiased" x-data="{ showContent: false }" x-init="setTimeout(() => {showContent = true}, 100)">
-        <div class="fixed inset-0 bg-gradient-to-br from-[#021869]/5 to-white/40 -z-10"></div>
+    <div class="fixed inset-0 bg-gradient-to-br from-[#204369]/5 to-white/40 -z-10"></div>
 
         <!-- Elementos decorativos del fondo con animaciones mejoradas -->
-        <div class="fixed top-0 -left-64 w-96 h-96 bg-[#021869]/5 rounded-full blur-3xl -z-10 animate-blob"></div>
-        <div class="fixed -top-20 right-20 w-72 h-72 bg-[#021869]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-2000"></div>
-        <div class="fixed bottom-0 -right-64 w-96 h-96 bg-[#0ea5a4]/5 rounded-full blur-3xl -z-10 animate-blob animation-delay-4000"></div>
-        <div class="fixed left-40 bottom-20 w-72 h-72 bg-[#0ea5a4]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-6000"></div>
+    <div class="fixed top-0 -left-64 w-96 h-96 bg-[#204369]/5 rounded-full blur-3xl -z-10 animate-blob"></div>
+    <div class="fixed -top-20 right-20 w-72 h-72 bg-[#204369]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-2000"></div>
+    <div class="fixed bottom-0 -right-64 w-96 h-96 bg-[#C8DBEF]/5 rounded-full blur-3xl -z-10 animate-blob animation-delay-4000"></div>
+    <div class="fixed left-40 bottom-20 w-72 h-72 bg-[#C8DBEF]/3 rounded-full blur-3xl -z-10 animate-blob animation-delay-6000"></div>
 
         <header class="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-500"
                 x-data="{ mobileMenuOpen: false, scrolled: false }"
@@ -55,60 +55,52 @@
                 x-transition:enter-start="opacity-0 transform -translate-y-4"
                 x-transition:enter-end="opacity-100 transform translate-y-0">
             <div class="mx-auto flex max-w-7xl items-center justify-between px-6">
-                <!-- Logo y nombre -->
-                <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                    <x-app-logo size="lg" class="transition-all duration-300 group-hover:scale-105" />
-                    <div class="flex flex-col">
-                        <span class="font-black text-[#021869] dark:text-white text-xl tracking-tight leading-none relative after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-[#0ea5a4] after:transition-all after:duration-500 group-hover:after:w-full">
-                            IXXI TECNOLOGÍA
-                        </span>
-                        <span class="text-xs text-zinc-500 dark:text-zinc-400 font-medium tracking-wide">Seguridad & Tecnología</span>
-                    </div>
-                </a>
+                <!-- Logo y marca simplificada -->
+                    <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                        <x-app-logo size="xl" class="transition-all duration-300 group-hover:scale-105" />
+                        <div>
+                            <span class="font-black text-[#204369] dark:text-white text-xl tracking-tight leading-none">
+                                IXXI Tecnología
+                            </span>
+                        </div>
+                    </a>
 
                 <!-- Menú de navegación para pantallas medianas y grandes -->
                 <nav class="hidden lg:flex items-center gap-10">
-                    <a href="{{ route('home') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                    <a href="{{ route('home') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                         <span class="relative">Inicio</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <div class="relative group">
-                        <a href="{{ route('services.index') }}" class="flex items-center gap-1 py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                        <a href="{{ route('services.index') }}" class="flex items-center gap-1 py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                             <span class="relative">Servicios</span>
 
-                            <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
+                            <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                         </a>
                     </div>
-                    <a href="{{ route('gallery.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
-                        <span class="relative">Galería</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="{{ route('blog.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
-                        <span class="relative">Blog</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="{{ route('testimonials.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                    <!-- Galería y Blog eliminados según solicitud -->
+                    <a href="{{ route('testimonials.index') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                         <span class="relative">Testimonios</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="{{ route('support.ticket.create') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                    <a href="{{ route('support.ticket.create') }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                         <span class="relative">Soporte</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="/#sobre-nosotros" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
-                        <span class="relative">Sobre nosotros</span>
-                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
+                    <a href="/{{ '#sobre-nosotros' }}" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
+                        <span class="relative">Somos</span>
+                        <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="/#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#021869]">
+                   {{--  <a href="/#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
                         <span class="relative">Contacto</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] transition-all duration-300 group-hover:w-full"></span>
-                    </a>
+                    </a> --}}
                 </nav>
 
                 <!-- Botón CTA y menú móvil -->
                 <div class="flex items-center gap-4">
                     <!-- Botón CTA mejorado -->
-                    <a href="#contacto" class="hidden sm:flex group relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] px-6 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#0ea5a4]/30 hover:-translate-y-0.5 active:scale-95 btn-shine">
+                        <a href="#contacto" class="hidden sm:flex group relative overflow-hidden rounded-2xl bg-[#204369] px-6 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:bg-[#C8DBEF] hover:text-[#204369] active:scale-95 btn-shine">
                         <span class="relative z-10 flex items-center gap-2">
                             <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -119,8 +111,8 @@
                     </a>
 
                     <!-- Botón de menú móvil mejorado -->
-                    <button @click="mobileMenuOpen = !mobileMenuOpen"
-                            class="lg:hidden relative p-2 text-zinc-700 hover:text-[#021869] focus:outline-none focus:ring-2 focus:ring-[#0ea5a4] focus:ring-opacity-50 rounded-xl transition-all duration-300"
+            <button @click="mobileMenuOpen = !mobileMenuOpen"
+                            class="lg:hidden relative p-2 text-zinc-700 hover:text-[#204369] focus:outline-none focus:ring-2 focus:ring-[#C8DBEF] focus:ring-opacity-50 rounded-xl transition-all duration-300"
                             :class="{ 'bg-zinc-100': mobileMenuOpen }"
                             aria-label="Menú de navegación">
                         <svg x-show="!mobileMenuOpen"
@@ -154,7 +146,7 @@
                     <a href="{{ route('home') }}"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-[#C8DBEF]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                         </svg>
                         Inicio
@@ -167,22 +159,7 @@
                         </svg>
                         Servicios
                     </a>
-                    <a href="{{ route('gallery.index') }}"
-                       @click="mobileMenuOpen = false"
-                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        Galería
-                    </a>
-                    <a href="{{ route('blog.index') }}"
-                       @click="mobileMenuOpen = false"
-                       class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
-                        <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                        </svg>
-                        Blog
-                    </a>
+                    <!-- Galería y Blog eliminados en menú móvil -->
                     <a href="{{ route('testimonials.index') }}"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
@@ -199,20 +176,20 @@
                         </svg>
                         Soporte
                     </a>
-                    <a href="/#contacto"
+                    {{-- <a href="/#contacto"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#021869] hover:bg-zinc-50 rounded-xl transition-all duration-300">
                         <svg class="h-5 w-5 text-[#0ea5a4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                         Contacto
-                    </a>
+                    </a> --}}
 
                     <!-- CTA en menú móvil -->
                     <div class="pt-4 mt-4 border-t border-zinc-200">
-                        <a href="#contacto"
+                                <a href="#contacto"
                            @click="mobileMenuOpen = false"
-                           class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gradient-to-r from-[#0ea5a4] to-[#14b8a6] text-white font-bold rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
+                                    class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-[#204369] text-white font-bold rounded-xl shadow-lg transition-all duration-300 hover:bg-[#C8DBEF] hover:text-[#204369]">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
@@ -290,7 +267,7 @@
                             <li><a href="{{ route('services.index') }}" class="hover:text-[#021869] transition-colors duration-300">Servicios</a></li>
                             <li><a href="{{ route('blog.index') }}" class="hover:text-[#021869] transition-colors duration-300">Blog</a></li>
                             <li><a href="/#contacto" class="hover:text-[#021869] transition-colors duration-300">Contacto</a></li>
-                            <li><a href="/#sobre-nosotros" class="hover:text-[#021869] transition-colors duration-300">Sobre nosotros</a></li>
+                            <li><a href="/#sobre-nosotros" class="hover:text-[#021869] transition-colors duration-300">Somos</a></li>
 
                         </ul>
                     </div>

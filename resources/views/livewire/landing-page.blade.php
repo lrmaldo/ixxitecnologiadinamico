@@ -49,52 +49,48 @@
                                  loading="{{ $index === 0 ? 'eager' : 'lazy' }}">
                         @else
                             <!-- Fallback con gradiente cuando no hay imagen -->
-                            <div class="w-full h-full bg-gradient-to-br from-[#021869] via-[#0a1f4c] to-[#021869]"></div>
+                            <div class="w-full h-full bg-gradient-to-br from-[#204369] via-[#204369] to-[#204369]"></div>
                         @endif
                     </div>
                 @endforeach
             @else
                 <!-- Fallback cuando no hay galería -->
-                <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#021869] via-[#0a1f4c] to-[#021869]"></div>
+                <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#204369] via-[#204369] to-[#204369]"></div>
             @endif
         </div>
 
-        <!-- Overlay degradado para contraste -->
-        <div class="absolute inset-0 bg-gradient-to-b from-blue-900/70 via-blue-900/50 to-blue-900/40"></div>
+    <!-- Overlay degradado sutil para contraste (sin azul sólido) -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/10"></div>
 
         <!-- Elementos decorativos adicionales -->
-        <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-            <div class="absolute top-1/4 left-10 w-96 h-96 bg-[#0ea5a4]/10 rounded-full filter blur-3xl animate-blob opacity-30"></div>
-            <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-blue-400/10 rounded-full filter blur-3xl animate-blob animation-delay-2000 opacity-30"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-400/5 rounded-full filter blur-3xl animate-pulse opacity-20"></div>
+            <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+            <div class="absolute top-1/4 left-10 w-96 h-96 bg-[#C8DBEF]/10 rounded-full filter blur-3xl animate-blob opacity-30"></div>
+            <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-[#C8DBEF]/10 rounded-full filter blur-3xl animate-blob animation-delay-2000 opacity-30"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#C8DBEF]/5 rounded-full filter blur-3xl animate-pulse opacity-20"></div>
         </div>
 
         <!-- Contenedor principal del hero -->
         <div class="relative z-20 max-w-7xl mx-auto px-4 md:px-6 pt-20 pb-16" x-show="showPage" x-transition:enter="transition ease-out duration-1200" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
 
-            <!-- Sección superior: Logo y texto principal -->
-            <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-duration="1000">
-                <div class="relative group inline-block mb-6 md:mb-8" data-aos="zoom-in" data-aos-duration="1200">
-                    <div class="absolute -inset-8 rounded-full blur-lg bg-gradient-to-r from-[#0ea5a4]/30 to-[#E6A4B4]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative">
-                        <div class="absolute inset-0 rounded-full blur-xl bg-gradient-to-r from-[#0ea5a4]/40 to-[#021869]/40 animate-pulse scale-110"></div>
-                        <img src="{{ asset('img/logo.png') }}" alt="IXXI Tecnología" class="h-24 md:h-32 lg:h-48 xl:h-56 w-auto relative z-10 transform transition-transform duration-700 hover:scale-105 drop-shadow-2xl" />
-                    </div>
-                </div>
+            <!-- Sección superior: título y descripción centrados sobre la imagen (logo eliminado) -->
+            <div class="text-center mb-12 md:mb-16 px-4" data-aos="fade-up" data-aos-duration="1000">
+                @php
+                    $heroItem = $gallery && $gallery->count() ? $gallery->first() : null;
+                    $heroTitle = $heroItem?->title ?: ($title ?? 'IXXI Tecnología');
+                    $heroDesc = $heroItem?->description ?: ($metaDescription ?? '');
+                @endphp
 
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight mb-4 md:mb-6 text-shadow-strong" data-aos="fade-up" data-aos-delay="300">
-                    <span class="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent text-shadow-strong">Seguridad y Tecnología</span>
-                    <span class="block text-[#0ea5a4] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mt-2 text-shadow-strong">para México</span>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6 text-shadow-strong" data-aos="fade-up" data-aos-delay="300">
+                    {{ $heroTitle }}
                 </h1>
 
                 <p class="text-lg md:text-xl lg:text-2xl text-white/95 font-light max-w-3xl mx-auto mb-6 md:mb-8 text-shadow-strong" data-aos="fade-up" data-aos-delay="500">
-                    Protección de última generación con tecnología avanzada
+                    {{ Str::limit($heroDesc, 180) }}
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center" data-aos="fade-up" data-aos-delay="700">
-                    <a href="#contacto" class="group relative overflow-hidden rounded-full bg-gradient-to-r from-[#0ea5a4] to-[#E6A4B4] px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-[#0ea5a4]/25 w-full sm:w-auto">
+                    <a href="#contacto" class="group relative overflow-hidden rounded-full bg-[#204369] px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:bg-[#C8DBEF] hover:text-[#204369] w-full sm:w-auto">
                         <span class="relative z-10">Contáctanos Ahora</span>
-                        <div class="absolute inset-0 bg-gradient-to-r from-[#E6A4B4] to-[#0ea5a4] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                     <a href="#galeria" class="rounded-full border-2 border-white/50 px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold text-white/95 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/70 w-full sm:w-auto">
                         Ver Galería
@@ -105,13 +101,13 @@
             <!-- Indicadores del carrusel de fondo -->
             @if($gallery && $gallery->count() > 0)
                 <div class="flex justify-center" data-aos="fade-up" data-aos-delay="900">
-                    <div class="flex space-x-3 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
+                        <div class="flex space-x-3 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
                         @foreach($gallery->take(6) as $index => $item)
-                            <button @click="headerSlide = {{ $index }}; stopHeaderAutoplay(); setTimeout(() => startHeaderAutoplay(), 3000)"
-                                    class="w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50"
-                                    :class="headerSlide === {{ $index }} ? 'bg-white scale-125 shadow-lg' : 'bg-white/60 hover:bg-white/80'"
-                                    :aria-label="`Ir a imagen ${{{ $index + 1 }}}`">
-                            </button>
+                <button @click="headerSlide = {{ $index }}; stopHeaderAutoplay(); setTimeout(() => startHeaderAutoplay(), 3000)"
+                    class="w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    :class="headerSlide === {{ $index }} ? 'bg-[#C8DBEF] scale-125 shadow-lg' : 'bg-white/60 hover:bg-white/80'"
+                    :aria-label="`Ir a imagen ${{{ $index + 1 }}}`">
+                </button>
                         @endforeach
                     </div>
                 </div>
@@ -127,23 +123,23 @@
     </header>
 
     <!-- 2) SECCIÓN DE GALERÍA INTERACTIVA -->
-    <section id="galeria" class="relative py-20 bg-gradient-to-br from-gray-50 to-white">
+   {{--  <section id="galeria" class="relative py-20 bg-gradient-to-br from-gray-50 to-white">
         <!-- Decoración de fondo sutil -->
         <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-            <div class="absolute top-20 right-10 w-64 h-64 bg-[#0ea5a4]/5 rounded-full filter blur-3xl"></div>
-            <div class="absolute bottom-20 left-10 w-80 h-80 bg-[#021869]/5 rounded-full filter blur-3xl"></div>
+            <div class="absolute top-20 right-10 w-64 h-64 bg-[#C8DBEF]/5 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-20 left-10 w-80 h-80 bg-[#204369]/5 rounded-full filter blur-3xl"></div>
         </div>
 
         <div class="relative z-10 mx-auto max-w-7xl px-6">
             <!-- Encabezado de la sección -->
             <div class="text-center mb-16" data-aos="fade-down" data-aos-duration="800">
-                <span class="inline-block py-2 px-4 bg-[#0ea5a4]/10 text-[#0ea5a4] rounded-full text-sm font-semibold mb-4">
+                <span class="inline-block py-2 px-4 bg-[#C8DBEF]/10 text-[#204369] rounded-full text-sm font-semibold mb-4">
                     Proyectos Destacados
                 </span>
-                <h2 class="text-4xl md:text-5xl font-bold text-[#021869] mb-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#204369] mb-6">
                     Nuestra Galería de Proyectos
                 </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-[#0ea5a4] to-[#E6A4B4] mx-auto rounded-full mb-6"></div>
+                <div class="w-24 h-1 bg-[#C8DBEF] mx-auto rounded-full mb-6"></div>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                     Explora nuestros proyectos de seguridad más exitosos y las soluciones tecnológicas que hemos implementado
                 </p>
@@ -179,7 +175,7 @@
                                 </div>
 
                                 <!-- Badge de categoría -->
-                                <div class="absolute top-6 left-6 bg-[#0ea5a4] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                                <div class="absolute top-6 left-6 bg-[#C8DBEF] text-[#204369] px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                                     Proyecto de Seguridad
                                 </div>
                             </div>
@@ -189,14 +185,14 @@
 
                 <!-- Controles de navegación mejorados -->
                 <button @click.prevent="currentSlide = (currentSlide - 1 + totalSlides) % totalSlides"
-                        class="absolute left-6 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-gray-50 text-[#021869] rounded-full p-4 shadow-xl transition-all duration-300 hover:scale-110 group">
+                        class="absolute left-6 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-gray-50 text-[#204369] rounded-full p-4 shadow-xl transition-all duration-300 hover:scale-110 group">
                     <svg class="h-6 w-6 transition-transform group-hover:-translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
                     </svg>
                 </button>
 
                 <button @click.prevent="currentSlide = (currentSlide + 1) % totalSlides"
-                        class="absolute right-6 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-gray-50 text-[#021869] rounded-full p-4 shadow-xl transition-all duration-300 hover:scale-110 group">
+                        class="absolute right-6 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-gray-50 text-[#204369] rounded-full p-4 shadow-xl transition-all duration-300 hover:scale-110 group">
                     <svg class="h-6 w-6 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                     </svg>
@@ -204,18 +200,18 @@
 
                 <!-- Indicadores de navegación -->
                 <div class="flex justify-center mt-10 space-x-4">
-                    <template x-for="(_, i) in [...Array(totalSlides)]" :key="i">
-                        <button @click="currentSlide = i"
-                                class="w-4 h-4 rounded-full transition-all duration-300 hover:scale-110"
-                                :class="currentSlide === i ? 'bg-[#0ea5a4] scale-125 shadow-lg' : 'bg-gray-300 hover:bg-gray-400'">
-                        </button>
-                    </template>
+            <template x-for="(_, i) in [...Array(totalSlides)]" :key="i">
+            <button @click="currentSlide = i"
+                class="w-4 h-4 rounded-full transition-all duration-300 hover:scale-110"
+                :class="currentSlide === i ? 'bg-[#C8DBEF] scale-125 shadow-lg' : 'bg-gray-300 hover:bg-gray-400'">
+            </button>
+            </template>
                 </div>
 
                 <!-- Botón para ver galería completa -->
                 <div class="text-center mt-12">
                     <a href="{{ route('gallery.index') }}"
-                       class="inline-flex items-center gap-3 bg-gradient-to-r from-[#0ea5a4] to-[#E6A4B4] text-white font-bold px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+                       class="inline-flex items-center gap-3 bg-[#204369] text-white font-bold px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
                         <span>Explorar Galería Completa</span>
                         <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -224,26 +220,26 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- 3) SECCIÓN DE PRESENTACIÓN Y SERVICIOS -->
     <section class="relative py-24 bg-white overflow-hidden">
         <!-- Elementos decorativos de fondo -->
         <div class="absolute inset-0" aria-hidden="true">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#0ea5a4]/20 to-transparent"></div>
-            <div class="absolute top-20 right-0 w-96 h-96 bg-[#0ea5a4]/5 rounded-full filter blur-3xl"></div>
-            <div class="absolute bottom-20 left-0 w-80 h-80 bg-[#021869]/5 rounded-full filter blur-3xl"></div>
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#C8DBEF]/20 to-transparent"></div>
+            <div class="absolute top-20 right-0 w-96 h-96 bg-[#C8DBEF]/5 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-20 left-0 w-80 h-80 bg-[#204369]/5 rounded-full filter blur-3xl"></div>
         </div>
 
         <div class="relative z-10 mx-auto max-w-7xl px-6">
             <!-- Presentación principal -->
             <div class="max-w-5xl mx-auto text-center mb-20">
-                <span class="inline-block py-2 px-4 bg-[#0ea5a4]/10 text-[#0ea5a4] rounded-full text-sm font-semibold mb-6" data-aos="fade-down" data-aos-delay="100">
+                <span class="inline-block py-2 px-4 bg-[#C8DBEF]/10 text-[#204369] rounded-full text-sm font-semibold mb-6" data-aos="fade-down" data-aos-delay="100">
                     Líderes en Seguridad Tecnológica
                 </span>
 
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#021869] mb-8 leading-tight" data-aos="fade-up" data-aos-delay="200">
-                    Somos <span class="bg-gradient-to-r from-[#0ea5a4] to-[#E6A4B4] bg-clip-text text-transparent">IXXI TECNOLOGÍA</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#204369] mb-8 leading-tight" data-aos="fade-up" data-aos-delay="200">
+                    Somos <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#204369] to-[#C8DBEF]">IXXI TECNOLOGÍA</span>
                 </h2>
 
                 <p class="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed" data-aos="fade-up" data-aos-delay="300">
@@ -252,11 +248,11 @@
 
                 <!-- Botones de acción principales -->
                 <div class="flex flex-wrap gap-6 justify-center mb-16" data-aos="fade-up" data-aos-delay="400">
-                    <a href="#contacto" class="group relative overflow-hidden bg-gradient-to-r from-[#0ea5a4] to-[#E6A4B4] text-white font-bold px-8 py-4 rounded-full shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <a href="#contacto" class="group relative overflow-hidden bg-gradient-to-r from-[#204369] to-[#C8DBEF] text-white font-bold px-8 py-4 rounded-full shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                         <span class="relative z-10">Solicitar Consulta Gratuita</span>
-                        <div class="absolute inset-0 bg-gradient-to-r from-[#E6A4B4] to-[#0ea5a4] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-[#C8DBEF] to-[#204369] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
-                    <a href="#servicios" class="border-2 border-[#021869] text-[#021869] font-bold px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#021869] hover:text-white hover:scale-105">
+                    <a href="#servicios" class="border-2 border-[#204369] text-[#204369] font-bold px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#204369] hover:text-white hover:scale-105">
                         Explorar Servicios
                     </a>
                 </div>
@@ -264,32 +260,32 @@
                 <!-- Características destacadas con iconos mejorados -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="500">
                     <div class="group bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-aos="flip-left" data-aos-delay="600">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#0ea5a4] to-[#E6A4B4] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#204369] to-[#C8DBEF] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-[#021869] mb-3">Certificaciones Profesionales</h3>
+                        <h3 class="text-xl font-bold text-[#204369] mb-3">Certificaciones Profesionales</h3>
                         <p class="text-gray-600 leading-relaxed">Personal altamente capacitado con certificaciones internacionales en seguridad</p>
                     </div>
 
                     <div class="group bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-aos="flip-left" data-aos-delay="700">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#0ea5a4] to-[#E6A4B4] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#204369] to-[#C8DBEF] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-[#021869] mb-3">Equipo Especializado</h3>
+                        <h3 class="text-xl font-bold text-[#204369] mb-3">Equipo Especializado</h3>
                         <p class="text-gray-600 leading-relaxed">Profesionales con experiencia en campo y conocimiento técnico avanzado</p>
                     </div>
 
                     <div class="group bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-aos="flip-left" data-aos-delay="800">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#0ea5a4] to-[#E6A4B4] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#204369] to-[#C8DBEF] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-[#021869] mb-3">Soporte 24/7</h3>
+                        <h3 class="text-xl font-bold text-[#204369] mb-3">Soporte 24/7</h3>
                         <p class="text-gray-600 leading-relaxed">Respuesta inmediata y monitoreo continuo para tu tranquilidad total</p>
                     </div>
                 </div>
@@ -300,13 +296,13 @@
 
             <!-- Llamada a la acción final -->
             <div class="text-center" data-aos="fade-up" data-aos-delay="900">
-                <h3 class="text-2xl md:text-3xl font-bold text-[#021869] mb-4">
+                <h3 class="text-2xl md:text-3xl font-bold text-[#204369] mb-4">
                     ¿Listo para proteger tu negocio?
                 </h3>
                 <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
                     Contáctanos hoy mismo y descubre cómo podemos fortalecer la seguridad de tu empresa con nuestras soluciones personalizadas.
                 </p>
-                <a href="#contacto" class="inline-flex items-center gap-3 bg-[#021869] text-white font-bold px-8 py-4 rounded-full shadow-xl hover:bg-[#0ea5a4] transition-all duration-300 hover:scale-105 group">
+                <a href="#contacto" class="inline-flex items-center gap-3 bg-[#204369] text-white font-bold px-8 py-4 rounded-full shadow-xl hover:bg-[#C8DBEF] transition-all duration-300 hover:scale-105 group">
                     <span>Comenzar Ahora</span>
                     <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
@@ -318,29 +314,29 @@
 
     <!-- 4) ESTADÍSTICAS (mantener estructura para futuros contadores) -->
     <section class="py-20 bg-white relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
-        <div class="absolute inset-0 bg-gradient-to-r from-[#021869]/5 to-[#0ea5a4]/5 opacity-30 -z-10"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#204369]/5 to-[#C8DBEF]/5 opacity-30 -z-10"></div>
         <div class="mx-auto max-w-7xl px-6 relative">
             <div class="text-center mb-12" data-aos="fade-down">
-                <h2 class="text-3xl font-bold text-[#021869]">Nuestra Experiencia en Números</h2>
-                <div class="w-24 h-1 bg-[#0ea5a4] mx-auto mt-4 rounded-full"></div>
+                <h2 class="text-3xl font-bold text-[#204369]">Nuestra Experiencia en Números</h2>
+                <div class="w-24 h-1 bg-[#C8DBEF] mx-auto mt-4 rounded-full"></div>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 counter-section">
                 <!-- Placeholder para contadores -->
                 <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="text-4xl font-extrabold text-[#021869] counter" data-target="120">0</div>
+                    <div class="text-4xl font-extrabold text-[#204369] counter" data-target="120">0</div>
                     <div class="mt-2 text-sm text-zinc-600">Proyectos</div>
                 </div>
                 <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="text-4xl font-extrabold text-[#021869] counter" data-target="50">0</div>
+                    <div class="text-4xl font-extrabold text-[#204369] counter" data-target="50">0</div>
                     <div class="mt-2 text-sm text-zinc-600">Clientes</div>
                 </div>
                 <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="text-4xl font-extrabold text-[#021869] counter" data-target="24">0</div>
+                    <div class="text-4xl font-extrabold text-[#204369] counter" data-target="24">0</div>
                     <div class="mt-2 text-sm text-zinc-600">Soporte 24/7</div>
                 </div>
                 <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="text-4xl font-extrabold text-[#021869] counter" data-target="10">0</div>
+                    <div class="text-4xl font-extrabold text-[#204369] counter" data-target="10">0</div>
                     <div class="mt-2 text-sm text-zinc-600">Años</div>
                 </div>
             </div>
@@ -348,15 +344,15 @@
     </section>
 
     <!-- SECCIÓN DE MISIÓN, VISIÓN Y VALORES -->
-    <section class="py-16 md:py-24 bg-gradient-to-br from-[#021869] to-[#0a1f4c] relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000" id="sobre-nosotros">
+    <section class="py-16 md:py-24 bg-gradient-to-br from-[#204369] to-[#204369] relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000" id="sobre-nosotros">
         <!-- Elementos decorativos de fondo -->
-        <div class="absolute top-10 left-10 w-32 h-32 md:w-64 md:h-64 bg-[#0ea5a4]/10 rounded-full filter blur-3xl opacity-50"></div>
+    <div class="absolute top-10 left-10 w-32 h-32 md:w-64 md:h-64 bg-[#C8DBEF]/10 rounded-full filter blur-3xl opacity-50"></div>
         <div class="absolute bottom-10 right-10 w-40 h-40 md:w-80 md:h-80 bg-blue-400/10 rounded-full filter blur-3xl opacity-50"></div>
 
         <div class="mx-auto max-w-7xl px-4 md:px-6 relative z-10">
             <div class="text-center mb-12 md:mb-16" data-aos="fade-down">
                 <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Quiénes Somos</h2>
-                <div class="w-24 h-1 bg-[#0ea5a4] mx-auto rounded-full"></div>
+                <div class="w-24 h-1 bg-[#C8DBEF] mx-auto rounded-full"></div>
 
                 {{-- Mostrar about_us si existe en la base de datos --}}
                 @if(isset($companyInfo) && $companyInfo->about_us)
@@ -376,7 +372,7 @@
                 <!-- Misión -->
                 <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 md:p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group" data-aos="fade-right" data-aos-delay="100">
                     <div class="text-center mb-6">
-                        <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-[#0ea5a4] to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-[#204369] to-[#C8DBEF] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
@@ -427,26 +423,26 @@
                             @foreach(explode("\n", $companyInfo->values) as $value)
                                 @if(trim($value))
                                     <div class="flex items-start mb-2">
-                                        <span class="text-[#0ea5a4] mr-2 mt-1 text-sm">▸</span>
+                                        <span class="text-[#204369] mr-2 mt-1 text-sm">▸</span>
                                         <span class="text-sm md:text-base">{{ trim($value) }}</span>
                                     </div>
                                 @endif
                             @endforeach
                         @else
                             <div class="flex items-start mb-2">
-                                <span class="text-[#0ea5a4] mr-2 mt-1 text-sm">▸</span>
+                                <span class="text-[#204369] mr-2 mt-1 text-sm">▸</span>
                                 <span class="text-sm md:text-base">Innovación</span>
                             </div>
                             <div class="flex items-start mb-2">
-                                <span class="text-[#0ea5a4] mr-2 mt-1 text-sm">▸</span>
+                                <span class="text-[#204369] mr-2 mt-1 text-sm">▸</span>
                                 <span class="text-sm md:text-base">Calidad</span>
                             </div>
                             <div class="flex items-start mb-2">
-                                <span class="text-[#0ea5a4] mr-2 mt-1 text-sm">▸</span>
+                                <span class="text-[#204369] mr-2 mt-1 text-sm">▸</span>
                                 <span class="text-sm md:text-base">Compromiso</span>
                             </div>
                             <div class="flex items-start">
-                                <span class="text-[#0ea5a4] mr-2 mt-1 text-sm">▸</span>
+                                <span class="text-[#204369] mr-2 mt-1 text-sm">▸</span>
                                 <span class="text-sm md:text-base">Transparencia</span>
                             </div>
                         @endif
@@ -460,8 +456,8 @@
     <section id="servicios" class="py-24 bg-zinc-50" data-aos="fade-up" data-aos-duration="1000">
         <div class="mx-auto max-w-7xl px-6">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#021869]">Nuestros Servicios</h2>
-                <div class="w-24 h-1 bg-[#0ea5a4] mx-auto mt-4 rounded-full"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-[#204369]">Nuestros Servicios</h2>
+                <div class="w-24 h-1 bg-[#C8DBEF] mx-auto mt-4 rounded-full"></div>
                 <p class="mt-4 text-lg text-zinc-600 max-w-3xl mx-auto">Soluciones integrales de seguridad diseñadas específicamente para proteger tu negocio y optimizar tus operaciones</p>
             </div>
 
@@ -476,10 +472,10 @@
                             </div>
                         @endif
                         <div class="p-6">
-                            <div class="text-3xl text-[#0ea5a4]">{{ $service->icon }}</div>
-                            <h3 class="mt-4 text-xl font-semibold text-[#021869]">{{ $service->title }}</h3>
+                            <div class="text-3xl text-[#204369]">{{ $service->icon }}</div>
+                            <h3 class="mt-4 text-xl font-semibold text-[#204369]">{{ $service->title }}</h3>
                             <p class="mt-2 text-zinc-600">{{ $service->summary }}</p>
-                            <div class="mt-6 flex items-center text-[#0ea5a4] font-medium">
+                            <div class="mt-6 flex items-center text-[#204369] font-medium">
                                 <span>Más información</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -491,7 +487,7 @@
             </div>
 
             <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="600">
-                <a href="{{ route('services.index') }}" class="inline-flex items-center gap-2 font-semibold text-[#0ea5a4] hover:text-[#c6789f] group">
+                <a href="{{ route('services.index') }}" class="inline-flex items-center gap-2 font-semibold text-[#204369] hover:text-[#C8DBEF] group">
                     Ver todos los servicios
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1">
                         <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
@@ -505,10 +501,15 @@
     <section class="py-24 bg-white" data-aos="fade-up" data-aos-duration="1000">
         <div class="mx-auto max-w-7xl px-6">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#021869]">Testimonios</h2>
-                <div class="w-24 h-1 bg-[#0ea5a4] mx-auto mt-4 rounded-full"></div>
+                 <h2 class="text-3xl md:text-4xl font-bold text-[#204369]">Testimonios</h2>
+                <div class="w-24 h-1 bg-[#C8DBEF] mx-auto mt-4 rounded-full"></div>
                 <p class="mt-4 text-lg text-zinc-600 max-w-3xl mx-auto">Lo que nuestros clientes dicen sobre nuestros servicios</p>
             </div>
+                <h2 class="text-3xl font-bold text-[#204369]">Nuestra Experiencia en Números</h2>
+                    <div class="text-4xl font-extrabold text-[#204369] counter" data-target="120">0</div>
+                    <div class="text-4xl font-extrabold text-[#204369] counter" data-target="50">0</div>
+                    <div class="text-4xl font-extrabold text-[#204369] counter" data-target="24">0</div>
+                    <div class="text-4xl font-extrabold text-[#204369] counter" data-target="10">0</div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($testimonials->take(3) as $index => $t)
@@ -524,7 +525,7 @@
                             "{{ Str::limit($t->content, 150) }}"
                         </p>
                         <div class="mt-6 pt-6 border-t border-zinc-200 flex items-center">
-                            <div class="h-10 w-10 rounded-full bg-gradient-to-r from-[#021869] to-[#0b2252] flex items-center justify-center text-white font-bold">
+                            <div class="h-10 w-10 rounded-full bg-gradient-to-r from-[#204369] to-[#204369] flex items-center justify-center text-white font-bold">
                                 {{ substr($t->author_name, 0, 1) }}
                             </div>
                             <div class="ml-4">
@@ -539,7 +540,7 @@
             </div>
 
             <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="500">
-                <a href="{{ route('testimonials.index') }}" class="inline-flex items-center gap-2 font-semibold text-[#0ea5a4] hover:text-[#0c8e8d] group">
+                <a href="{{ route('testimonials.index') }}" class="inline-flex items-center gap-2 font-semibold text-[#C8DBEF] hover:text-[#C8DBEF] group">
                     Ver todos los testimonios
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1">
                         <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
@@ -553,8 +554,8 @@
     <section class="py-24 bg-zinc-50" data-aos="fade-up" data-aos-duration="1000">
         <div class="mx-auto max-w-7xl px-6">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#021869]">Contenido Reciente</h2>
-                <div class="w-24 h-1 bg-[#0ea5a4] mx-auto mt-4 rounded-full"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-[#204369]">Contenido Reciente</h2>
+                <div class="w-24 h-1 bg-[#C8DBEF] mx-auto mt-4 rounded-full"></div>
                 <p class="mt-4 text-lg text-zinc-600 max-w-3xl mx-auto">Actualizaciones, noticias y recursos del sector</p>
             </div>
 
@@ -569,16 +570,16 @@
                             </div>
                         @endif
                         <div class="p-6 border border-t-0 border-zinc-200 rounded-b-xl">
-                            <div class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-[#021869]">
+                            <div class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-[#204369]">
                                 {{ str_replace('_', ' ', $post->type) }}
                             </div>
-                            <h3 class="mt-4 text-xl font-semibold text-zinc-900 transition group-hover:text-[#021869]">
+                            <h3 class="mt-4 text-xl font-semibold text-zinc-900 transition group-hover:text-[#204369]">
                                 {{ $post->title }}
                             </h3>
                             <p class="mt-2 text-zinc-600 line-clamp-2">
                                 {{ $post->excerpt }}
                             </p>
-                            <div class="mt-6 flex items-center text-[#0ea5a4] font-medium">
+                            <div class="mt-6 flex items-center text-[#C8DBEF] font-medium">
                                 <span>Leer artículo</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -590,7 +591,7 @@
             </div>
 
             <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="700">
-                <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 font-semibold text-[#0ea5a4] hover:text-[#0c8e8d] group">
+                <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 font-semibold text-[#C8DBEF] hover:text-[#C8DBEF] group">
                     Ver todas las entradas
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1">
                         <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
@@ -604,8 +605,8 @@
     <section id="contacto" class="py-24 bg-gradient-to-b from-white to-zinc-50" data-aos="fade-up" data-aos-duration="1000">
         <div class="mx-auto max-w-7xl px-6">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#021869]">Contáctanos</h2>
-                <div class="w-24 h-1 bg-[#0ea5a4] mx-auto mt-4 rounded-full"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-[#204369]">Contáctanos</h2>
+                <div class="w-24 h-1 bg-[#C8DBEF] mx-auto mt-4 rounded-full"></div>
                 <p class="mt-4 text-lg text-zinc-600 max-w-3xl mx-auto">Estamos listos para ayudarte con soluciones personalizadas</p>
             </div>
 
@@ -624,40 +625,40 @@
 
                     <!-- Información de contacto -->
                     <div class="bg-white p-8 rounded-xl shadow-xl border border-zinc-100">
-                        <h3 class="text-xl font-semibold text-[#021869] mb-6">Información de contacto</h3>
+                        <h3 class="text-xl font-semibold text-[#204369] mb-6">Información de contacto</h3>
 
                         <div class="space-y-4">
                             @if($contactInfo->phone)
                             <div class="flex items-start">
-                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#021869]">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#204369]">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                     </svg>
                                 </div>
                                 <div class="ml-4">
                                     <p class="text-sm font-medium text-gray-900">Teléfono</p>
-                                    <a href="tel:{{ $contactInfo->phone }}" class="text-gray-600 hover:text-[#0ea5a4] transition-colors">{{ $contactInfo->phone }}</a>
+                                    <a href="tel:{{ $contactInfo->phone }}" class="text-gray-600 hover:text-[#C8DBEF] transition-colors">{{ $contactInfo->phone }}</a>
                                 </div>
                             </div>
                             @endif
 
                             @if($contactInfo->email)
                             <div class="flex items-start">
-                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#021869]">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#204369]">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </div>
                                 <div class="ml-4">
                                     <p class="text-sm font-medium text-gray-900">Correo electrónico</p>
-                                    <a href="mailto:{{ $contactInfo->email }}" class="text-gray-600 hover:text-[#0ea5a4] transition-colors">{{ $contactInfo->email }}</a>
+                                    <a href="mailto:{{ $contactInfo->email }}" class="text-gray-600 hover:text-[#C8DBEF] transition-colors">{{ $contactInfo->email }}</a>
                                 </div>
                             </div>
                             @endif
 
                             @if($contactInfo->address)
                             <div class="flex items-start">
-                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#021869]">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#204369]">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -686,7 +687,7 @@
 
                             @if($contactInfo->business_hours_weekdays || $contactInfo->business_hours_weekends)
                             <div class="flex items-start">
-                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#021869]">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#204369]">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -913,7 +914,7 @@
 
         .animate-zoom-in {
             animation: zoomIn 0.6s ease-out;
-        }
+
 
         /* Escalas y transiciones adicionales */
         .scale-98 {

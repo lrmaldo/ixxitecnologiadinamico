@@ -11,27 +11,43 @@
             this.intervalId = setInterval(()=>{
                 if(!this.isHovering)
                     this.currentSlide = (this.currentSlide + 1) % this.totalSlides
-            }, 5000)
+            }, 10000)
     },
     stopAutoplay(){ if(this.intervalId){ clearInterval(this.intervalId); this.intervalId = null } },
     // Carrusel crossfade del header
     headerSlide: 0,
     headerTotalSlides: {{ $gallery && $gallery->count() > 0 ? $gallery->take(6)->count() : 0 }},
     headerIntervalId: null,
+    currentTitle: '',
+    currentDescription: '',
     startHeaderAutoplay(){
         if(!this.headerIntervalId && this.headerTotalSlides > 0)
             this.headerIntervalId = setInterval(()=>{
-                this.headerSlide = (this.headerSlide + 1) % this.headerTotalSlides
-            }, 5000)
+                this.headerSlide = (this.headerSlide + 1) % this.headerTotalSlides;
+                this.updateHeaderContent(this.headerSlide);
+            }, 10000)
     },
     stopHeaderAutoplay(){
         if(this.headerIntervalId){
             clearInterval(this.headerIntervalId);
             this.headerIntervalId = null
         }
+    },
+    updateHeaderContent(index) {
+        // Actualiza el título y descripción según la imagen activa
+        const gallery = @js($gallery ? $gallery->take(6)->toArray() : []);
+        if (gallery && gallery.length > 0) {
+            this.currentTitle = gallery[index]?.title || '{{ $title ?? 'IXXI Tecnología' }}';
+            this.currentDescription = gallery[index]?.description || '{{ $metaDescription ?? 'Experiencia comprobada en alta tecnología, inteligencia en campo y despliegue táctico diseñado para las necesidades específicas de seguridad de tu negocio.' }}';
+        }
     }
 }"
-     x-init="setTimeout(()=>{ showPage = true; startAutoplay(); startHeaderAutoplay() }, 100)"
+     x-init="setTimeout(()=>{ 
+         showPage = true; 
+         startAutoplay(); 
+         updateHeaderContent(0); // Inicializa con el primer ítem
+         startHeaderAutoplay(); 
+     }, 100)"
      x-cloak>
 
     <!-- 1) HERO PRINCIPAL OPTIMIZADO CON CARRUSEL DE FONDO -->
@@ -73,19 +89,13 @@
         <div class="relative z-20 max-w-7xl mx-auto px-4 md:px-6 pt-20 pb-16" x-show="showPage" x-transition:enter="transition ease-out duration-1200" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
 
             <!-- Sección superior: título y descripción centrados sobre la imagen (logo eliminado) -->
-            <div class="text-center mb-12 md:mb-16 px-4">
-                @php
-                    $heroItem = $gallery && $gallery->count() > 0 ? $gallery->first() : null;
-                    $heroTitle = $heroItem && isset($heroItem->title) && $heroItem->title ? $heroItem->title : ($title ?? 'IXXI Tecnología');
-                    $heroDesc = $heroItem && isset($heroItem->description) && $heroItem->description ? $heroItem->description : ($metaDescription ?? 'Experiencia comprobada en alta tecnología, inteligencia en campo y despliegue táctico diseñado para las necesidades específicas de seguridad de tu negocio.');
-                @endphp
-
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6 text-shadow-strong">
-                    {{ $heroTitle }}
+            <div class="text-center mb-12 md:mb-16 px-4" data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6 text-shadow-strong" x-text="currentTitle" data-aos="fade-up" data-aos-delay="300">
+                    <!-- Texto dinámico -->
                 </h1>
 
-                <p class="text-lg md:text-xl lg:text-2xl text-white/95 font-light max-w-3xl mx-auto mb-6 md:mb-8 text-shadow-strong">
-                    {{ Str::limit($heroDesc, 180) }}
+                <p class="text-lg md:text-xl lg:text-2xl text-white/95 font-light max-w-3xl mx-auto mb-6 md:mb-8 text-shadow-strong" x-text="currentDescription ? (currentDescription.length > 180 ? currentDescription.substring(0, 180) + '...' : currentDescription) : ''" data-aos="fade-up" data-aos-delay="500">
+                    <!-- Texto dinámico -->
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center" data-aos="fade-up" data-aos-delay="700">
@@ -101,7 +111,7 @@
                 <div class="flex justify-center" data-aos="fade-up" data-aos-delay="900">
                         <div class="flex space-x-3 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
                         @foreach($gallery->take(6) as $index => $item)
-                <button @click="headerSlide = {{ $index }}; stopHeaderAutoplay(); setTimeout(() => startHeaderAutoplay(), 3000)"
+                <button @click="headerSlide = {{ $index }}; updateHeaderContent({{ $index }}); stopHeaderAutoplay(); setTimeout(() => startHeaderAutoplay(), 10000)"
                     class="w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50"
                     :class="headerSlide === {{ $index }} ? 'bg-[#C8DBEF] scale-125 shadow-lg' : 'bg-white/60 hover:bg-white/80'"
                     :aria-label="`Ir a imagen ${{{ $index + 1 }}}`">

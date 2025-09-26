@@ -73,18 +73,18 @@
         <div class="relative z-20 max-w-7xl mx-auto px-4 md:px-6 pt-20 pb-16" x-show="showPage" x-transition:enter="transition ease-out duration-1200" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
 
             <!-- Sección superior: título y descripción centrados sobre la imagen (logo eliminado) -->
-            <div class="text-center mb-12 md:mb-16 px-4" data-aos="fade-up" data-aos-duration="1000">
+            <div class="text-center mb-12 md:mb-16 px-4">
                 @php
-                    $heroItem = $gallery && $gallery->count() ? $gallery->first() : null;
-                    $heroTitle = $heroItem?->title ?: ($title ?? 'IXXI Tecnología');
-                    $heroDesc = $heroItem?->description ?: ($metaDescription ?? '');
+                    $heroItem = $gallery && $gallery->count() > 0 ? $gallery->first() : null;
+                    $heroTitle = $heroItem && isset($heroItem->title) && $heroItem->title ? $heroItem->title : ($title ?? 'IXXI Tecnología');
+                    $heroDesc = $heroItem && isset($heroItem->description) && $heroItem->description ? $heroItem->description : ($metaDescription ?? 'Experiencia comprobada en alta tecnología, inteligencia en campo y despliegue táctico diseñado para las necesidades específicas de seguridad de tu negocio.');
                 @endphp
 
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6 text-shadow-strong" data-aos="fade-up" data-aos-delay="300">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight mb-4 md:mb-6 text-shadow-strong">
                     {{ $heroTitle }}
                 </h1>
 
-                <p class="text-lg md:text-xl lg:text-2xl text-white/95 font-light max-w-3xl mx-auto mb-6 md:mb-8 text-shadow-strong" data-aos="fade-up" data-aos-delay="500">
+                <p class="text-lg md:text-xl lg:text-2xl text-white/95 font-light max-w-3xl mx-auto mb-6 md:mb-8 text-shadow-strong">
                     {{ Str::limit($heroDesc, 180) }}
                 </p>
 

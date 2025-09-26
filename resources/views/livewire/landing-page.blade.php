@@ -92,9 +92,7 @@
                     <a href="#contacto" class="group relative overflow-hidden rounded-full bg-[#204369] px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:bg-[#C8DBEF] hover:text-[#204369] w-full sm:w-auto">
                         <span class="relative z-10">Contáctanos Ahora</span>
                     </a>
-                    <a href="#galeria" class="rounded-full border-2 border-white/50 px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold text-white/95 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/70 w-full sm:w-auto">
-                        Ver Galería
-                    </a>
+                    
                 </div>
             </div>
 

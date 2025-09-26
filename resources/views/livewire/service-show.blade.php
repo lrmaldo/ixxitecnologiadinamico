@@ -6,7 +6,7 @@
                 @if($service->summary)
                     <p class="mt-3 text-lg text-zinc-700">{{ $service->summary }}</p>
                 @endif
-                <div class="prose mt-6 max-w-none prose-headings:text-[#021869]">{!! nl2br(e($service->description)) !!}</div>
+                <div class="prose mt-6 max-w-none prose-headings:text-[#204369]">{!! nl2br(e($service->description)) !!}</div>
                 <div class="mt-8 flex flex-wrap gap-3">
                     <a href="{{ route('home') }}#contacto" class="rounded-md bg-[#204369] px-5 py-3 font-semibold text-white hover:bg-[#C8DBEF] hover:text-[#204369] transition-colors">Solicitar información</a>
                     @if(!empty($contactInfo?->whatsapp))

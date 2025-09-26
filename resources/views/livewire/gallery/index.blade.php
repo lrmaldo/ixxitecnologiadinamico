@@ -33,7 +33,7 @@
      @keydown.arrow-right.window="next()">
 
     <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-[#021869] via-[#0a1f4c] to-[#0b2252] text-white py-24"
+    <section class="relative overflow-hidden bg-gradient-to-br from-[#204369] via-[#0a1f4c] to-[#0b2252] text-white py-24"
              data-aos="fade-down">
         <!-- Elementos decorativos de fondo -->
         <div class="absolute inset-0 overflow-hidden opacity-10">
@@ -93,14 +93,14 @@
                 <div class="flex items-center gap-4">
                     <div class="flex rounded-2xl border border-zinc-200 bg-white overflow-hidden">
                         <button @click="viewMode = 'grid'"
-                                :class="viewMode === 'grid' ? 'bg-[#021869] text-white' : 'text-zinc-600 hover:bg-zinc-50'"
+                                :class="viewMode === 'grid' ? 'bg-[#204369] text-white' : 'text-zinc-600 hover:bg-zinc-50'"
                                 class="p-3 transition-colors duration-300" title="Vista en cuadrícula">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                             </svg>
                         </button>
                         <button @click="viewMode = 'masonry'"
-                                :class="viewMode === 'masonry' ? 'bg-[#021869] text-white' : 'text-zinc-600 hover:bg-zinc-50'"
+                                :class="viewMode === 'masonry' ? 'bg-[#204369] text-white' : 'text-zinc-600 hover:bg-zinc-50'"
                                 class="p-3 transition-colors duration-300" title="Vista mosaico">
                             <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 002 2m0 0v10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h2z" />

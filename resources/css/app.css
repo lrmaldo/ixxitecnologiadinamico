@@ -35,9 +35,10 @@
     --color-blue-700: #0b34f6;
     --color-blue-800: #092cce;
     --color-blue-900: #0925a9;
-    --color-blue-950: #021869;
+    --color-blue-950: #204369;
 
-    --color-brand: #021869; /* Azul oscuro */
+    --color-brand: #204369; /* Azul primario actualizado */
+    --color-alt: #C8DBEF; /* Color alternativo claro */
     --color-accent: #4370ff; /* Azul acento */
     --color-accent-content: #4370ff;
     --color-accent-foreground: var(--color-white);

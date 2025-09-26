@@ -2,7 +2,7 @@
 <section id="contacto" class="py-24 bg-gradient-to-b from-white to-zinc-50" data-aos="fade-up" data-aos-duration="1000">
     <div class="mx-auto max-w-7xl px-6">
         <div class="text-center mb-16" data-aos="fade-down">
-            <h2 class="text-3xl md:text-4xl font-bold text-[#021869]">Contáctanos</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#204369]">Contáctanos</h2>
             <div class="w-24 h-1 bg-[#0ea5a4] mx-auto mt-4 rounded-full"></div>
             <p class="mt-4 text-lg text-zinc-600 max-w-3xl mx-auto">Estamos listos para ayudarte con soluciones personalizadas</p>
         </div>
@@ -17,7 +17,7 @@
             <div class="space-y-8" data-aos="fade-left" data-aos-delay="400">
                 <!-- Información de contacto -->
                 <div class="bg-white p-8 rounded-xl shadow-xl border border-zinc-100">
-                    <h3 class="text-xl font-semibold text-[#021869] mb-6">Información de contacto</h3>
+                    <h3 class="text-xl font-semibold text-[#204369] mb-6">Información de contacto</h3>
 
                     @php
                         $contactInfo = App\Models\ContactInformation::first();

@@ -58,7 +58,7 @@
                 <!-- Logo y marca simplificada -->
                     <a href="{{ route('home') }}" class="flex items-center gap-4 group">
                         {{-- Use explicit image to ensure sizing works as expected --}}
-                        <img src="{{ asset('/img/logo.png') }}" alt="IXXI Tecnología" class="w-12 h-12 md:w-16 md:h-16 object-contain transition-all duration-300 group-hover:scale-105"> 
+                        <img src="{{ asset('/img/logo.png') }}" alt="IXXI Tecnología" class="w-12 h-12 md:w-16 md:h-16 object-contain transition-all duration-300 group-hover:scale-105">
                         <div>
                             <span class="font-black text-[#204369] dark:text-white text-2xl md:text-3xl lg:text-4xl tracking-tight leading-none">
                                 IXXI Tecnología
@@ -235,7 +235,7 @@
                             <img src="{{ asset('/img/logo.png') }}" alt="IXXI Tecnología" class="w-8 h-8 object-contain">
                             <span class="font-bold text-[#204369] dark:text-white text-lg">IXXI TECNOLOGÍA</span>
                         </div>
-                        <p class="max-w-md text-zinc-500">Soluciones integrales en seguridad tecnológica de México.</p>
+                        <p class="max-w-md text-zinc-500">GRUPO PRODDEX COMERCIAL S.A. DE C.V.</p>
                         <div class="pt-2 flex space-x-4">
                             <!-- Redes Sociales -->
                             @php

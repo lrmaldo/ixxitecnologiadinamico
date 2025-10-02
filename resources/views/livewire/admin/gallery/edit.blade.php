@@ -8,7 +8,7 @@
         </div>
         <div class="flex items-center gap-3">
             <a href="{{ route('admin.gallery') }}" class="inline-flex items-center gap-2 rounded-lg border border-zinc-300 dark:border-zinc-600 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition">Cancelar</a>
-            <button form="galleryForm" class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-tr from-[#021869] to-[#14317F] hover:from-[#021869]/90 hover:to-[#14317F]/90 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition">Guardar</button>
+            <button form="galleryForm" class="inline-flex items-center gap-2 rounded-lg bg-[#204369] hover:bg-[#17314a] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition">Guardar</button>
         </div>
     </div>
 
@@ -155,7 +155,16 @@
                 window.addEventListener('livewire-upload-start', ()=>{ this.uploading=true; this.progress=0; if(this.timeoutId) clearTimeout(this.timeoutId); });
                 window.addEventListener('livewire-upload-finish', ()=>{ this.progress=100; this.timeoutId = setTimeout(clearUpload, 800); });
                 window.addEventListener('livewire-upload-error', ()=>{ clearUpload(); });
-                window.addEventListener('livewire-upload-progress', e=>{ this.progress=e.detail.progress; // Fallback si no llega finish
+                window.addEventListener('livewire-upload-progress', e=>{
+                    const val = e.detail && 'progress' in e.detail ? e.detail.progress : e.detail;
+                    if (val && typeof val === 'object' && 'loaded' in val && 'total' in val && val.total) {
+                        this.progress = Math.min(99, Math.round((val.loaded / val.total) * 100));
+                    } else if (typeof val === 'number') {
+                        this.progress = Math.min(99, Math.round(val));
+                    } else {
+                        this.progress = this.progress || 0;
+                    }
+                    // Fallback si no llega finish
                     if(this.progress>=99){
                         // fuerza cierre si en 3s no llegó el evento finish
                         if(this.timeoutId) clearTimeout(this.timeoutId);
@@ -163,13 +172,33 @@
                     }
                 });
             },
-            manualSelect(e){ /* wire:model gestiona la subida automáticamente */ },
+            manualSelect(e){
+                // wire:model se encarga, pero si quisieras usar livewire.upload directamente, seguir el mismo patrón de progreso
+                // (dejamos este hook por si se activa en el futuro)
+            },
             handleDrop(e){
                 this.hover=false;
                 if(e.dataTransfer.files && e.dataTransfer.files[0]){
                     const file = e.dataTransfer.files[0];
                     this.uploading=true; this.progress=0;
-                    livewire.upload('file', file, ()=>{/* éxito: finish event disparará */}, ()=>{ this.uploading=false; }, (p)=>{ this.progress = p; });
+                    livewire.upload(
+                        'file',
+                        file,
+                        ()=>{ /* éxito: el evento finish actualizará la UI */ },
+                        ()=>{ this.uploading=false; },
+                        (event)=>{
+                            // En algunos contextos, este callback entrega un ProgressEvent del XHR
+                            // Convertimos a porcentaje numérico (0-100)
+                            if (event && typeof event === 'object' && 'loaded' in event && 'total' in event && event.total) {
+                                this.progress = Math.min(99, Math.round((event.loaded / event.total) * 100));
+                            } else if (typeof event === 'number') {
+                                this.progress = Math.min(99, Math.round(event));
+                            } else {
+                                // Fallback
+                                this.progress = this.progress || 0;
+                            }
+                        }
+                    );
                 }
             }
         }

@@ -38,7 +38,7 @@
         const gallery = @js($gallery ? $gallery->take(6)->toArray() : []);
         if (gallery && gallery.length > 0) {
             this.currentTitle = gallery[index]?.title || '{{ $title ?? 'IXXI Tecnología' }}';
-            this.currentDescription = gallery[index]?.description || '{{ $metaDescription ?? 'Experiencia comprobada en alta tecnología, inteligencia en campo y despliegue táctico diseñado para las necesidades específicas de seguridad de tu negocio.' }}';
+            this.currentDescription = gallery[index]?.description || '{{ $metaDescription ?? '' }}';
         }
     }
 }"
@@ -377,7 +377,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Misión -->
-                <div class="bg-zinc-50 rounded-2xl p-6 md:p-8 border border-zinc-100 shadow-sm hover:bg-zinc-100 transition-all duration-300 group" data-aos="fade-right" data-aos-delay="100">
+                <div class="bg-zinc-200 rounded-2xl p-6 md:p-8 border border-zinc-300 shadow-sm group" data-aos="fade-right" data-aos-delay="100">
                     <div class="text-center mb-6">
                         <div class="w-14 h-14 md:w-16 md:h-16 bg-[#C8DBEF] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-7 h-7 md:w-8 md:h-8 text-[#204369]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -386,7 +386,7 @@
                         </div>
                         <h3 class="text-lg md:text-xl font-bold text-[#204369] mb-4">Nuestra Misión</h3>
                     </div>
-                    <p class="text-zinc-700 leading-relaxed text-center text-sm md:text-base">
+                    <p class="text-zinc-800 leading-relaxed text-center text-sm md:text-base">
                         @if($companyInfo && $companyInfo->mission)
                             {{ $companyInfo->mission }}
                         @else
@@ -396,7 +396,7 @@
                 </div>
 
                 <!-- Visión -->
-                <div class="bg-zinc-50 rounded-2xl p-6 md:p-8 border border-zinc-100 shadow-sm hover:bg-zinc-100 transition-all duration-300 group md:col-span-2 lg:col-span-1" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-zinc-200 rounded-2xl p-6 md:p-8 border border-zinc-300 shadow-sm group md:col-span-2 lg:col-span-1" data-aos="fade-up" data-aos-delay="200">
                     <div class="text-center mb-6">
                         <div class="w-14 h-14 md:w-16 md:h-16 bg-[#C8DBEF] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-7 h-7 md:w-8 md:h-8 text-[#204369]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -406,7 +406,7 @@
                         </div>
                         <h3 class="text-lg md:text-xl font-bold text-[#204369] mb-4">Nuestra Visión</h3>
                     </div>
-                    <p class="text-zinc-700 leading-relaxed text-center text-sm md:text-base">
+                    <p class="text-zinc-800 leading-relaxed text-center text-sm md:text-base">
                         @if($companyInfo && $companyInfo->vision)
                             {{ $companyInfo->vision }}
                         @else
@@ -416,7 +416,7 @@
                 </div>
 
                 <!-- Valores -->
-                <div class="bg-zinc-50 rounded-2xl p-6 md:p-8 border border-zinc-100 shadow-sm hover:bg-zinc-100 transition-all duration-300 group md:col-span-2 lg:col-span-1" data-aos="fade-left" data-aos-delay="300">
+                <div class="bg-zinc-200 rounded-2xl p-6 md:p-8 border border-zinc-300 shadow-sm group md:col-span-2 lg:col-span-1" data-aos="fade-left" data-aos-delay="300">
                     <div class="text-center mb-6">
                         <div class="w-14 h-14 md:w-16 md:h-16 bg-[#C8DBEF] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-7 h-7 md:w-8 md:h-8 text-[#204369]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -425,31 +425,31 @@
                         </div>
                         <h3 class="text-lg md:text-xl font-bold text-[#204369] mb-4">Nuestros Valores</h3>
                     </div>
-                    <div class="text-zinc-700 leading-relaxed">
+                    <div class="text-zinc-800 leading-relaxed">
                         @if($companyInfo && $companyInfo->values)
                             @foreach(explode("\n", $companyInfo->values) as $value)
                                 @if(trim($value))
                                     <div class="flex items-start mb-2">
-                                        <span class="text-zinc-500 mr-2 mt-1 text-sm">▸</span>
+                                        <span class="text-zinc-600 mr-2 mt-1 text-sm">▸</span>
                                         <span class="text-sm md:text-base">{{ trim($value) }}</span>
                                     </div>
                                 @endif
                             @endforeach
                         @else
                             <div class="flex items-start mb-2">
-                                <span class="text-zinc-500 mr-2 mt-1 text-sm">▸</span>
+                                <span class="text-zinc-600 mr-2 mt-1 text-sm">▸</span>
                                 <span class="text-sm md:text-base">Innovación</span>
                             </div>
                             <div class="flex items-start mb-2">
-                                <span class="text-zinc-500 mr-2 mt-1 text-sm">▸</span>
+                                <span class="text-zinc-600 mr-2 mt-1 text-sm">▸</span>
                                 <span class="text-sm md:text-base">Calidad</span>
                             </div>
                             <div class="flex items-start mb-2">
-                                <span class="text-zinc-500 mr-2 mt-1 text-sm">▸</span>
+                                <span class="text-zinc-600 mr-2 mt-1 text-sm">▸</span>
                                 <span class="text-sm md:text-base">Compromiso</span>
                             </div>
                             <div class="flex items-start">
-                                <span class="text-zinc-500 mr-2 mt-1 text-sm">▸</span>
+                                <span class="text-zinc-600 mr-2 mt-1 text-sm">▸</span>
                                 <span class="text-sm md:text-base">Transparencia</span>
                             </div>
                         @endif

@@ -11,10 +11,16 @@
             <button form="galleryForm"
                     class="inline-flex items-center gap-2 rounded-lg bg-[#204369] hover:bg-[#17314a] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition disabled:opacity-60 disabled:cursor-not-allowed"
                     wire:loading.attr="disabled"
-                    wire:target="file,save"
-                    :disabled="uploading"
+                    wire:target="save"
             >
-                Guardar
+                <span wire:loading.remove wire:target="save">Guardar</span>
+                <span wire:loading wire:target="save" class="flex items-center gap-2">
+                    <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Guardando...
+                </span>
             </button>
         </div>
     </div>
@@ -45,7 +51,16 @@
                     <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300 text-xs">PR</span>
                     Vista previa
                 </h3>
-                <div class="aspect-video w-full rounded-xl border border-dashed border-zinc-300 dark:border-zinc-700 flex items-center justify-center overflow-hidden bg-zinc-100/60 dark:bg-zinc-800/40">
+                <div class="aspect-video w-full rounded-xl border border-dashed border-zinc-300 dark:border-zinc-700 flex items-center justify-center overflow-hidden bg-zinc-100/60 dark:bg-zinc-800/40 relative">
+                    <!-- Loading overlay durante upload -->
+                    <div wire:loading wire:target="file" class="absolute inset-0 bg-zinc-900/70 backdrop-blur-sm flex flex-col items-center justify-center gap-3 z-10">
+                        <div class="relative h-12 w-12">
+                            <div class="absolute inset-0 rounded-full border-4 border-indigo-500/30"></div>
+                            <div class="absolute inset-0 rounded-full border-4 border-indigo-400 border-t-transparent animate-spin"></div>
+                        </div>
+                        <p class="text-sm font-medium text-white">Subiendo imagen...</p>
+                    </div>
+
                     @if($file)
                         <img src="{{ $file->temporaryUrl() }}" class="h-full w-full object-cover" />
                     @elseif($image_path)
@@ -82,15 +97,15 @@
         <div class="space-y-6">
             <!-- Upload -->
             <div
-                x-data="dragUpload({ livewire:@this })"
+                x-data="{ hover: false }"
                 x-on:dragover.prevent="hover=true"
                 x-on:dragleave.prevent="hover=false"
-                x-on:drop.prevent="handleDrop($event)"
+                x-on:drop.prevent="hover=false; $refs.fileInput.files = $event.dataTransfer.files; $refs.fileInput.dispatchEvent(new Event('change', { bubbles: true }))"
                 class="rounded-2xl min-h-[220px] border-2 border-dashed flex flex-col items-center justify-center text-center p-6 transition relative overflow-hidden"
                 x-bind:class="hover ? 'border-indigo-400 bg-indigo-50/60 dark:border-indigo-500 dark:bg-indigo-900/20 scale-[1.015]' : 'border-zinc-300 dark:border-zinc-600 bg-white/70 dark:bg-zinc-900/50'"
             >
-                <input type="file" wire:model="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" @change="manualSelect($event)" />
-                <div class="flex flex-col items-center" x-show="!uploading" x-transition.opacity>
+                <input type="file" wire:model="file" accept="image/*" x-ref="fileInput" class="absolute inset-0 opacity-0 cursor-pointer" />
+                <div class="flex flex-col items-center">
                     <flux:icon name="arrow-up-tray" class="h-8 w-8 text-indigo-500 mb-3 transition-transform" x-bind:class="hover ? 'animate-bounce' : ''" />
                     <p class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Arrastra una imagen</p>
                     <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">o haz clic para seleccionar</p>
@@ -101,20 +116,6 @@
                             <flux:icon name="scissors" class="h-4 w-4" /> Recortar / Optimizar
                         </button>
                     @endif
-                </div>
-                <!-- Overlay Uploading -->
-                <div x-show="uploading" x-transition.opacity class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-zinc-900/70 backdrop-blur-sm text-white" x-cloak>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="relative h-12 w-12">
-                            <div class="absolute inset-0 rounded-full border-4 border-indigo-500/30"></div>
-                            <div class="absolute inset-0 rounded-full border-4 border-indigo-400 border-t-transparent animate-spin"></div>
-                        </div>
-                        <p class="text-sm font-medium">Subiendo imagen...</p>
-                        <div class="w-48 h-2 rounded-full bg-white/20 overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-indigo-400 to-indigo-600 transition-all" :style="`width:${progress}%`"></div>
-                        </div>
-                        <span class="text-xs tracking-wide" x-text="progress + '%'" ></span>
-                    </div>
                 </div>
             </div>
 
@@ -150,81 +151,7 @@
             </div>
         </div>
     </form>
-<!-- Scripts internos (mantener dentro del root para evitar múltiples raíces) -->
-<script>
-    function dragUpload({livewire}) {
-        return {
-            hover:false,
-            uploading:false,
-            progress:0,
-            timeoutId:null,
-            init(){
-                // Asegura que el contenido inicial se muestre (forzar repaint en algunos navegadores)
-                requestAnimationFrame(()=>{});
-                const clearUpload = ()=>{ this.uploading=false; this.progress=0; if(this.timeoutId) clearTimeout(this.timeoutId); };
-                window.addEventListener('livewire-upload-start', ()=>{ this.uploading=true; this.progress=0; if(this.timeoutId) clearTimeout(this.timeoutId); });
-                window.addEventListener('livewire-upload-finish', ()=>{ this.progress=100; this.timeoutId = setTimeout(clearUpload, 800); });
-                window.addEventListener('livewire-upload-error', ()=>{ clearUpload(); });
-                window.addEventListener('livewire-upload-progress', e=>{
-                    const val = e.detail && 'progress' in e.detail ? e.detail.progress : e.detail;
-                    if (val && typeof val === 'object' && 'loaded' in val && 'total' in val && val.total) {
-                        const pct = Math.round((val.loaded / val.total) * 100);
-                        this.progress = Math.min(100, pct);
-                        if (val.loaded === val.total) {
-                            // Marca 100% y limpia pronto si por alguna razón no llega 'finish'
-                            if(this.timeoutId) clearTimeout(this.timeoutId);
-                            this.timeoutId = setTimeout(()=>{ if(this.uploading){ clearUpload(); } }, 800);
-                        }
-                    } else if (typeof val === 'number') {
-                        this.progress = Math.min(100, Math.round(val));
-                    } else {
-                        this.progress = this.progress || 0;
-                    }
-                    // Fallback si no llega finish
-                    if(this.progress>=99){
-                        // fuerza cierre si en 3s no llegó el evento finish
-                        if(this.timeoutId) clearTimeout(this.timeoutId);
-                        this.timeoutId = setTimeout(()=>{ if(this.uploading){ clearUpload(); } }, 3000);
-                    }
-                });
-            },
-            manualSelect(e){
-                // wire:model se encarga, pero si quisieras usar livewire.upload directamente, seguir el mismo patrón de progreso
-                // (dejamos este hook por si se activa en el futuro)
-            },
-            handleDrop(e){
-                this.hover=false;
-                if(e.dataTransfer.files && e.dataTransfer.files[0]){
-                    const file = e.dataTransfer.files[0];
-                    this.uploading=true; this.progress=0;
-                    livewire.upload(
-                        'file',
-                        file,
-                        ()=>{ /* éxito: el evento finish actualizará la UI */ },
-                        ()=>{ this.uploading=false; },
-                        (event)=>{
-                            // En algunos contextos, este callback entrega un ProgressEvent del XHR
-                            // Convertimos a porcentaje numérico (0-100)
-                            if (event && typeof event === 'object' && 'loaded' in event && 'total' in event && event.total) {
-                                const pct = Math.round((event.loaded / event.total) * 100);
-                                this.progress = Math.min(100, pct);
-                                if (event.loaded === event.total) {
-                                    if(this.timeoutId) clearTimeout(this.timeoutId);
-                                    this.timeoutId = setTimeout(()=>{ if(this.uploading){ this.uploading=false; this.progress=0; } }, 800);
-                                }
-                            } else if (typeof event === 'number') {
-                                this.progress = Math.min(100, Math.round(event));
-                            } else {
-                                // Fallback
-                                this.progress = this.progress || 0;
-                            }
-                        }
-                    );
-                }
-            }
-        }
-    }
-</script>
+</div>
 <!-- Estilos Cropper -->
 <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.6.2/dist/cropper.css" />
 <script src="https://unpkg.com/cropperjs@1.6.2/dist/cropper.js"></script>

@@ -55,14 +55,23 @@ class Edit extends Component
         if ($this->file) {
             $stored = $this->file->store('gallery', 'public');
             $data['image_path'] = $stored;
+        } elseif (!$this->item && !$this->image_path) {
+            // Si es nueva imagen y no hay archivo ni ruta manual, error
+            $this->addError('file', 'Debes subir una imagen o proporcionar una ruta.');
+            return;
         }
 
         // Ensure boolean cast
         $data['is_active'] = isset($data['is_active']) ? (bool) $data['is_active'] : (bool) $this->is_active;
 
         if ($this->item) {
+            // Si estamos editando y no hay nuevo archivo, mantener la ruta existente
+            if (!$this->file && !$data['image_path']) {
+                $data['image_path'] = $this->item->image_path;
+            }
             $this->item->update($data);
         } else {
+            // Nueva imagen
             $this->item = GalleryItem::create($data + ['position' => $this->position]);
         }
 

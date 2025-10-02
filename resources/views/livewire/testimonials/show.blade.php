@@ -1,5 +1,5 @@
 <div>
-    <div class="bg-gradient-to-b from-blue-900 to-blue-800 text-white py-24">
+    <div class="bg-[#204369] text-white py-24">
         <div class="container mx-auto px-6">
             <a href="{{ route('testimonios.index') }}" class="inline-flex items-center text-blue-100 hover:text-white mb-8">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -9,14 +9,14 @@
             </a>
 
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-xl">
+                <div class="bg-zinc-50 rounded-2xl p-8 md:p-12 shadow-sm border border-zinc-200">
                     <div class="flex items-start mb-8">
-                        <div class="h-16 w-16 rounded-full bg-gradient-to-r from-blue-600 to-blue-800 flex items-center justify-center text-white font-bold text-2xl">
-                            {{ substr($testimonial->name, 0, 1) }}
+                        <div class="h-16 w-16 rounded-full bg-[#C8DBEF] flex items-center justify-center text-[#204369] font-bold text-2xl">
+                            {{ substr($testimonial->author_name, 0, 1) }}
                         </div>
                         <div class="ml-6">
-                            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{{ $testimonial->name }}</h1>
-                            <p class="text-lg text-gray-600 dark:text-gray-400">{{ $testimonial->company }}</p>
+                            <h1 class="text-2xl md:text-3xl font-bold text-[#204369]">{{ $testimonial->author_name }}</h1>
+                            <p class="text-lg text-zinc-700">{{ $testimonial->company }}</p>
                             <div class="flex text-yellow-400 mt-2">
                                 @for($i = 0; $i < 5; $i++)
                                     <svg class="h-6 w-6 {{ $i < $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }}" fill="currentColor" viewBox="0 0 20 20">
@@ -27,14 +27,14 @@
                         </div>
                     </div>
 
-                    <div class="prose prose-lg dark:prose-invert max-w-none">
-                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <div class="prose prose-lg max-w-none">
+                        <p class="text-zinc-700 leading-relaxed">
                             {{ $testimonial->content }}
                         </p>
                     </div>
 
-                    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                    <div class="mt-8 pt-8 border-t border-zinc-200">
+                        <p class="text-sm text-zinc-500">
                             Publicado el {{ $testimonial->created_at->format('d/m/Y') }}
                         </p>
                     </div>

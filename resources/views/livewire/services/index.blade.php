@@ -1,7 +1,7 @@
 <div>
-    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+    <div class="min-h-screen bg-zinc-50">
         <!-- Hero Section -->
-    <section class="relative py-20 bg-gradient-to-r from-[#204369] to-[#17314a] overflow-hidden">
+    <section class="relative py-20 bg-[#204369] overflow-hidden">
         <!-- Elementos decorativos de fondo -->
         <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
             <div class="absolute top-20 left-20 w-96 h-96 bg-[#0ea5a4]/20 rounded-full filter blur-3xl animate-blob opacity-30"></div>
@@ -52,7 +52,7 @@
                     <input type="text"
                            wire:model.live.debounce.300ms="search"
                            placeholder="Buscar servicios..."
-                           class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-[#0ea5a4] focus:border-transparent transition-all duration-200">
+                           class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-[#204369] focus:border-transparent transition-all duration-200">
                 </div>
 
                 <!-- Resultados -->
@@ -69,9 +69,9 @@
             @if($services->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($services as $service)
-                        <article class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                        <article class="group bg-zinc-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-zinc-200" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                             <!-- Imagen del servicio -->
-                            <div class="relative h-48 bg-gradient-to-br from-[#204369] to-[#C8DBEF] overflow-hidden">
+                            <div class="relative h-48 bg-zinc-200 overflow-hidden">
                                 @php
                                     $image = $service->featured_image ?? $service->image_path;
                                 @endphp
@@ -91,11 +91,11 @@
 
                             <!-- Contenido -->
                             <div class="p-6">
-                                <h3 class="text-xl font-bold text-[#204369] mb-3 group-hover:text-[#C8DBEF] transition-colors duration-300">
+                                <h3 class="text-xl font-bold text-[#204369] mb-3">
                                     {{ $service->title }}
                                 </h3>
 
-                                <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                                <p class="text-zinc-800 mb-4 line-clamp-3 leading-relaxed">
                                     {{ $service->description }}
                                 </p>
 
@@ -104,7 +104,7 @@
                                     <div class="mb-4">
                                         <div class="flex flex-wrap gap-2">
                                             @foreach(array_slice(explode(',', $service->features), 0, 3) as $feature)
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#C8DBEF]/10 text-[#C8DBEF]">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-200 text-zinc-700">
                                                     {{ trim($feature) }}
                                                 </span>
                                             @endforeach
@@ -125,7 +125,7 @@
                                 <!-- Botón de acción -->
                                 <div class="flex items-center justify-between">
                                     <a href="{{ route('services.show', $service->slug) }}"
-                                       class="inline-flex items-center gap-2 bg-gradient-to-r from-[#C8DBEF] to-[#204369] text-white font-semibold px-6 py-3 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300 group">
+                                       class="inline-flex items-center gap-2 bg-[#204369] hover:bg-[#17314a] text-white font-semibold px-6 py-3 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300 group focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#204369]">
                                         <span>Ver detalles</span>
                                         <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -134,7 +134,7 @@
 
                                     <!-- Botón de contacto rápido -->
                                     <a href="#contacto"
-                                       class="text-[#204369] hover:text-[#C8DBEF] transition-colors duration-300 p-2">
+                                       class="text-[#204369] hover:underline transition-colors duration-300 p-2 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#204369]">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                                         </svg>
@@ -165,7 +165,7 @@
                     </p>
                     @if($search)
                         <button wire:click="$set('search', '')"
-                                class="bg-[#0ea5a4] text-white px-6 py-3 rounded-full hover:bg-[#0c8e8d] transition-colors duration-300">
+                                class="bg-[#204369] text-white px-6 py-3 rounded-full hover:bg-[#17314a] transition-colors duration-300">
                             Limpiar búsqueda
                         </button>
                     @endif
@@ -175,7 +175,7 @@
     </section>
 
     <!-- Call to Action -->
-    <section class="py-20 bg-gradient-to-r from-[#204369] to-[#17314a]">
+    <section class="py-20 bg-[#204369]">
         <div class="mx-auto max-w-4xl px-6 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-6" data-aos="fade-up">
                 ¿No encuentras lo que buscas?
@@ -185,7 +185,7 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
                      <a href="/#contacto"
-                         class="bg-gradient-to-r from-[#C8DBEF] to-[#204369] text-white font-bold px-8 py-4 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                         class="bg-[#204369] hover:bg-[#17314a] text-white font-bold px-8 py-4 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60">
                     Contactar Ahora
                 </a>
                 <a href="{{ route('support.ticket.create') }}"

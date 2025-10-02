@@ -8,7 +8,14 @@
         </div>
         <div class="flex items-center gap-3">
             <a href="{{ route('admin.gallery') }}" class="inline-flex items-center gap-2 rounded-lg border border-zinc-300 dark:border-zinc-600 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition">Cancelar</a>
-            <button form="galleryForm" class="inline-flex items-center gap-2 rounded-lg bg-[#204369] hover:bg-[#17314a] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition">Guardar</button>
+            <button form="galleryForm"
+                    class="inline-flex items-center gap-2 rounded-lg bg-[#204369] hover:bg-[#17314a] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition disabled:opacity-60 disabled:cursor-not-allowed"
+                    wire:loading.attr="disabled"
+                    wire:target="file,save"
+                    :disabled="uploading"
+            >
+                Guardar
+            </button>
         </div>
     </div>
 
@@ -19,6 +26,9 @@
                 <div class="flex flex-col gap-1.5">
                     <label class="text-xs font-medium uppercase tracking-wide text-zinc-600 dark:text-zinc-400">Título</label>
                     <input type="text" wire:model.live="title" placeholder="Título descriptivo" class="rounded-lg border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 px-3 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30" />
+                    @error('title')
+                        <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="flex flex-col gap-1.5">
                     <div class="flex items-center justify-between">
@@ -158,9 +168,15 @@
                 window.addEventListener('livewire-upload-progress', e=>{
                     const val = e.detail && 'progress' in e.detail ? e.detail.progress : e.detail;
                     if (val && typeof val === 'object' && 'loaded' in val && 'total' in val && val.total) {
-                        this.progress = Math.min(99, Math.round((val.loaded / val.total) * 100));
+                        const pct = Math.round((val.loaded / val.total) * 100);
+                        this.progress = Math.min(100, pct);
+                        if (val.loaded === val.total) {
+                            // Marca 100% y limpia pronto si por alguna razón no llega 'finish'
+                            if(this.timeoutId) clearTimeout(this.timeoutId);
+                            this.timeoutId = setTimeout(()=>{ if(this.uploading){ clearUpload(); } }, 800);
+                        }
                     } else if (typeof val === 'number') {
-                        this.progress = Math.min(99, Math.round(val));
+                        this.progress = Math.min(100, Math.round(val));
                     } else {
                         this.progress = this.progress || 0;
                     }
@@ -190,9 +206,14 @@
                             // En algunos contextos, este callback entrega un ProgressEvent del XHR
                             // Convertimos a porcentaje numérico (0-100)
                             if (event && typeof event === 'object' && 'loaded' in event && 'total' in event && event.total) {
-                                this.progress = Math.min(99, Math.round((event.loaded / event.total) * 100));
+                                const pct = Math.round((event.loaded / event.total) * 100);
+                                this.progress = Math.min(100, pct);
+                                if (event.loaded === event.total) {
+                                    if(this.timeoutId) clearTimeout(this.timeoutId);
+                                    this.timeoutId = setTimeout(()=>{ if(this.uploading){ this.uploading=false; this.progress=0; } }, 800);
+                                }
                             } else if (typeof event === 'number') {
-                                this.progress = Math.min(99, Math.round(event));
+                                this.progress = Math.min(100, Math.round(event));
                             } else {
                                 // Fallback
                                 this.progress = this.progress || 0;

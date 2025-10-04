@@ -71,6 +71,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/posts/create', AdminPostsEdit::class)->name('admin.posts.create');
     Route::get('admin/posts/{id}', AdminPostsEdit::class)->name('admin.posts.edit');
 
+    // Admin - Alliances
+    Route::get('admin/alliances', App\Livewire\Admin\Alliances\Index::class)->name('admin.alliances.index');
+    Route::get('admin/alliances/create', App\Livewire\Admin\Alliances\Edit::class)->name('admin.alliances.create');
+    Route::get('admin/alliances/{id}', App\Livewire\Admin\Alliances\Edit::class)->name('admin.alliances.edit');
+
     // Admin - Tickets
     Route::get('admin/tickets', App\Livewire\Admin\Tickets\Index::class)->name('admin.tickets');
     Route::get('admin/tickets/create', App\Livewire\Admin\Tickets\Create::class)->name('admin.tickets.create');

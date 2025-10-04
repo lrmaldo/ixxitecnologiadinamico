@@ -575,54 +575,47 @@
         </div>
     </section>
 
-    <!-- Blog / Entradas recientes -->
-    <section class="py-24 bg-zinc-50" data-aos="fade-up" data-aos-duration="1000">
+    <!-- Alianzas -->
+    <section class="py-24 bg-white" data-aos="fade-up" data-aos-duration="1000">
         <div class="mx-auto max-w-7xl px-6">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#204369]">Contenido Reciente</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-[#204369]">Nuestras Alianzas</h2>
                 <div class="w-24 h-1 bg-[#C8DBEF] mx-auto mt-4 rounded-full"></div>
-                <p class="mt-4 text-lg text-zinc-600 max-w-3xl mx-auto">Actualizaciones, noticias y recursos del sector</p>
+                <p class="mt-4 text-lg text-zinc-600 max-w-3xl mx-auto">Empresas que confían en nosotros y con las que colaboramos</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @foreach($posts as $index => $post)
-                    <a href="{{ route('blog.show', $post->slug) }}" class="group block rounded-xl bg-white overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2" data-aos="fade-up" data-aos-delay="{{ 200 * ($index + 1) }}">
-                        @if($post->featured_image)
-                            <div class="h-52 overflow-hidden">
-                                <img class="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
-                                     src="{{ asset('storage/'.$post->featured_image) }}"
-                                     alt="{{ $post->title }}">
-                            </div>
-                        @endif
-                        <div class="p-6 border border-t-0 border-zinc-200 rounded-b-xl">
-                            <div class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-[#C8DBEF] text-[#204369]">
-                                {{ str_replace('_', ' ', $post->type) }}
-                            </div>
-                            <h3 class="mt-4 text-xl font-semibold text-zinc-900 transition group-hover:text-[#204369]">
-                                {{ $post->title }}
-                            </h3>
-                            <p class="mt-2 text-zinc-600 line-clamp-2">
-                                {{ $post->excerpt }}
-                            </p>
-                            <div class="mt-6 flex items-center text-[#204369] font-medium hover:underline">
-                                <span>Leer artículo</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
+            @if($alliances && $alliances->count() > 0)
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 items-center">
+                    @foreach($alliances as $index => $alliance)
+                        <div class="group" data-aos="zoom-in" data-aos-delay="{{ 100 * ($index + 1) }}">
+                            @if($alliance->url)
+                                <a href="{{ $alliance->url }}" target="_blank" rel="noopener noreferrer" class="block p-6 bg-zinc-50 rounded-xl border border-zinc-200 hover:border-[#204369] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                    <img src="{{ asset('storage/'.$alliance->logo_path) }}"
+                                         alt="{{ $alliance->name }}"
+                                         class="w-full h-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                                         title="{{ $alliance->name }}"/>
+                                </a>
+                            @else
+                                <div class="p-6 bg-zinc-50 rounded-xl border border-zinc-200 hover:border-[#204369] hover:shadow-lg transition-all duration-300">
+                                    <img src="{{ asset('storage/'.$alliance->logo_path) }}"
+                                         alt="{{ $alliance->name }}"
+                                         class="w-full h-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                                         title="{{ $alliance->name }}"/>
+                                </div>
+                            @endif
                         </div>
-                    </a>
-                @endforeach
-            </div>
-
-            <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="700">
-                <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 font-semibold text-[#204369] hover:underline focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#204369] group">
-                    Ver todas las entradas
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1">
-                        <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
-                    </svg>
-                </a>
-            </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-center py-12">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-zinc-100 rounded-full mb-4">
+                        <svg class="w-8 h-8 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <p class="text-zinc-500">Próximamente agregaremos nuestras alianzas estratégicas</p>
+                </div>
+            @endif
         </div>
     </section>
 

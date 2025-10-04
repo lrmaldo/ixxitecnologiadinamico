@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Service;
 use App\Models\Testimonial;
 use App\Models\CompanyInfo;
+use App\Models\Alliance;
 use Livewire\Component;
 use Illuminate\Support\Facades\Cache;
 
@@ -28,11 +29,8 @@ class LandingPage extends Component
         $featuredServices = $services->take(3);
         $testimonials = Testimonial::where('is_active', true)->latest()->limit(8)->get();
         $gallery = GalleryItem::where('is_active', true)->orderBy('position')->limit(12)->get();
-        // Posts publicados (fallback si no hay publicados)
-        $posts = Post::published()->latest('published_at')->limit(3)->get();
-        if ($posts->isEmpty()) {
-            $posts = Post::orderBy('created_at', 'desc')->limit(3)->get();
-        }
+        // Alianzas activas
+        $alliances = Alliance::where('is_active', true)->orderBy('position')->limit(12)->get();
         $visitCount = Cache::get('site_visits', 0);
         $contactInfo = ContactInformation::getDefault();
         $companyInfo = CompanyInfo::getInstance();
@@ -42,7 +40,7 @@ class LandingPage extends Component
             'featuredServices',
             'testimonials',
             'gallery',
-            'posts',
+            'alliances',
             'visitCount',
             'contactInfo',
             'companyInfo'

@@ -12,8 +12,6 @@
                         class="inline-flex items-center gap-2 rounded-lg bg-[#204369] hover:bg-[#17314a] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition disabled:opacity-60 disabled:cursor-not-allowed"
                         wire:loading.attr="disabled"
                         wire:target="logo,save"
-                        x-data
-                        :disabled="$wire.uploading"
                 >
                     Guardar
                 </button>

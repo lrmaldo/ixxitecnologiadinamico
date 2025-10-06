@@ -17,6 +17,7 @@ class Service extends Model
         'description',
         'icon',
         'image_path',
+        'banner_image_path',
         'is_active',
         'seo_title',
         'seo_description',

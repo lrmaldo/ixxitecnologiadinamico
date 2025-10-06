@@ -61,10 +61,32 @@
 
             <!-- Columna lateral -->
             <div class="space-y-10">
-                <!-- Imagen -->
+                <!-- Imagen de portada (banner) -->
                 <div class="rounded-2xl border border-zinc-200/70 dark:border-zinc-700/60 bg-white/90 dark:bg-zinc-900/70 backdrop-blur-sm shadow-sm overflow-hidden">
                     <div class="px-6 pt-5 pb-4 border-b border-zinc-200/60 dark:border-zinc-700/60">
-                        <h2 class="text-sm font-medium text-zinc-700 dark:text-zinc-200 flex items-center gap-2"><span class="inline-block h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span> Imagen</h2>
+                        <h2 class="text-sm font-medium text-zinc-700 dark:text-zinc-200 flex items-center gap-2"><span class="inline-block h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span> Imagen de portada</h2>
+                    </div>
+                    <div class="px-6 pb-7 pt-5 space-y-5">
+                        <div class="space-y-1.5">
+                            <input type="file" wire:model="banner_image_file" accept="image/*" class="w-full rounded-lg border border-dashed border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 px-3 py-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 transition" />
+                            @error('banner_image_file')<div class="text-xs text-red-500 font-medium">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="text-[11px] text-zinc-500 dark:text-zinc-400">O ruta existente</div>
+                        <input type="text" wire:model.live="banner_image_path" placeholder="storage/services/banners/..." class="w-full rounded-lg border border-zinc-300/80 dark:border-zinc-600 bg-white dark:bg-zinc-800/70 px-3 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 transition" />
+                        <div class="mt-2">
+                            @if($banner_image_file)
+                                <img src="{{ $banner_image_file->temporaryUrl() }}" class="h-44 w-full rounded-lg object-cover ring-1 ring-zinc-200/70 dark:ring-zinc-700/60" />
+                            @elseif($banner_image_path)
+                                <img src="{{ asset('storage/'.$banner_image_path) }}" class="h-44 w-full rounded-lg object-cover ring-1 ring-zinc-200/70 dark:ring-zinc-700/60" />
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagen principal -->
+                <div class="rounded-2xl border border-zinc-200/70 dark:border-zinc-700/60 bg-white/90 dark:bg-zinc-900/70 backdrop-blur-sm shadow-sm overflow-hidden mt-6">
+                    <div class="px-6 pt-5 pb-4 border-b border-zinc-200/60 dark:border-zinc-700/60">
+                        <h2 class="text-sm font-medium text-zinc-700 dark:text-zinc-200 flex items-center gap-2"><span class="inline-block h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span> Imagen principal</h2>
                     </div>
                     <div class="px-6 pb-7 pt-5 space-y-5">
                         <div class="space-y-1.5">

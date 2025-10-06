@@ -1,6 +1,6 @@
 <div>
     <!-- Portada hero con imagen de fondo -->
-    <section class="w-full text-white py-20 md:py-28 relative">
+    <section class="w-full text-white py-24 md:py-32 lg:py-36 relative">
         <!-- Fondo de la portada (con imagen o gradiente) -->
         <div class="absolute inset-0 z-0">
             @if($service->banner_image_path)
@@ -12,11 +12,11 @@
         </div>
 
         <!-- Contenido de la portada -->
-        <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
-            <div class="max-w-3xl mx-auto text-center space-y-6">
-                <h1 class="text-4xl md:text-5xl font-bold text-white">{{ $service->title }}</h1>
+        <div class="max-w-[95%] xl:max-w-[90%] 2xl:max-w-[85%] mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white">{{ $service->title }}</h1>
                 @if($service->summary)
-                    <p class="text-xl text-zinc-200 leading-relaxed">{{ $service->summary }}</p>
+                    <p class="text-xl md:text-2xl text-zinc-200 leading-relaxed max-w-3xl mx-auto">{{ $service->summary }}</p>
                 @endif
                 <div class="pt-6">
                     <a href="/#contacto" class="rounded-lg bg-[#204369] hover:bg-[#17314a] px-8 py-3 font-semibold text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#204369]">Contáctenos</a>
@@ -26,8 +26,8 @@
     </section>
 
     <!-- Contenido principal del servicio -->
-    <section class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-16 md:py-20">
-        <div class="flex flex-col-reverse md:flex-row md:items-start gap-10 lg:gap-16 xl:gap-20">
+    <section class="mx-auto max-w-[95%] xl:max-w-[90%] 2xl:max-w-[85%] px-4 py-16 md:py-20">
+        <div class="flex flex-col-reverse md:flex-row md:items-start gap-8 lg:gap-14 xl:gap-20">
             <!-- Descripción del servicio -->
             <div class="md:w-1/2 space-y-8">
                 <h2 class="text-3xl font-bold text-[#204369] mb-4">Detalles del servicio</h2>

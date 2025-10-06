@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('alliances', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('logo_path');
+            $table->string('name')->nullable();
+            $table->string('logo_path')->nullable();
             $table->string('url')->nullable();
             $table->text('description')->nullable();
             $table->integer('position')->default(0);

@@ -8,7 +8,7 @@
                     <p class="text-xl text-zinc-200 leading-relaxed">{{ $service->summary }}</p>
                 @endif
                 <div class="pt-6">
-                    <a href="#contacto" class="rounded-lg bg-[#204369] hover:bg-[#17314a] px-8 py-3 font-semibold text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#204369]">Contáctenos</a>
+                    <a href="/#contacto" class="rounded-lg bg-[#204369] hover:bg-[#17314a] px-8 py-3 font-semibold text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#204369]">Contáctenos</a>
                 </div>
             </div>
         </div>

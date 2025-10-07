@@ -39,6 +39,7 @@ Route::get('/soporte/ticket', PublicTicketCreate::class)->name('support.ticket.c
 Route::get('/soporte/ticket/gracias/{id}', PublicTicketThanks::class)->name('support.ticket.thanks');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/export/services.pdf', [ExportController::class, 'servicesPdf'])->middleware('auth')->name('export.services.pdf');
+Route::get('/alianzas/{id}', \App\Http\Controllers\AllianceController::class)->name('alliances.show');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

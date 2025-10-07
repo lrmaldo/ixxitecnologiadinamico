@@ -51,35 +51,7 @@
 @endif
 
 <!-- Schema.org JSON-LD (para Google) -->
-@if(isset($jsonLd))
-<script type="application/ld+json">
-{!! json_encode($jsonLd, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
-</script>
-@else
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "IXXI TECNOLOGÍA",
-  "url": "{{ url('/') }}",
-  "logo": "{{ asset('/img/logo.png') }}",
-  "sameAs": [
-    "https://www.facebook.com/ixxitecnologia",
-    "https://www.linkedin.com/company/ixxitecnologia",
-    "https://twitter.com/ixxitecnologia"
-  ],
-  "description": "Soluciones integrales en seguridad tecnológica y de campo. CCTV, alarmas, control de acceso y más.",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "{{ isset($contactInfo) ? $contactInfo->phone : '+528123456789' }}",
-    "contactType": "customer service",
-    "areaServed": "MX",
-    "availableLanguage": ["Spanish"]
-  }
-}
-</script>
-@endif
-</script>
+
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
         @livewireStyles

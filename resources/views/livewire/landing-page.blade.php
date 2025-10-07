@@ -583,11 +583,13 @@
                 openModal(alliance) {
                     this.selectedAlliance = alliance;
                     this.showModal = true;
+                    document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth + 'px';
                     document.body.classList.add('overflow-hidden');
                 },
                 closeModal() {
                     this.showModal = false;
                     document.body.classList.remove('overflow-hidden');
+                    document.body.style.paddingRight = '';
                 }
              }">
         <div class="mx-auto max-w-7xl px-6">
@@ -653,12 +655,12 @@
                  x-transition:leave="transition ease-in duration-200"
                  x-transition:leave-start="opacity-100 transform scale-100"
                  x-transition:leave-end="opacity-0 transform scale-90"
-                 class="fixed inset-0 z-50 flex items-center justify-center p-4">
+                 class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto" @click.self="closeModal()">
                 <!-- Overlay oscuro -->
                 <div class="fixed inset-0 bg-black/70 backdrop-blur-sm" @click="closeModal"></div>
 
                 <!-- Contenedor del modal -->
-                <div class="relative bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl">
+                <div class="relative bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl max-h-[85vh] my-auto">
                     <!-- Encabezado del modal -->
                     <div class="flex items-center justify-between p-6 border-b border-zinc-200">
                         <h3 class="text-2xl font-bold text-[#204369]" x-text="selectedAlliance?.name || 'Detalles de la alianza'"></h3>
@@ -670,7 +672,7 @@
                     </div>
 
                     <!-- Contenido del modal -->
-                    <div class="p-6">
+                    <div class="p-6 overflow-y-auto">
                         <div class="flex flex-col md:flex-row gap-6">
                             <!-- Logo de la alianza -->
                             <div class="flex-shrink-0 flex items-center justify-center p-4 bg-zinc-50 rounded-xl border border-zinc-200 w-full md:w-1/3 h-auto">

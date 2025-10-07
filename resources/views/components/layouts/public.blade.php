@@ -95,7 +95,7 @@
       "areaServed": "MX",
       "availableLanguage": ["Spanish"]
     }
-    @if($contactInfo->whatsapp)
+    @if(isset($contactInfo->whatsapp) && $contactInfo->whatsapp)
     ,{
       "@type": "ContactPoint",
       "telephone": "{{ $contactInfo->whatsapp }}",

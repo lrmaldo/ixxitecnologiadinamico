@@ -94,9 +94,9 @@
       "contactType": "customer service",
       "areaServed": "MX",
       "availableLanguage": ["Spanish"]
-    },
+    }
     @if($contactInfo->whatsapp)
-    {
+    ,{
       "@type": "ContactPoint",
       "telephone": "{{ $contactInfo->whatsapp }}",
       "contactType": "technical support",

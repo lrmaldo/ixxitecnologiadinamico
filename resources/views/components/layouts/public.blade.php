@@ -2,38 +2,127 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
-        <meta name="description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}">
-        @isset($metaImage)
-            <meta property="og:image" content="{{ $metaImage }}" />
-        @endisset
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="{{ asset('/img/logo.png') }}">
-        <link rel="apple-touch-icon" href="{{ asset('/img/logo.png') }}">
+       <!-- ======================================= -->
+<!-- 🔍 SEO & Social Media Meta Tags -->
+<!-- ======================================= -->
 
-        <!-- SEO Meta Tags -->
-        <meta name="robots" content="index, follow">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Ing Leonardo Maldonado">
-        <link rel="canonical" href="{{ request()->url() }}">
+<!-- Primary Meta Tags -->
+<title>{{ $title ?? 'IXXI TECNOLOGÍA | Soluciones integrales en seguridad y tecnología' }}</title>
+<meta name="title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}">
+<meta name="description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo. Instalación, monitoreo y mantenimiento de sistemas CCTV, alarmas y control de acceso.' }}">
 
-        <!-- Social Media Meta Tags -->
-        <meta property="og:type" content="website">
-        <meta property="og:site_name" content="IXXI TECNOLOGÍA">
-        <meta property="og:image:alt" content="IXXI TECNOLOGÍA Logo">
-        <meta property="og:locale" content="es_MX">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ asset('/img/logo.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('/img/logo.png') }}">
 
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}">
-        <meta name="twitter:description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}">
-        @isset($metaImage)
-            <meta name="twitter:image" content="{{ $metaImage }}">
-        @else
-            <meta name="twitter:image" content="{{ asset('/img/logo.png') }}">
-        @endisset
-        <meta property="og:url" content="{{ request()->fullUrl() }}" />
-        <meta property="og:title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}" />
-        <meta property="og:description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}" />
+<!-- Robots & Canonical -->
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ request()->url() }}">
+
+<!-- Viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Ing. Leonardo Maldonado">
+
+<!-- Open Graph / Facebook / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="IXXI TECNOLOGÍA">
+<meta property="og:title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}">
+<meta property="og:description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}">
+<meta property="og:url" content="{{ request()->fullUrl() }}">
+<meta property="og:image" content="{{ $metaImage ?? asset('/img/logo.png') }}">
+<meta property="og:image:secure_url" content="{{ $metaImage ?? asset('/img/logo.png') }}">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="IXXI TECNOLOGÍA - Seguridad y tecnología">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ixxitecnologia"> <!-- Si tienes cuenta -->
+<meta name="twitter:title" content="{{ $title ?? 'IXXI TECNOLOGÍA' }}">
+<meta name="twitter:description" content="{{ $metaDescription ?? 'Soluciones integrales en seguridad tecnológica y de campo.' }}">
+<meta name="twitter:image" content="{{ $metaImage ?? asset('/img/logo.png') }}">
+<meta name="twitter:image:alt" content="IXXI TECNOLOGÍA Logo">
+
+<!-- Etiquetas de contacto telefónico -->
+<meta name="format-detection" content="telephone=yes">
+@if(isset($contactInfo))
+<link rel="me" href="tel:{{ $contactInfo->phone }}">
+<link rel="me" href="mailto:{{ $contactInfo->email }}">
+@endif
+
+<!-- Schema.org JSON-LD (para Google) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "IXXI TECNOLOGÍA",
+  "url": "{{ url('/') }}",
+  "logo": "{{ asset('/img/logo.png') }}",
+  "sameAs": [
+@if(isset($contactInfo) && isset($contactInfo->social_media))
+@php
+    $socialLinks = [];
+    $socialMedia = $contactInfo->getSocialMediaLinks();
+    if(!empty($socialMedia['facebook'])) $socialLinks[] = $socialMedia['facebook'];
+    if(!empty($socialMedia['linkedin'])) $socialLinks[] = $socialMedia['linkedin'];
+    if(!empty($socialMedia['twitter'])) $socialLinks[] = $socialMedia['twitter'];
+    if(!empty($socialMedia['instagram'])) $socialLinks[] = $socialMedia['instagram'];
+    // Si no hay enlaces sociales, usar los predeterminados
+    if(empty($socialLinks)) {
+        $socialLinks = [
+            "https://www.facebook.com/ixxitecnologia",
+            "https://www.linkedin.com/company/ixxitecnologia",
+            "https://twitter.com/ixxitecnologia"
+        ];
+    }
+@endphp
+    @foreach($socialLinks as $link)
+    "{{ $link }}"@if(!$loop->last),@endif
+    @endforeach
+@else
+    "https://www.facebook.com/ixxitecnologia",
+    "https://www.linkedin.com/company/ixxitecnologia",
+    "https://twitter.com/ixxitecnologia"
+@endif
+  ],
+  "description": "Soluciones integrales en seguridad tecnológica y de campo. CCTV, alarmas, control de acceso y más.",
+@if(isset($contactInfo))
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "{{ $contactInfo->phone }}",
+      "contactType": "customer service",
+      "areaServed": "MX",
+      "availableLanguage": ["Spanish"]
+    },
+    @if($contactInfo->whatsapp)
+    {
+      "@type": "ContactPoint",
+      "telephone": "{{ $contactInfo->whatsapp }}",
+      "contactType": "technical support",
+      "areaServed": "MX",
+      "contactOption": ["TollFree"]
+    }
+    @endif
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ $contactInfo->address }}",
+    "addressCountry": "MX"
+  },
+  "email": "{{ $contactInfo->email }}"
+@else
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+528123456789",
+    "contactType": "customer service",
+    "areaServed": "MX",
+    "availableLanguage": ["Spanish"]
+  }
+@endif
+}
+</script>
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
         @livewireStyles
     </head>
@@ -74,7 +163,7 @@
                     </a>
 
                     <a href="/#sobre-nosotros" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
-                        <span class="relative">Somos</span>
+                        <span class="relative">Quienes Somos</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                     </a>
 
@@ -96,8 +185,8 @@
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                     </a>
 
-                    <a href="/#contacto" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
-                        <span class="relative">Contacto</span>
+                    <a href="/#alianzas" class="group relative py-2 px-1 text-base font-semibold text-zinc-700 transition-all duration-300 hover:text-[#204369]">
+                        <span class="relative">Alianzas</span>
                         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-[#C8DBEF] to-[#C8DBEF] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                 </nav>
@@ -163,7 +252,7 @@
                         <svg class="h-5 w-5 text-[#C8DBEF]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                         </svg>
-                        Somos
+                        Quienes Somos
                     </a>
 
                           <a href="{{ route('services.index') }}"
@@ -191,13 +280,13 @@
                         </svg>
                         Soporte
                     </a>
-                    <a href="/#contacto"
+                    <a href="/#alianzas"
                        @click="mobileMenuOpen = false"
                        class="flex items-center gap-3 py-3 px-4 text-lg font-semibold text-zinc-700 hover:text-[#204369] hover:bg-zinc-50 rounded-xl transition-all duration-300">
                         <svg class="h-5 w-5 text-[#C8DBEF]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        Contacto
+                        Alianzas
                     </a>
 
                     <!-- CTA en menú móvil -->

@@ -257,7 +257,7 @@
                 <!-- Botones de acción principales -->
                 <div class="flex flex-wrap gap-6 justify-center mb-16" data-aos="fade-up" data-aos-delay="400">
                     <a href="#contacto" class="group relative overflow-hidden bg-[#204369] text-white font-bold px-8 py-4 rounded-full shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                        <span class="relative z-10">Solicitar Consulta Gratuita</span>
+                        <span class="relative z-10">Contáctanos</span>
                     </a>
                     <a href="#servicios" class="border-2 border-[#204369] text-[#204369] font-bold px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#204369] hover:text-white hover:scale-105">
                         Explorar Servicios
@@ -286,7 +286,7 @@
                         <p class="text-gray-600 leading-relaxed">Profesionales con experiencia en campo y conocimiento técnico avanzado</p>
                     </div>
 
-                    <div class="group bg-white p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-aos="flip-left" data-aos-delay="800">
+                    {{-- <div class="group bg-white p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-aos="flip-left" data-aos-delay="800">
                         <div class="w-16 h-16 bg-[#204369] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
@@ -294,7 +294,7 @@
                         </div>
                         <h3 class="text-xl font-bold text-[#204369] mb-3">Soporte 24/7</h3>
                         <p class="text-gray-600 leading-relaxed">Respuesta inmediata y monitoreo continuo para tu tranquilidad total</p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 

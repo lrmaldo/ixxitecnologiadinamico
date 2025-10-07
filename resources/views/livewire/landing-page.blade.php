@@ -576,7 +576,20 @@
     </section>
 
     <!-- Alianzas -->
-    <section class="py-24 bg-white" data-aos="fade-up" data-aos-duration="1000">
+    <section class="py-24 bg-white" data-aos="fade-up" data-aos-duration="1000"
+             x-data="{
+                showModal: false,
+                selectedAlliance: null,
+                openModal(alliance) {
+                    this.selectedAlliance = alliance;
+                    this.showModal = true;
+                    document.body.classList.add('overflow-hidden');
+                },
+                closeModal() {
+                    this.showModal = false;
+                    document.body.classList.remove('overflow-hidden');
+                }
+             }">
         <div class="mx-auto max-w-7xl px-6">
             <div class="text-center mb-16" data-aos="fade-down">
                 <h2 class="text-3xl md:text-4xl font-bold text-[#204369]">Nuestras Alianzas</h2>
@@ -587,22 +600,28 @@
             @if($alliances && $alliances->count() > 0)
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 items-center">
                     @foreach($alliances as $index => $alliance)
-                        <div class="group" data-aos="zoom-in" data-aos-delay="{{ 100 * ($index + 1) }}">
-                            @if($alliance->url)
-                                <a href="{{ $alliance->url }}" target="_blank" rel="noopener noreferrer" class="block p-6 bg-zinc-50 rounded-xl border border-zinc-200 hover:border-[#204369] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                                    <img src="{{ asset('storage/'.$alliance->logo_path) }}"
-                                         alt="{{ $alliance->name }}"
-                                         class="w-full h-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                                         title="{{ $alliance->name }}"/>
-                                </a>
-                            @else
-                                <div class="p-6 bg-zinc-50 rounded-xl border border-zinc-200 hover:border-[#204369] hover:shadow-lg transition-all duration-300">
-                                    <img src="{{ asset('storage/'.$alliance->logo_path) }}"
-                                         alt="{{ $alliance->name }}"
-                                         class="w-full h-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                                         title="{{ $alliance->name }}"/>
+                        <div class="group cursor-pointer" data-aos="zoom-in" data-aos-delay="{{ 100 * ($index + 1) }}">
+                            <div @click="openModal({
+                                    name: '{{ addslashes($alliance->name) }}',
+                                    description: '{{ addslashes($alliance->description) }}',
+                                    url: '{{ $alliance->url }}',
+                                    logo_path: '{{ $alliance->logo_path }}'
+                                })"
+                                class="p-6 bg-zinc-50 rounded-xl border border-zinc-200 hover:border-[#204369] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative">
+
+                                <!-- Imagen de la alianza -->
+                                <img src="{{ asset('storage/'.$alliance->logo_path) }}"
+                                     alt="{{ $alliance->name }}"
+                                     class="w-full h-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                                     title="{{ $alliance->name }}"/>
+
+                                <!-- Indicador de acción con tooltip -->
+                                <div class="absolute bottom-2 right-2 bg-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <svg class="w-4 h-4 text-[#204369]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
                                 </div>
-                            @endif
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -616,6 +635,85 @@
                     <p class="text-zinc-500">Próximamente agregaremos nuestras alianzas estratégicas</p>
                 </div>
             @endif
+
+            <!-- Modal de información de la alianza -->
+            <div x-show="showModal"
+                 x-cloak
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 transform scale-90"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 transform scale-100"
+                 x-transition:leave-end="opacity-0 transform scale-90"
+                 class="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <!-- Overlay oscuro -->
+                <div class="fixed inset-0 bg-black/70 backdrop-blur-sm" @click="closeModal"></div>
+
+                <!-- Contenedor del modal -->
+                <div class="relative bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl">
+                    <!-- Encabezado del modal -->
+                    <div class="flex items-center justify-between p-6 border-b border-zinc-200">
+                        <h3 class="text-2xl font-bold text-[#204369]" x-text="selectedAlliance?.name || 'Detalles de la alianza'"></h3>
+                        <button @click="closeModal" class="rounded-full p-2 hover:bg-zinc-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#204369]">
+                            <svg class="w-5 h-5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Contenido del modal -->
+                    <div class="p-6">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <!-- Logo de la alianza -->
+                            <div class="flex-shrink-0 flex items-center justify-center p-4 bg-zinc-50 rounded-xl border border-zinc-200 w-full md:w-1/3 h-auto">
+                                <img x-bind:src="selectedAlliance?.logo_path ? '{{ asset('storage') }}/' + selectedAlliance?.logo_path : ''"
+                                     x-bind:alt="selectedAlliance?.name"
+                                     class="max-h-40 max-w-full object-contain">
+                            </div>
+
+                            <!-- Información de la alianza -->
+                            <div class="flex-grow space-y-4 w-full md:w-2/3">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-zinc-500 uppercase tracking-wide">Nombre</h4>
+                                    <p class="text-lg text-zinc-800" x-text="selectedAlliance?.name || 'Sin nombre'"></p>
+                                </div>
+
+                                <div x-show="selectedAlliance?.description">
+                                    <h4 class="text-sm font-semibold text-zinc-500 uppercase tracking-wide">Descripción</h4>
+                                    <p class="text-zinc-700" x-text="selectedAlliance?.description"></p>
+                                </div>
+
+                                <div x-show="selectedAlliance?.url">
+                                    <h4 class="text-sm font-semibold text-zinc-500 uppercase tracking-wide">Sitio web</h4>
+                                    <a x-bind:href="selectedAlliance?.url"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="inline-flex items-center gap-2 text-[#204369] hover:underline mt-1 group">
+                                        <span x-text="selectedAlliance?.url"></span>
+                                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pie del modal con botones de acción -->
+                    <div class="bg-zinc-50 p-6 border-t border-zinc-200 flex justify-end gap-4">
+                        <button @click="closeModal" class="px-5 py-2 rounded-lg border border-zinc-300 text-zinc-700 hover:bg-zinc-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500">
+                            Cerrar
+                        </button>
+                        <a x-show="selectedAlliance?.url"
+                           x-bind:href="selectedAlliance?.url"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="px-5 py-2 rounded-lg bg-[#204369] text-white hover:bg-[#17314a] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#204369]">
+                            Visitar sitio web
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 

@@ -51,6 +51,11 @@
 @endif
 
 <!-- Schema.org JSON-LD (para Google) -->
+@if(isset($jsonLd))
+<script type="application/ld+json">
+{!! json_encode($jsonLd, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+</script>
+@else
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -59,68 +64,21 @@
   "url": "{{ url('/') }}",
   "logo": "{{ asset('/img/logo.png') }}",
   "sameAs": [
-@if(isset($contactInfo) && isset($contactInfo->social_media))
-@php
-    $socialLinks = [];
-    $socialMedia = $contactInfo->getSocialMediaLinks();
-    if(!empty($socialMedia['facebook'])) $socialLinks[] = $socialMedia['facebook'];
-    if(!empty($socialMedia['linkedin'])) $socialLinks[] = $socialMedia['linkedin'];
-    if(!empty($socialMedia['twitter'])) $socialLinks[] = $socialMedia['twitter'];
-    if(!empty($socialMedia['instagram'])) $socialLinks[] = $socialMedia['instagram'];
-    // Si no hay enlaces sociales, usar los predeterminados
-    if(empty($socialLinks)) {
-        $socialLinks = [
-            "https://www.facebook.com/ixxitecnologia",
-            "https://www.linkedin.com/company/ixxitecnologia",
-            "https://twitter.com/ixxitecnologia"
-        ];
-    }
-@endphp
-    @foreach($socialLinks as $link)
-    "{{ $link }}"@if(!$loop->last),@endif
-    @endforeach
-@else
     "https://www.facebook.com/ixxitecnologia",
     "https://www.linkedin.com/company/ixxitecnologia",
     "https://twitter.com/ixxitecnologia"
-@endif
   ],
   "description": "Soluciones integrales en seguridad tecnológica y de campo. CCTV, alarmas, control de acceso y más.",
-@if(isset($contactInfo))
-  "contactPoint": [
-    {
-      "@type": "ContactPoint",
-      "telephone": "{{ $contactInfo->phone }}",
-      "contactType": "customer service",
-      "areaServed": "MX",
-      "availableLanguage": ["Spanish"]
-    }
-    @if(isset($contactInfo->whatsapp) && $contactInfo->whatsapp)
-    ,{
-      "@type": "ContactPoint",
-      "telephone": "{{ $contactInfo->whatsapp }}",
-      "contactType": "technical support",
-      "areaServed": "MX",
-      "contactOption": ["TollFree"]
-    }
-    @endif
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "{{ $contactInfo->address }}",
-    "addressCountry": "MX"
-  },
-  "email": "{{ $contactInfo->email }}"
-@else
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+528123456789",
+    "telephone": "{{ isset($contactInfo) ? $contactInfo->phone : '+528123456789' }}",
     "contactType": "customer service",
     "areaServed": "MX",
     "availableLanguage": ["Spanish"]
   }
-@endif
 }
+</script>
+@endif
 </script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />

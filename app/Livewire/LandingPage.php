@@ -35,6 +35,9 @@ class LandingPage extends Component
         $contactInfo = ContactInformation::getDefault();
         $companyInfo = CompanyInfo::getInstance();
 
+        // Crear JSON-LD para SEO
+        $jsonLd = $this->generateJsonLd($contactInfo);
+
     return view('livewire.landing-page', compact(
             'services',
             'featuredServices',
@@ -43,9 +46,88 @@ class LandingPage extends Component
             'alliances',
             'visitCount',
             'contactInfo',
-            'companyInfo'
+            'companyInfo',
+            'jsonLd'
         ))
             ->layout('components.layouts.public')
             ->title('IXXI TECNOLOGÍA | Seguridad tecnológica y de campo');
+    }
+
+    /**
+     * Genera el esquema JSON-LD para SEO
+     *
+     * @param ContactInformation|null $contactInfo
+     * @return array
+     */
+    protected function generateJsonLd($contactInfo = null)
+    {
+        $schema = [
+            "@context" => "https://schema.org",
+            "@type" => "Organization",
+            "name" => "IXXI TECNOLOGÍA",
+            "url" => url('/'),
+            "logo" => asset('/img/logo.png'),
+            "description" => "Soluciones integrales en seguridad tecnológica y de campo. CCTV, alarmas, control de acceso y más."
+        ];
+
+        // Añadir sameAs para redes sociales
+        $sameAs = ["https://www.facebook.com/ixxitecnologia", "https://www.linkedin.com/company/ixxitecnologia", "https://twitter.com/ixxitecnologia"];
+
+        if ($contactInfo && isset($contactInfo->social_media)) {
+            $socialLinks = [];
+            $socialMedia = $contactInfo->getSocialMediaLinks();
+
+            if(!empty($socialMedia['facebook'])) $socialLinks[] = $socialMedia['facebook'];
+            if(!empty($socialMedia['linkedin'])) $socialLinks[] = $socialMedia['linkedin'];
+            if(!empty($socialMedia['twitter'])) $socialLinks[] = $socialMedia['twitter'];
+            if(!empty($socialMedia['instagram'])) $socialLinks[] = $socialMedia['instagram'];
+
+            if(!empty($socialLinks)) {
+                $sameAs = $socialLinks;
+            }
+        }
+
+        $schema["sameAs"] = $sameAs;
+
+        // Añadir información de contacto
+        if ($contactInfo) {
+            $contactPoints = [
+                [
+                    "@type" => "ContactPoint",
+                    "telephone" => $contactInfo->phone,
+                    "contactType" => "customer service",
+                    "areaServed" => "MX",
+                    "availableLanguage" => ["Spanish"]
+                ]
+            ];
+
+            if ($contactInfo->whatsapp) {
+                $contactPoints[] = [
+                    "@type" => "ContactPoint",
+                    "telephone" => $contactInfo->whatsapp,
+                    "contactType" => "technical support",
+                    "areaServed" => "MX",
+                    "contactOption" => ["TollFree"]
+                ];
+            }
+
+            $schema["contactPoint"] = $contactPoints;
+            $schema["address"] = [
+                "@type" => "PostalAddress",
+                "streetAddress" => $contactInfo->address,
+                "addressCountry" => "MX"
+            ];
+            $schema["email"] = $contactInfo->email;
+        } else {
+            $schema["contactPoint"] = [
+                "@type" => "ContactPoint",
+                "telephone" => "+528123456789",
+                "contactType" => "customer service",
+                "areaServed" => "MX",
+                "availableLanguage" => ["Spanish"]
+            ];
+        }
+
+        return $schema;
     }
 }

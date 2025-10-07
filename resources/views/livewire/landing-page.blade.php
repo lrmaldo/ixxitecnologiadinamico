@@ -601,13 +601,18 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 items-center">
                     @foreach($alliances as $index => $alliance)
                         <div class="group cursor-pointer" data-aos="zoom-in" data-aos-delay="{{ 100 * ($index + 1) }}">
-                            <div @click="openModal({
-                                    name: '{{ addslashes($alliance->name) }}',
-                                    description: '{{ addslashes($alliance->description) }}',
-                                    url: '{{ $alliance->url }}',
-                                    logo_path: '{{ $alliance->logo_path }}'
-                                })"
-                                class="p-6 bg-zinc-50 rounded-xl border border-zinc-200 hover:border-[#204369] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative">
+                            <div class="alliance-item p-6 bg-zinc-50 rounded-xl border border-zinc-200 hover:border-[#204369] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative"
+                                 data-id="{{ $alliance->id }}"
+                                 data-name="{{ $alliance->name }}"
+                                 data-url="{{ $alliance->url }}"
+                                 data-logo-path="{{ $alliance->logo_path }}"
+                                 @click="openModal({
+                                    id: $event.currentTarget.dataset.id,
+                                    name: $event.currentTarget.dataset.name,
+                                    description: document.getElementById('alliance-description-{{ $alliance->id }}').textContent,
+                                    url: $event.currentTarget.dataset.url,
+                                    logo_path: $event.currentTarget.dataset.logoPath
+                                 })">
 
                                 <!-- Imagen de la alianza -->
                                 <img src="{{ asset('storage/'.$alliance->logo_path) }}"
@@ -621,6 +626,9 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                 </div>
+
+                                <!-- Contenedor oculto para almacenar la descripción -->
+                                <div id="alliance-description-{{ $alliance->id }}" class="hidden">{{ $alliance->description }}</div>
                             </div>
                         </div>
                     @endforeach

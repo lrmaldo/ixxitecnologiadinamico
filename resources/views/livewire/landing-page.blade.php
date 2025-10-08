@@ -251,7 +251,7 @@
                 </h2>
 
                 <p class="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed" data-aos="fade-up" data-aos-delay="300">
-                    Experiencia comprobada en alta tecnología, inteligencia en campo y despliegue táctico diseñado para las necesidades específicas de seguridad de tu negocio.
+                    Soluciones de seguridad innovadoras con enfoque de género, impulsadas por inteligencia artificial y tecnología de vanguardia para gobiernos y empresas.
                 </p>
 
                 <!-- Botones de acción principales -->
@@ -265,7 +265,7 @@
                 </div>
 
                 <!-- Características destacadas con iconos mejorados -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="500">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-aos="fade-up" data-aos-delay="500">
             <div class="group bg-white p-8 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-aos="flip-left" data-aos-delay="600">
                 <div class="w-16 h-16 bg-[#204369] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 20 20">

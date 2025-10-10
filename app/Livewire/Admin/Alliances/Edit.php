@@ -25,7 +25,7 @@ class Edit extends Component
         'logo_path' => 'nullable|string',
         'logo' => 'nullable|image|max:4096',
         'url' => 'nullable|url|max:500',
-        'description' => 'nullable|string',
+        'description' => 'nullable',
         'position' => 'nullable|integer',
         'is_active' => 'boolean',
     ];
@@ -47,6 +47,9 @@ class Edit extends Component
             $this->description = $this->alliance->description;
             $this->position = $this->alliance->position ?? 0;
             $this->is_active = (bool) $this->alliance->is_active;
+
+            // Reinicializar CKEditor cuando se carguen datos
+            $this->dispatch('reinitEditor');
         }
     }
 
@@ -62,6 +65,11 @@ class Edit extends Component
 
         // Ensure boolean cast
         $data['is_active'] = isset($data['is_active']) ? (bool) $data['is_active'] : (bool) $this->is_active;
+
+        // Conservar el contenido HTML del editor
+        if (isset($data['description'])) {
+            $data['description'] = $this->description;
+        }
 
         if ($this->alliance) {
             $this->alliance->update($data);

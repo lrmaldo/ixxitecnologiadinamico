@@ -39,8 +39,65 @@
                         </div>
                         <div class="space-y-1.5">
                             <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Descripción</label>
-                            <textarea wire:model.live="description" rows="6" class="w-full rounded-lg border border-zinc-300/80 dark:border-zinc-600 bg-white dark:bg-zinc-800/70 px-3 py-2.5 text-sm leading-relaxed focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 transition"></textarea>
+                            <div wire:ignore>
+                                <textarea id="service-editor" wire:model.defer="description" rows="6" class="w-full rounded-lg border border-zinc-300/80 dark:border-zinc-600 bg-white dark:bg-zinc-800/70 px-3 py-2.5 text-sm leading-relaxed focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 transition"></textarea>
+                            </div>
+                            @error('description')<div class="text-xs text-red-500 font-medium">{{ $message }}</div>@enderror
                         </div>
+
+                        <!-- CKEditor 4 Script - Versión gratuita completa -->
+                        <script src="https://cdn.ckeditor.com/4.22.1/standard-all/ckeditor.js"></script>
+
+                        <script>
+                            document.addEventListener('livewire:initialized', () => {
+                                // Deshabilitar notificaciones de actualización
+                                CKEDITOR.disableAutoInline = true;
+                                if (CKEDITOR.env) {
+                                    CKEDITOR.env.isCompatible = true;
+                                }
+
+                                if (CKEDITOR.instances['service-editor']) {
+                                    CKEDITOR.instances['service-editor'].destroy();
+                                }
+
+                                // Inicialización del editor CKEditor 4
+                                CKEDITOR.replace('service-editor', {
+                                    height: 300,
+                                    language: 'es',
+                                    versionCheck: false,
+                                    toolbarGroups: [
+                                        { name: 'styles', groups: [ 'styles' ] },
+                                        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                        { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ] },
+                                        { name: 'links', groups: [ 'links' ] },
+                                        { name: 'tools', groups: [ 'tools' ] },
+                                        { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    ],
+                                    removeButtons: 'Subscript,Superscript,Strike,Anchor,Styles,Specialchar,Image,Table,HorizontalRule',
+                                    format_tags: 'p;h1;h2;h3',
+                                    resize_enabled: true,
+                                    removePlugins: 'elementspath',
+                                    extraPlugins: 'justify,font',
+                                    contentsCss: [
+                                        'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; }',
+                                        '.cke_editable { padding: 10px; }',
+                                    ],
+                                    allowedContent: true
+                                });
+
+                                // Sincronizar contenido con Livewire
+                                CKEDITOR.instances['service-editor'].on('change', function() {
+                                    @this.set('description', CKEDITOR.instances['service-editor'].getData());
+                                });
+
+                                // Cuando Livewire actualiza el componente
+                                Livewire.on('reinitServiceEditor', () => {
+                                    if (CKEDITOR.instances['service-editor'] && @this.description) {
+                                        CKEDITOR.instances['service-editor'].setData(@this.description);
+                                    }
+                                });
+                            });
+                        </script>
                         <div class="grid gap-8 md:grid-cols-2">
                             <div class="space-y-1.5">
                                 <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Ícono</label>

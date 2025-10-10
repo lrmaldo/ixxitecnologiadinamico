@@ -32,7 +32,7 @@
             <div class="md:w-1/2 space-y-8">
                 <h2 class="text-3xl font-bold text-[#204369] mb-4">Detalles del servicio</h2>
                 <div class="text-zinc-600 prose max-w-none prose-headings:text-[#204369] prose-p:text-base prose-p:leading-relaxed">
-                    {!! nl2br(e($service->description)) !!}
+                    {!! $service->description !!}
                 </div>
                 <div class="pt-6 flex flex-wrap gap-4">
                     <a href="{{ route('home') }}#contacto" class="rounded-full bg-[#204369] px-7 py-3 font-semibold text-white hover:bg-[#17314a] transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#204369]">Solicitar información</a>

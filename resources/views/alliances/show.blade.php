@@ -12,15 +12,14 @@
             </div>
 
             <!-- Cabecera con nombre y logo -->
-            <div class="mb-12 flex flex-col md:flex-row items-center md:items-start gap-10">
-                <div class="bg-white p-5 rounded-lg shadow-sm w-48 h-48 flex items-center justify-center">
+            <div class="mb-12 flex flex-col items-center text-center">
+                <h1 class="text-4xl font-bold text-[#204369] mb-6">{{ $alliance->name }}</h1>
+                <div class="bg-white p-5 rounded-lg shadow-sm w-48 h-48 flex items-center justify-center mb-6">
                     <img src="{{ asset('storage/' . $alliance->logo_path) }}"
                          alt="{{ $alliance->name }}"
                          class="max-h-36 max-w-36 object-contain">
                 </div>
-                <div class="flex-1">
-                    <h1 class="text-4xl font-bold text-[#204369] mb-4">{{ $alliance->name }}</h1>
-
+                <div class="flex flex-col items-center">
                     @if($alliance->url)
                         <a href="{{ $alliance->url }}"
                            class="inline-flex items-center gap-2 text-[#204369] hover:underline mb-6"
@@ -32,7 +31,7 @@
                         </a>
                     @endif
 
-                    <div class="flex gap-4">
+                    <div class="flex justify-center gap-4">
                         @if($alliance->url)
                             <a href="{{ $alliance->url }}"
                                class="px-5 py-2 bg-[#204369] text-white rounded-lg hover:bg-[#17314a] transition-colors inline-flex items-center gap-2"
@@ -48,20 +47,20 @@
             </div>
 
             <!-- Contenido de la descripción -->
-            <div class="max-w-4xl">
-                <h2 class="text-2xl font-semibold text-[#204369] mb-6">Acerca de esta alianza</h2>
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl font-semibold text-[#204369] mb-6 text-center">Acerca de esta alianza</h2>
 
                 @if($alliance->description)
                     <div class="prose prose-lg prose-zinc max-w-none text-zinc-700 leading-relaxed">
-                        {{ $alliance->description }}
+                        {!! $alliance->description !!}
                     </div>
                 @else
-                    <p class="text-zinc-500 italic">No hay descripción disponible para esta alianza.</p>
+                    <p class="text-zinc-500 italic text-center">No hay descripción disponible para esta alianza.</p>
                 @endif
             </div>
 
             <!-- Pie de página con información adicional -->
-            <div class="mt-12 pt-8 border-t border-zinc-200">
+            <div class="mt-12 pt-8 border-t border-zinc-200 text-center">
                 <p class="text-zinc-500">Alianza estratégica de IXXI Tecnología</p>
             </div>
         </div>

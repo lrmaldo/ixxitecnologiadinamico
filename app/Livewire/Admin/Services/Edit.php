@@ -18,7 +18,7 @@ class Edit extends Component
     #[Validate('nullable|string')]
     public ?string $summary = '';
 
-    #[Validate('nullable|string')]
+    #[Validate('nullable')]
     public ?string $description = '';
 
     public ?string $icon = '';
@@ -39,6 +39,9 @@ class Edit extends Component
         if ($id) {
             $this->service = Service::findOrFail($id);
             $this->fill($this->service->only(['title','summary','description','icon','image_path','banner_image_path','is_active','seo_title','seo_description']));
+
+            // Reinicializar CKEditor cuando se carguen datos
+            $this->dispatch('reinitServiceEditor');
         }
     }
 
@@ -54,6 +57,11 @@ class Edit extends Component
         if ($this->banner_image_file) {
             $stored = $this->banner_image_file->store('services/banners', 'public');
             $data['banner_image_path'] = $stored;
+        }
+
+        // Conservar el contenido HTML del editor para descripción
+        if (isset($data['description'])) {
+            $data['description'] = $this->description;
         }
 
         $creating = !$this->service;

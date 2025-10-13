@@ -31,6 +31,10 @@ class Edit extends Component
     public $banner_image_file = null;
 
     public bool $is_active = true;
+    #[Validate('boolean')]
+    public bool $show_on_landing = false;
+    #[Validate('nullable|integer|min:1')]
+    public ?int $landing_order = null;
     public ?string $seo_title = '';
     public ?string $seo_description = '';
 
@@ -38,7 +42,9 @@ class Edit extends Component
     {
         if ($id) {
             $this->service = Service::findOrFail($id);
-            $this->fill($this->service->only(['title','summary','description','icon','image_path','banner_image_path','is_active','seo_title','seo_description']));
+            $this->fill($this->service->only([
+                'title','summary','description','icon','image_path','banner_image_path','is_active','show_on_landing','landing_order','seo_title','seo_description'
+            ]));
 
             // Reinicializar CKEditor cuando se carguen datos
             $this->dispatch('reinitServiceEditor');
@@ -47,7 +53,7 @@ class Edit extends Component
 
     public function save(): void
     {
-        $data = $this->validate();
+    $data = $this->validate();
 
         if ($this->image_file) {
             $stored = $this->image_file->store('services', 'public');

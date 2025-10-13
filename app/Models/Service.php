@@ -19,6 +19,8 @@ class Service extends Model
         'image_path',
         'banner_image_path',
         'is_active',
+        'show_on_landing',
+        'landing_order',
         'seo_title',
         'seo_description',
         'published_at',
@@ -26,6 +28,8 @@ class Service extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'show_on_landing' => 'boolean',
+        'landing_order' => 'integer',
         'published_at' => 'datetime',
     ];
 

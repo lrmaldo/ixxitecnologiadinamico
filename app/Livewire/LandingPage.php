@@ -21,11 +21,22 @@ class LandingPage extends Component
 
     public function render()
     {
-        // Servicios publicados (fallback si no hay publicados)
-        $services = Service::published()->orderBy('published_at', 'desc')->limit(8)->get();
-        if ($services->isEmpty()) {
-            $services = Service::orderBy('created_at', 'desc')->limit(8)->get();
+        // Servicios: primero intentar tomar los marcados para el landing
+        $landingSelected = Service::where('show_on_landing', true)
+            ->where('is_active', true)
+            ->orderBy('landing_order')
+            ->get();
+
+        if ($landingSelected->isNotEmpty()) {
+            $services = $landingSelected;
+        } else {
+            // Servicios publicados (fallback si no hay seleccionados)
+            $services = Service::published()->orderBy('published_at', 'desc')->limit(8)->get();
+            if ($services->isEmpty()) {
+                $services = Service::orderBy('created_at', 'desc')->limit(8)->get();
+            }
         }
+
         $featuredServices = $services->take(3);
         $testimonials = Testimonial::where('is_active', true)->latest()->limit(8)->get();
         $gallery = GalleryItem::where('is_active', true)->orderBy('position')->limit(12)->get();

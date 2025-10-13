@@ -166,6 +166,24 @@
                 <div class="rounded-2xl border border-zinc-200/70 dark:border-zinc-700/60 bg-white/90 dark:bg-zinc-900/70 backdrop-blur-sm shadow-sm p-6 space-y-5">
                     <h2 class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Acciones</h2>
                     <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Mostrar en Landing</p>
+                                <p class="text-xs text-zinc-400">Mostrar este servicio en la sección principal del landing</p>
+                            </div>
+                            <label class="inline-flex items-center gap-2 text-sm">
+                                <input type="checkbox" wire:model.live="show_on_landing" class="rounded border-zinc-300 dark:border-zinc-600 text-indigo-600 focus:ring-indigo-500/30" />
+                            </label>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Orden en Landing</p>
+                                <p class="text-xs text-zinc-400">Número de orden (1 = primero). Dejar vacío para orden automático</p>
+                            </div>
+                            <input type="number" wire:model.live="landing_order" min="1" class="w-20 rounded-lg border border-zinc-300/80 dark:border-zinc-600 bg-white dark:bg-zinc-800/70 px-2 py-2 text-sm text-center" />
+                        </div>
+
                         <button type="submit" form="service-form" class="w-full inline-flex justify-center items-center gap-2 rounded-lg bg-[#021869] hover:bg-[#021869]/90 px-4 py-2.5 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-1 dark:focus:ring-offset-zinc-900 transition">
                             Guardar cambios
                         </button>

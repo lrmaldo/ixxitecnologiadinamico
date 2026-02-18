@@ -13,10 +13,10 @@ class ContactForm extends Component
     #[Validate('required|string|min:3')]
     public string $name = '';
 
-    #[Validate('nullable|email')]
+    #[Validate('required_without:phone|nullable|email')]
     public ?string $email = '';
 
-    #[Validate('nullable|string')]
+    #[Validate('required_without:email|nullable|string')]
     public ?string $phone = '';
 
     #[Validate('nullable|string|max:2000')]
@@ -45,7 +45,9 @@ class ContactForm extends Component
         try {
             \Log::debug('ContactForm: sending mail');
 
-            Mail::send(new ContactFormMail(
+            // Enviamos el correo a la dirección configurada en el Mailable (envelope)
+            // de forma explícita para asegurar que llegue a contacto@ixxitecnologia.com
+            Mail::to('contacto@ixxitecnologia.com')->send(new ContactFormMail(
                 customerName: $this->name,
                 customerEmail: $this->email,
                 customerPhone: $this->phone,

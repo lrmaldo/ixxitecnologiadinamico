@@ -22,7 +22,7 @@
          <input type="text"
              wire:model.debounce.500ms="phone"
                    placeholder="123-456-7890"
-                   class="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#021869]" />
+                   class="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#204369]" />
             @error('phone') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
         </div>
         <div class="md:col-span-2">
@@ -30,7 +30,7 @@
             <textarea wire:model.debounce.700ms="message"
                       rows="4"
                       placeholder="Cuéntanos cómo podemos ayudarte..."
-                      class="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#021869]"></textarea>
+                      class="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#204369]"></textarea>
             @error('message') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
         </div>
         <div class="md:col-span-2">

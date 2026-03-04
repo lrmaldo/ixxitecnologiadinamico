@@ -96,7 +96,7 @@
                                 </h3>
 
                                 <p class="text-zinc-800 mb-4 line-clamp-3 leading-relaxed">
-                                    {{ $service->description }}
+                                    {{ strip_tags($service->summary ?: $service->description) }}
                                 </p>
 
                                 <!-- Características destacadas -->
